@@ -1,0 +1,202 @@
+<section class="forgot-password forgot-password__bg">
+  <div class="container">
+    <div class="page-header">
+      <h2 class="page-header__title">تسجيل حساب جديد</h2>
+      <p class="page-header__caption">
+        مرحبا بك في موقع عطارد, يرجي تسجيل حسابك لتتمكن من استخدام موقع عطارد
+      </p>
+    </div>
+    <form #Form="ngForm">
+      <h4 class="page-title__subtitle">أنشأ حسابك الان بكل بساطة</h4>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>الاسم بالكامل</label>
+            <input
+              type="text"
+              class="form-control form-control--full-width"
+              placeholder="اكتب اسمك هنا"
+              name="personal_name"
+              #personal_name="ngModel"
+              [(ngModel)]="user.name"
+              required
+              (input)="error.name = ''"
+            />
+            <div
+              *ngIf="
+                personal_name.invalid &&
+                (personal_name.dirty || personal_name.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="personal_name.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="error.name">
+              {{ error.name }}
+            </p>
+          </div>
+          <div class="form-group">
+            <label>رقم الجوال</label>
+            <input
+              type="namber"
+              class="form-control"
+              placeholder="05xxxxx"
+              name="phone_number"
+              pattern="[0-9]{10}$"
+              #phone_number="ngModel"
+              [(ngModel)]="user.phone_number"
+              required
+              (input)="error.phone_number = ''"
+            />
+            <div
+              *ngIf="
+                phone_number.invalid &&
+                (phone_number.dirty || phone_number.touched)
+              "
+              class="validation"
+            >
+              <p class="validation__title" *ngIf="phone_number.errors.required">
+                هذا الحقل مطلوب
+              </p>
+              <p class="validation__title" *ngIf="phone_number.errors?.pattern">
+                يجب أن يحتوي بين 10 و 10 رقمًا/أرقام
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="error.phone_number">
+              {{ error.phone_number[0] }}
+            </p>
+          </div>
+          <div class="form-group">
+            <label>كلمه السر</label>
+            <div class="form-group__composed">
+              <input
+                [type]="isPasswordHashType"
+                class="form-control"
+                placeholder="*********"
+                name="password_hash"
+                #password_hash="ngModel"
+                minlength="8"
+                [(ngModel)]="user.password_hash"
+                required
+              />
+              <svg
+                class="form-group__icon"
+                *ngIf="isPasswordHashType == 'password'"
+                (click)="isPasswordHashType = 'text'"
+              >
+                <use
+                  xlink:href="/assets/image/svg-icons.svg#icon-visibility"
+                ></use>
+              </svg>
+              <svg
+                class="form-group__icon"
+                *ngIf="isPasswordHashType == 'text'"
+                (click)="isPasswordHashType = 'password'"
+              >
+                <use xlink:href="/assets/image/svg-icons.svg#icon-hidden"></use>
+              </svg>
+            </div>
+            <div
+              *ngIf="
+                password_hash.invalid &&
+                (password_hash.dirty || password_hash.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="password_hash.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+              <p
+                class="validation__title"
+                *ngIf="password_hash.errors?.minlength"
+              >
+                يجب أن يكون طول النص على الأقل 8 حروفٍ/حرفًا
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label> تاكيد كلمه السر </label>
+            <div class="form-group__composed">
+              <input
+                [type]="isRPasswordHashType"
+                class="form-control"
+                placeholder="*********"
+                name="r_password_hash"
+                #r_password_hash="ngModel"
+                [(ngModel)]="user.r_password_hash"
+                required
+              />
+              <svg
+                class="form-group__icon"
+                *ngIf="isRPasswordHashType == 'password'"
+                (click)="isRPasswordHashType = 'text'"
+              >
+                <use
+                  xlink:href="/assets/image/svg-icons.svg#icon-visibility"
+                ></use>
+              </svg>
+              <svg
+                class="form-group__icon"
+                *ngIf="isRPasswordHashType == 'text'"
+                (click)="isRPasswordHashType = 'password'"
+              >
+                <use xlink:href="/assets/image/svg-icons.svg#icon-hidden"></use>
+              </svg>
+            </div>
+            <div
+              *ngIf="
+                r_password_hash.invalid &&
+                (r_password_hash.dirty || r_password_hash.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="r_password_hash.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p
+              class="validation__title"
+              *ngIf="password_hash.value !== r_password_hash.value"
+            >
+              يجب ان يتطابق مع كلمه السر
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="register__link col-md-4">
+          <button
+            type="submit"
+            [disabled]="!Form.valid"
+            (click)="register()"
+            class="button button--block button--radius button--secondary"
+          >
+            <span>أنشأ حسابك</span>
+            <div class="loading" *ngIf="isLoading">
+              <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+            </div>
+          </button>
+          <p class="register__login">
+            لديك حساب في عطارد؟ <a href="#">سجل دخول الان</a>
+          </p>
+        </div>
+      </div>
+    </form>
+  </div>
+  <footer class="footer">
+    <p class="footer__text">
+      جميع الحقوق محفوظة لشركة عطارد للحلول السكنية 2020
+    </p>
+  </footer>
+</section>

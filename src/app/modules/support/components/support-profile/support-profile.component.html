@@ -1,0 +1,42 @@
+<section>
+    <div class="">
+        <div class="l-f-between">
+            <div class="page-header">
+                <h2 class="page-header__title"> حسابي الشخصي </h2>
+                <p class="page-header__caption">يمكنك رؤية بيانات حسابك الشخصي و تغيير كلمة المرور </p>
+            </div>
+            <div class="custmer-profile__button">
+                <button (click)="logoffDialog()"
+                    class="button button--radius button--cancel button--sm button--danger button--secondary">
+                    تسجل خروج
+                </button>
+            </div>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="">الاسم</label>
+
+                        <input type="text" class="form-control" id="" placeholder="حسن مصطفي محمد">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">البريد الالكتروني</label>
+
+                        <input type="email" class="form-control" id="" placeholder="yourmail@domain.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="">كلمه السر</label>
+
+                        <input type="password" class="form-control" id="" placeholder="***************">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="form-group__actions button--group">
+            <button (click)="passwordDialog()" class="button button--radius button--blue button--sm">تغير كلمه
+                السر</button>
+        </div>
+    </div>
+</section>

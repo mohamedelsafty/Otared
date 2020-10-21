@@ -1,0 +1,172 @@
+<aside class="filter-pane">
+  <p class="typo--default typo-body2" *ngIf="devId && developerName">
+    بحث في نماذج {{ developerName }}
+  </p>
+  <p class="typo--default typo-body2" *ngIf="projectId && projectName">
+    بحث في نماذج {{ projectName }}
+  </p>
+
+  <div class="form-group" *ngIf="!projectId">
+    <input
+      type="search"
+      class="form-control form-control--sm form-control--radius"
+      placeholder="ابحث في العقارات"
+      [(ngModel)]="query"
+      name="query"
+    />
+  </div>
+  <div class="form-group" *ngIf="!projectId">
+    <div class="row">
+      <label class="col-3">المدينة</label>
+      <div class="col-9">
+        <select
+          [(ngModel)]="cityId"
+          name="cityId"
+          id=""
+          class="form-control form-control--sm form-control--radius"
+          [disabled]="citiesService.isLoading"
+          (change)="cityChange()"
+        >
+          <option value="-1">الكل</option>
+          <option *ngFor="let city of citiesService.cities" [value]="city.id">{{
+            city.name_arabic
+          }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" *ngIf="!projectId">
+    <div class="row">
+      <label class="col-3">
+        الحي
+      </label>
+      <div class="col-9">
+        <select
+          name="neighborhoodId"
+          id=""
+          [(ngModel)]="neighborhoodId"
+          [disabled]="cityId < 0 || neighborhoodsService.isLoading"
+          class="form-control form-control--sm form-control--radius"
+        >
+          <option value="-1">الكل</option>
+          <option
+            *ngFor="let neighborhood of neighborhoodsService.neighborhoods"
+            [value]="neighborhood.id"
+            >{{ neighborhood.name_arabic }}</option
+          >
+        </select>
+      </div>
+    </div>
+  </div>
+  <h3 class="filter-pane__title">مواصفات الوحدة</h3>
+  <div class="form-group">
+    <div class="row">
+      <label class="col-3">نوع العقار</label>
+      <div class="col-9">
+        <select
+          name="propertyId"
+          [(ngModel)]="propertyId"
+          id=""
+          [disabled]="!cityId || propertyTypeService.isLoading"
+          class="form-control form-control--sm form-control--radius"
+        >
+          <option value="-1">الكل</option>
+          <option
+            *ngFor="let property of propertyTypeService.properties"
+            [value]="property.id"
+            >{{ property.name }}</option
+          >
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <label class="col-3">السعر</label>
+      <div class="col-9">
+        <div class="filter-pane__rang">
+          <ng5-slider
+            [(value)]="minPrice"
+            [(highValue)]="maxPrice"
+            [options]="priceOptions"
+          ></ng5-slider>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <label class="col-3">عدد الغرف</label>
+      <div class="col-9">
+        <div class="filter-pane__rang">
+          <ng5-slider
+            [(value)]="min_number_of_rooms"
+            [(highValue)]="max_number_of_rooms"
+            [options]="{
+              floor: 1,
+              ceil: 30,
+              rightToLeft: true
+            }"
+          ></ng5-slider>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <label class="col-3">المساحة</label>
+      <div class="col-9">
+        <div class="filter-pane__rang">
+          <ng5-slider
+            [(value)]="min_area"
+            [(highValue)]="max_area"
+            [options]="{
+              floor: 50,
+              ceil: 5000,
+              rightToLeft: true
+            }"
+          ></ng5-slider>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3 class="filter-pane__title">فئة العقار</h3>
+  <div class="form-group">
+    <div class="form-check">
+      <input
+        name="SaleOnmap"
+        [(ngModel)]="SaleOnmap"
+        type="checkbox"
+        class="form-check-input"
+        id="checkbox1"
+      />
+      <label class="form-check-label" for="checkbox1">بيع علي الخارطه</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input
+        type="checkbox"
+        name="ReadyUnits"
+        [(ngModel)]="ReadyUnits"
+        class="form-check-input"
+        id="checkbox2"
+      />
+      <label class="form-check-label" for="checkbox2">وحدات جاهزه</label>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mt-4">
+    <button
+      (click)="doFilter()"
+      class="button button--radius button--secondary button--sm"
+    >
+      بحث
+    </button>
+    <button
+      (click)="doReset()"
+      class="button button--radius button--outline button--sm"
+    >
+      مسح
+    </button>
+  </div>
+</aside>

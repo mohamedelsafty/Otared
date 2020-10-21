@@ -1,0 +1,32 @@
+<aside
+  class="sidenav sidenav--steps"
+  [ngClass]="openSide ? 'sidenav--mobile' : ''"
+>
+  <div class="sidenav__icon">
+    <button mat-icon-button (click)="side()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-keyboard-arrow"></use>
+      </svg>
+    </button>
+  </div>
+  <h2 class="steps__title steps__title--light">
+    حساب عقار
+  </h2>
+  <ul class="steps__list">
+    <a
+      *ngFor="let route of menuList; let i = index"
+      [routerLink]="[route.link]"
+      routerLink="personal-info"
+      routerLinkActive="step__list-item--active"
+      [ngClass]="[
+        getSubRoutesActive(route) ? 'step__list-item--active' : '',
+        steps.workflow[i].valid ? 'step__list-item--completed' : ''
+      ]"
+      class="step__list-item"
+    >
+      <span class="step__list-number"></span>
+      <span class="step__list-title">{{ route.title }}</span>
+    </a>
+  </ul>
+</aside>
+<div class="overlay" *ngIf="openSide" (click)="side()"></div>

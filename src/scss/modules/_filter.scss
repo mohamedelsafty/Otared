@@ -1,0 +1,114 @@
+.fliter-container {
+  padding-left: 20px;
+}
+
+.filter-panel {
+  background-color: $color-white;
+  box-shadow: $card-shadow;
+  overflow: hidden;
+  max-height: 0;
+  @include transition();
+  &--open {
+    // min-height: 200px;
+    max-height: 500px;
+  }
+}
+
+.filter-panel__action {
+  // margin-top: 25px;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.filter-panel__body {
+  padding: 20px;
+}
+
+.filter-panel__value-num {
+  font-size: 14px;
+  color: $color-default;
+  padding: 5px 8px;
+  border: 1px solid $color-default;
+  margin-bottom: 0;
+  width: auto;
+  max-width: 80px;
+}
+
+.filter-panel__value-type {
+  font-size: 14px;
+  color: $color-default;
+  margin-bottom: 0;
+  margin-#{$left}: 8px;
+}
+
+.slider-container {
+  @include breakpoint(large) {
+    min-height: 100px;
+  }
+}
+
+.filter-btn {
+  background-color: transparent;
+  padding: 8px;
+  border: none;
+  outline: none;
+  @include transition();
+
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  svg {
+    fill: $color-default;
+    width: 24px;
+    height: 24px;
+  }
+
+  &--active {
+    box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.2);
+    background-color: $color-white;
+    svg {
+      fill: $color-default;
+    }
+  }
+}
+
+.filter-pane {
+  background-color: #fff;
+  padding: 16px;
+}
+.filter-pane__title {
+  font-size: 16px;
+  font-weight: 600;
+  &--sm {
+    font-size: 14px;
+  }
+}
+
+.filter-pane__rang {
+  .ng5-slider {
+    margin: 25px 0 15px;
+  }
+  .ng5-slider .ng5-slider-pointer {
+    width: 18px;
+    height: 18px;
+    top: -8px;
+    background-color: $color-white;
+    box-shadow: 1px 3px 6px 4px rgba(0, 0, 0, 0.04);
+    outline: none;
+  }
+
+  .ng5-slider .ng5-slider-pointer:after {
+    content: none;
+  }
+
+  .ng5-slider .ng5-slider-bubble {
+    font-size: 12px;
+  }
+  .ng5-slider-active{
+    background-color: #f2f2f2;
+  }
+}

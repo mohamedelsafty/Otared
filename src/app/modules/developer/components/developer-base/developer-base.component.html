@@ -1,0 +1,19 @@
+<auth-header></auth-header>
+
+<div class="container-fluid main-container">
+  <div class="row">
+    <app-sidebar [menuList]="sideMenu"></app-sidebar>
+    <div class="col router-container-bg">
+      <div class="router-container">
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
+        <footer class="footer">
+          <p class="footer__text">
+            جميع الحقوق محفوظة لشركة عطارد للحلول السكنية 2020
+          </p>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>

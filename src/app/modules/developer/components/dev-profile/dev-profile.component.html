@@ -1,0 +1,222 @@
+<section class="profile" *ngIf="developerUser">
+  <div class="">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-header">
+                <h2 class="page-header__title">حسابي الشخصي</h2>
+                <p class="page-header__caption">
+                  مرحبا بك {{ developerUser.personal_name }}، يمكنك استكمال بيانات حسابك
+                  الآن
+                </p>
+                
+              </div>
+        </div>
+        <div class="col-lg-5" *ngIf="developerUserIsComplete && !isEdit">
+            <div class="page-header__action">
+              <div class="project-add___btn">
+                  <button
+                  (click)="isEdit = true"
+                  class="button button--radius button--sm button--secondary"
+                >
+                  تعديل
+                </button>
+              </div>
+            </div>
+          </div>
+    </div>
+  
+    <div *ngIf="developerUserIsComplete && !isEdit">
+      <div class="project-add__logo m-b-20">
+        <img
+          [src]="developerUser.logo_path"
+          *ngIf="developerUser.logo_path"
+          alt="project-alex"
+          class="u-logo"
+        />
+        <img
+          src="/assets/image/logoo.png"
+          *ngIf="!developerUser.logo_path"
+          alt="project-alex"
+          class="u-logo"
+        />
+      </div>
+      <p class="typo-body2 l-f text-info">
+        <span>الاسم الكامل</span><span>:</span
+        ><span>{{ developerUser.personal_name }}</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>الاسم التجاري</span><span>:</span
+        ><span>{{ developerUser.commercial_name }}</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>رقم السجل</span><span>:</span
+        ><span>{{ developerUser.commercial_registration_no }}</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>البريد الالكتروني</span><span>:</span
+        ><span>{{ developerUser.email_address }}</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>الموقع الالكتروني</span><span>:</span
+        ><span>{{ developerUser.website }}</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>العنوان</span><span>:</span
+        ><span>{{ developerUser.head_office_address }}</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>نبذه عن المطور</span><span>:</span
+        ><span>{{ developerUser.description }}</span>
+      </p>
+    </div>
+    <form #form="ngForm" *ngIf="!developerUserIsComplete || isEdit">
+      <div class="row">
+        <div class="col-md-4">
+            <div class="form-group" *ngIf="isEdit">
+                <label for=""
+                  >الأسم بالكامل
+                </label>
+                <input
+                  #website="ngModel"
+                  [(ngModel)]="developerUser.personal_name"
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  id=""
+                 required
+                />
+              </div>
+          <div class="form-group">
+            <label for=""
+              >الموقع الالكتروني
+              <span class="form-group__optional">اختياري</span>
+            </label>
+            <input
+              #website="ngModel"
+              [(ngModel)]="developerUser.website"
+              name="website"
+              type="text"
+              class="form-control"
+              id=""
+              placeholder="www.yourdomain.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for=""
+              >البريد الالكتروني
+              <span class="form-group__optional">اختياري</span>
+            </label>
+            <input
+              type="text"
+              #email="ngModel"
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$"
+              [(ngModel)]="developerUser.email_address"
+              name="emailAddress"
+              class="form-control"
+              id=""
+              placeholder="yourmail@domain.com"
+            />
+            <div
+              *ngIf="email.invalid && (email.dirty || email.touched)"
+              class="validation"
+            >
+              <p class="validation__title" *ngIf="email.errors?.pattern">
+                ادخل بريد الكتروني صحيح
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label
+              >الشعار
+              <span class="form-group__optional">اختياري</span>
+            </label>
+            <div class="but__style">
+              <button
+                class="button button--blue button--radius button--sm button--upload"
+                (click)="fileInput.click()"
+              >
+                تحميل
+                <input
+                  style="display: none;"
+                  type="file"
+                  (change)="onFileChanged($event.target.files)"
+                  #fileInput
+                />
+              </button>
+              <label class="choose__file" *ngIf="!fileName"
+                >اضغط لتحميل شعار المشروع</label
+              >
+              <label class="choose__file" *ngIf="fileName">{{
+                fileName
+              }}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label
+              >العنوان
+              <span class="form-group__optional">اختياري</span>
+            </label>
+            <div class="form-group__composed">
+              <input
+                #address="ngModel"
+                [(ngModel)]="developerUser.head_office_address"
+                name="headofficeaddress"
+                type="text"
+                class="form-control"
+                id=""
+                placeholder="عنوان الشركه"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label for=""
+              >نبذه عن المطور
+              <span class="form-group__optional">اختياري</span>
+            </label>
+            <textarea
+              #description="ngModel"
+              [(ngModel)]="developerUser.description"
+              name="description"
+              rows="7"
+              class="form-control"
+              id=""
+              placeholder="نبذه عن المطور"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-group__actions">
+        <button
+          (click)="saveData()"
+          [disabled]="isLoading || !form.valid"
+          class="button button--radius button--secondary button--md"
+        >
+          <span> حفظ</span>
+        </button>
+        <button
+        *ngIf="!isEdit"
+          [disabled]="isLoading"
+          (click)="pass()"
+          class="button button--radius button--outline button--md"
+        >
+          تخطى
+        </button>
+        <button
+        *ngIf="isEdit"
+          [disabled]="isLoading"
+          (click)="isEdit = false"
+          class="button button--radius button--outline button--md"
+        >
+          الرجوع
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+

@@ -1,0 +1,359 @@
+.card--horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.card__content {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.card__content .card__title {
+  font-size: 24px;
+  font-weight: bold;
+  color: $color-default;
+  opacity: 1;
+}
+
+.project-data {
+  font-size: 20px;
+  font-weight: 500;
+  color: $color-default;
+  opacity: 1;
+}
+
+.p-0 {
+  padding: 0em;
+}
+
+.card__brief {
+  display: flex;
+}
+
+.card__units {
+  display: flex;
+}
+
+.card__units--action {
+  margin-left: 65px;
+}
+
+.card__units--action {
+  margin-top: 16px;
+}
+
+.card__num {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__num--request {
+  font-size: 11px;
+  font-weight: 600;
+  color: $color-gold;
+  margin-top: 31px;
+  opacity: 1;
+}
+
+.card__btn {
+  padding-top: 20px;
+}
+
+.project-add__icon {
+  display: flex;
+}
+
+.main-table__icon--share {
+  width: 24px;
+  height: 24px;
+  margin-left: 30px;
+  margin-bottom: 5px;
+  fill: $color-default;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: $color-blue;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: $header-bg;
+}
+
+.mat-slide-toggle-label {
+  margin-top: 5px;
+}
+
+//style effect
+
+.project-details__img {
+  display: flex;
+}
+
+.image-all-together {
+  width: 287px;
+  margin: 20px 0;
+  color: #fff;
+  position: relative;
+  background: $color-blue 0% 0% no-repeat padding-box;
+  cursor: pointer;
+}
+
+.effect {
+  margin-left: 35px;
+  &:hover {
+    h3 {
+    }
+    img {
+      transition-delay: 0.4s;
+      transition-duration: 0.3s;
+      opacity: 0.3;
+    }
+  }
+  h3 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    font: {
+      size: 14px;
+      weight: bold;
+    }
+  }
+}
+
+.copyright__form {
+  margin-bottom: 16px;
+}
+
+//Style checkbox
+
+//Style DetaPaiker
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  margin-left: 45px;
+  margin-top: 15px;
+}
+
+.mat-datepicker-toggle,
+.mat-datepicker-content .mat-calendar-next-button,
+.mat-datepicker-content .mat-calendar-previous-button {
+  color: $deta-paiker;
+}
+
+//Style Project-Datelis
+
+.project__data-form {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 65px;
+  color: $color-default;
+  opacity: 1;
+}
+
+.project-details__type {
+  font-size: 20px;
+  font-weight: 700;
+  color: $color-default;
+  opacity: 1;
+}
+
+.project-add___btn {
+  margin-left: 25px;
+  @include breakpoint(isMobile) {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    margin-bottom: 10px;
+    .button {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.project-add__brief {
+  display: flex;
+}
+
+.project-add__logo {
+  padding-top: 15px;
+}
+
+.project-add__iamegs {
+  padding-top: 30px;
+}
+
+.project-add__img--title {
+  font-size: 20px;
+  font-weight: 700;
+  color: $color-default;
+  margin-bottom: 15px;
+  opacity: 1;
+}
+
+.project-add__img {
+  img {
+    width: 100%;
+  }
+}
+
+// .m-2 {
+//   margin-left: 20px;
+// }
+
+.project-add__Planned {
+  padding-top: 25px;
+}
+
+// Style table
+
+.table {
+  width: 52%;
+  margin: 45px 0px 60px 0px;
+}
+
+.main-but {
+  text-align: center;
+  position: absolute;
+}
+
+.main-table__font {
+  td {
+    font-size: 13px;
+    color: $color-default;
+    opacity: 0.5;
+  }
+}
+
+.project-add {
+  padding-bottom: 55px;
+}
+
+.project-add__Planned--title {
+  font-size: 20px;
+  font-weight: 700;
+  color: $color-default;
+  margin-bottom: 15px;
+  opacity: 1;
+}
+
+.project-add__braef {
+  padding-top: 25px;
+}
+
+.project-add__brief--title {
+  font-size: 20px;
+  font-weight: 700;
+  color: $color-default;
+  margin-bottom: 15px;
+  opacity: 1;
+}
+
+.project-add__brief--desc {
+  font-size: 16px;
+  font-weight: 400;
+  color: $color-default;
+  opacity: 1;
+}
+
+.card--m {
+  margin: 0em;
+}
+
+.project-add__card {
+  padding: 25px 0;
+}
+
+.project-add__card--title {
+  font-size: 20px;
+  font-weight: 700;
+  color: $color-default;
+  margin-bottom: 20px;
+  opacity: 1;
+}
+
+.card-body {
+  padding: 10px 11px;
+}
+
+.card-body .card-content__color {
+  color: $color-blue;
+}
+
+.card__type--desc {
+  display: flex;
+  // justify-content: space-between;
+}
+
+.card-body .card__type--map {
+  font-size: 16px;
+  font-weight: 400;
+  color: $color-default;
+  margin-left: auto;
+  opacity: 1;
+}
+
+.card-body .card__type--text {
+  font-size: 16px;
+  font-weight: 400;
+  color: $color-primary;
+  padding: 10px 0;
+  margin-left: auto;
+  opacity: 1;
+}
+
+.card-body .card__descrption {
+  font-size: 14px;
+  font-weight: 400;
+  color: $color-default;
+  opacity: 1;
+}
+
+.demand-status{
+  color: #888;
+  font-size: .8em;
+  display: flex;
+  margin-right: -7px;
+  margin-left: -7px;
+}
+.demand-status__cell{
+  margin-right: 7px;
+  margin-left: 7px;
+  span{
+    margin-left: 5px;
+  }
+}
+.demand-details__title{
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+.demand-details__content {
+  font-size: 0.9em;
+  color: #3e3e3e;
+  padding: 1em;
+}
+.demand__employee{
+  background-color: #BD9F5E;
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+.demand__employee-status {
+  background: #fff;
+  color: #bd9e5d;
+  padding: 5px 8px 7px;
+  font-weight: 600;
+  font-size: .9em;
+}
+.demand__employee-data {
+  flex: 1;
+  padding-left: 30px;
+}

@@ -1,0 +1,146 @@
+<form #FunctionalForm="ngForm">
+  <div class="page-header">
+    <h1
+      class="page-header__title page-header__title--primary page-header__title--sm"
+    >
+      المعلومات الشخصية والمالية
+    </h1>
+    <p class="typo--default">
+      عزيزي العميل إن البيانات التالية التي سوف تدخل من قبلك لها دور كبير في
+      حسبة النتيجة المبدئية، لذا نرجو التأكد من الإدخال الصحيح.
+    </p>
+  </div>
+  <div class="row m-b-10">
+    <div class="col-lg-3">
+      <div class="form-group">
+        <label class="custom-label">بدل السكن</label>
+        <div class="d-flex align-items-center">
+          <input
+            class="form-control form-control--radius form-control--light"
+            placeholder="اختياري"
+            type="text"
+            name="housingallowance"
+            #housingallowance
+            pattern="^[0-9,]*$"
+            [(ngModel)]="data.housing_allowance"
+            min="1"
+            maxlength="6"
+            inputNumber
+          /><label class="input-label">ريال سعودي</label>
+        </div>
+        <p
+          class="hint-required"
+          *ngIf="
+            housingallowance.errors?.pattern &&
+            (housingallowance.dirty || housingallowance.touched)
+          "
+        >
+          ادخل الرقم بشكل صحيح
+        </p>
+        <p
+          class="hint-required"
+          *ngIf="
+            housingallowance.errors?.min &&
+            (housingallowance.dirty || housingallowance.touched)
+          "
+        >
+          ادخل قيمه اعلى من 0
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row m-b-10">
+    <div class="col-lg-3">
+      <div class="form-group">
+        <label class="custom-label">بدل النقل</label>
+        <div class="d-flex align-items-center">
+          <input
+            class="form-control form-control--radius form-control--light"
+            placeholder="اختياري"
+            type="text"
+            inputNumber
+            maxlength="6"
+            name="transportation_allowance"
+            #transportation_allowance
+            [(ngModel)]="data.transportation_allowance"
+            pattern="^[0-9,]*$"
+            min="1"
+          /><label class="input-label">ريال سعودي</label>
+        </div>
+        <p
+          class="hint-required"
+          *ngIf="
+            transportation_allowance.errors?.pattern &&
+            (transportation_allowance.dirty || transportation_allowance.touched)
+          "
+        >
+          ادخل الرقم بشكل صحيح
+        </p>
+        <p
+          class="hint-required"
+          *ngIf="
+            transportation_allowance.errors?.min &&
+            (transportation_allowance.dirty || transportation_allowance.touched)
+          "
+        >
+          ادخل قيمه اعلى من 0
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row m-b-10">
+    <div class="col-lg-3">
+      <div class="form-group">
+        <label class="custom-label">بدلات أخرى (بدون غلاء المعيشة)</label>
+        <div class="d-flex align-items-center">
+          <input
+            class="form-control form-control--radius form-control--light"
+            placeholder="اختياري"
+            type="text"
+            inputNumber
+            name="otherallowances"
+            #otherallowances
+            pattern="^[0-9,]*$"
+            maxlength="6"
+            [(ngModel)]="data.other_allowances"
+            min="1"
+          /><label class="input-label">ريال سعودي</label>
+        </div>
+        <p
+          class="hint-required"
+          *ngIf="
+            otherallowances.errors?.pattern &&
+            (otherallowances.dirty || otherallowances.touched)
+          "
+        >
+          ادخل الرقم بشكل صحيح
+        </p>
+        <p
+          class="hint-required"
+          *ngIf="
+            otherallowances.errors?.min &&
+            (otherallowances.dirty || otherallowances.touched)
+          "
+        >
+          ادخل قيمه اعلى من 0
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="u-mt-30">
+    <button
+      type="button"
+      (click)="goBack()"
+      class="button button--radius button--outline button--sm-height"
+    >
+      رجوع
+    </button>
+    <button
+      [disabled]="!FunctionalForm.valid"
+      (click)="goToNext()"
+      class="button button--radius button--primary button--sm-height"
+    >
+      التالي
+    </button>
+  </div>
+</form>

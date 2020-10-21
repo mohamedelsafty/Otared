@@ -1,0 +1,99 @@
+<div class="dialog">
+  <div class="dialog__title">
+    <span>تغيير حالة العقار</span>
+    <button class="dialog__close" mat-icon-button (click)="onNoClick()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+  <div class="dialog__content" *ngIf="unit">
+    <p class="typo-body2 l-f text-info">
+      <span>رقم الوحدة</span><span>:</span><span>{{ unit.id }}</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>حالة الوحدة</span><span>:</span><span>{{ unit.status }}</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>اسم العميل</span><span>:</span><span>حمد بن فيصل</span>
+    </p>
+    <p class="typo-body2 l-f text-info m-b-20">
+      <span>انتهاء الحجز</span><span>:</span><span>26/02/2020</span>
+    </p>
+    <div class="l-f l-f-baseline typo-body2 m-b-20" *ngIf="isReserved">
+      <strong class="typo-body2 typo--bold m-l-10">الاجراء</strong>
+      <div class="switch-button-group">
+        <button
+          (click)="changeState(false)"
+          class="button"
+          [ngClass]="[reservation ? 'button--outline' : 'button--secondary']"
+        >
+          متاح
+        </button>
+        <button
+          (click)="changeState(true)"
+          class="button"
+          [ngClass]="[
+            !reservation
+              ? 'button--outline button--outline-grey'
+              : 'button--danger'
+          ]"
+        >
+          مباع
+        </button>
+      </div>
+    </div>
+
+    <div class="l-f l-f-baseline typo-body2 m-b-20" *ngIf="!isReserved">
+      <strong class="typo-body2 typo--bold m-l-10">الاجراء</strong>
+      <div class="switch-button-group">
+        <button class="button button--secondary">
+          حجز الوحدة
+        </button>
+      </div>
+    </div>
+
+    <!-- <div class="l-f l-f-baseline typo-body2" *ngIf="reservation">
+      <strong class="typo-body2 typo--bold m-l-10">مدة التمديد</strong>
+      <span>
+        <select class="form-control form-control--sm"
+          ><option value="7 ايام">7 ايام</option
+          ><option value="7 ايام">7 ايام</option
+          ><option value="7 ايام">7 ايام</option></select
+        >
+      </span>
+    </div> -->
+    <!-- <div class="form-group" *ngIf="reservation">
+      <label>ملاحظات</label
+      ><textarea
+        placeholder="اكتب الملاحظات التي تود مشاركتها مع العميل"
+        rows="5"
+        class="form-control"
+      ></textarea>
+    </div> -->
+
+    <!-- <div class="form-group" *ngIf="!reservation">
+      <label>سبب الإلغاء</label
+      ><textarea
+        placeholder="اكتب الملاحظات التي تود مشاركتها مع العميل"
+        rows="5"
+        class="form-control"
+      ></textarea>
+    </div> -->
+  </div>
+  <div class="dialog__actions dialog__content">
+    <button
+      [ngClass]="[!reservation ? 'button--secondary' : 'button--danger']"
+      class="button button--radius button--sm button--custom-md"
+      (click)="confirm()"
+    >
+      تأكيد
+    </button>
+    <button
+      class="button button--radius button--sm button--outline button--custom-md"
+      (click)="onNoClick()"
+    >
+      العودة
+    </button>
+  </div>
+</div>

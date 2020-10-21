@@ -1,0 +1,152 @@
+<h1 class="main-title main-title--secondary main-title--bg main-title--lg">
+  معلومات العقار
+</h1>
+<form #RealEstateTypeForm="ngForm" class="main-section">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="custom-label">نوع العقار</label>
+            <div class="d-flex align-items-center">
+              <select
+                class="form-control custom-form-control custom-form-control--lg custom-select jobTitle"
+                name="property_types_code"
+                #property_types_code
+                required
+              >
+                <option value=""></option>
+                >
+                <option value="PropertyTypes"></option>
+                <!-- <option
+                    [value]="propertyType.code"
+                    *ngFor="let propertyType of PropertyTypes"
+                  >
+                    {{ propertyType.name }}
+                  </option> -->
+              </select>
+              <!-- <label class="laoder-container" *ngIf="isLoading">
+                  <mat-spinner diameter="25"></mat-spinner>
+                </label> -->
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="property_types_code.invalid && property_types_code.touched"
+            >
+              هذا الحقل مطلوب
+            </p>
+          </div>
+          <div class="form-group">
+            <label class="custom-label">قيمه العقار</label>
+            <div class="d-flex align-items-center">
+              <input
+                class="form-control custom-form-control custom-form-control--md input-decimal"
+                type="text"
+                placeholder="0"
+                name="howmuch"
+                #howmuch
+                required
+              />
+              <label class="input-label">ر.س</label>
+            </div>
+            <p class="hint-required" *ngIf="howmuch.invalid && howmuch.touched">
+              هذا الحقل مطلوب
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="custom-label">حالة العقار</label>
+            <select
+              name="property_state"
+              class="form-control custom-form-control custom-select"
+              #property_state
+              required
+              pattern="[0-9]*"
+            >
+              <option value=""></option>
+              <option value="0">مكتمل</option>
+              <option value="1">غير مكتمل</option>
+            </select>
+            <p
+              class="hint-required"
+              *ngIf="property_state.invalid && property_state.touched"
+            >
+              هذا الحقل مطلوب
+            </p>
+            <p
+              class="hint-required"
+              *ngIf="property_state.errors?.pattern && property_state.invalid"
+            >
+              هذا الحقل يجب ان يحتوي علي ارقام فقط
+            </p>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="custom-label">عمر العقار</label>
+            <select
+              name="property_age"
+              class="form-control custom-form-control custom-select"
+              #property_age
+              required
+              pattern="[0-9]*"
+            >
+              <option value=""></option>
+              >
+              <option value="">age</option>
+              <!-- <option [value]="age" *ngFor="let age of realEstateAge">{{
+                  age
+                }}</option> -->
+            </select>
+            <p
+              class="hint-required"
+              *ngIf="property_age.invalid && property_age.touched"
+            >
+              هذا الحقل مطلوب
+            </p>
+            <p
+              class="hint-required"
+              *ngIf="property_age.errors?.pattern && property_age.invalid"
+            >
+              هذا الحقل يجب ان يحتوي علي ارقام فقط
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <input type="checkbox" id="fruit4" name="fruit-4" [value]="true" />
+            <label
+              class="l-f l-f main-text main-text--secondary main-text--sm"
+              for="fruit4"
+              >هل تم ترميم العقار من قبل؟</label
+            >
+            <p class="checkbox-hint">
+              ملاحظة: سوف يتم طلب رخصة الترميم من ضمن المتطلبات عند ارفاقها
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="u-mt-30">
+        <a
+          routerLink="/is-real-estate"
+          class="button button--radius button--outline"
+        >
+          السابق
+        </a>
+        <button
+          [disabled]="!RealEstateTypeForm.valid"
+          (click)="goToNext()"
+          class="button button--radius button--primary"
+        >
+          التالي
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

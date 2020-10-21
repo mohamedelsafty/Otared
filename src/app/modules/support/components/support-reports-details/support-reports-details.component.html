@@ -1,0 +1,65 @@
+<breadcrumb crumbText="التقارير"></breadcrumb>
+<section>
+    <div class="">
+        <div class="l-f-between">
+            <div class="page-header">
+                <h2 class="page-header__title">التقارير السابقه </h2>
+            </div>
+            <div class="">
+                <button class="button button--radius button--sm button--secondary">
+                    التقارير
+                </button>
+            </div>
+        </div>
+        <div class="main-table">
+            <table mat-table [dataSource]="dataSource">
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef>رقم</th>
+                    <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>اسم التقارير</th>
+                    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef>تاريخ الاستعراض</th>
+                    <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+                </ng-container>
+
+                <!-- action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <div>
+                            <button mat-icon-button>
+                                <svg class="main-table__icon main-table__icon--blue">
+                                    <use xlink:href="/assets/image/svg-icons.svg#icon-visibility"></use>
+                                </svg>
+                            </button>
+                            <button (click)="blockDialog()" mat-icon-button>
+                                <svg class="main-table__icon main-table__icon--primary">
+                                    <use xlink:href="/assets/image/svg-icons.svg#icon-printer"></use>
+                                </svg>
+                            </button>
+                            <button (click)="deleteDialog()" mat-icon-button>
+                                <svg class="main-table__icon main-table__icon--red">
+                                    <use xlink:href="/assets/image/svg-icons.svg#icon-delete"></use>
+                                </svg>
+                            </button>
+
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+    </div>
+</section>
+<router-outlet></router-outlet>

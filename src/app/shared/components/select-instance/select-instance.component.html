@@ -1,0 +1,89 @@
+<div class="dialog">
+  <div class="dialog__title dialog__title--secondary">
+    <span>اختر الوحدة</span>
+    <button class="dialog__close" mat-icon-button (click)="onNoClick()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+
+  <form #loginForm="ngForm" class="dialog__content">
+    <p class="p-2 typo--bold typo--default typo-body2">
+      لقد قمت باختيار النموذج
+    </p>
+    <div class="home-card__content">
+      <div class="home-card__info flex-grow-1">
+        <p class="typo-body2 l-f row">
+          <span class="col-4">النموذج:</span>
+          <span class="typo--bold typo--black">{{
+            instance.instance_name
+          }}</span>
+        </p>
+
+        <p class="typo-body2 l-f row">
+          <span class="col-4">المشروع:</span>
+          <span class="typo--primary col-8">{{ instance.project_name }}</span>
+        </p>
+        <p class="typo-body2 l-f row">
+          <span class="col-4">المطور:</span>
+          <span class="typo--primary col-8">{{ instance.developer_name }}</span>
+        </p>
+        <p class="typo-body2 l-f row">
+          <span class="col-4">النوع:</span>
+          <span class="typo--primary col-8">{{
+            instance.property_type_name
+          }}</span>
+        </p>
+        <p class="typo-body2 l-f row">
+          <span class="col-4">الحاله:</span>
+          <span class="typo--primary col-8">
+            {{ instance.instance_type_name }}
+          </span>
+        </p>
+      </div>
+      <div class="home-card__info">
+        <p class="home-card__price">{{ instance.price }}</p>
+        <p class="home-card__currency">ريال سعودي</p>
+      </div>
+    </div>
+    <div class="row p-2">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="custom-label">رقم الوحدة</label>
+          <select
+            name="property_age"
+            #unit
+            [(ngModel)]="selectedUnitId"
+            class="form-control form-control--radius form-control--light"
+            required
+          >
+            <option [value]="''">
+              من فضلك اختار رقم الوحدة
+            </option>
+            <option [value]="unit.id" *ngFor="let unit of units">{{
+              unit.id
+            }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="dialog__actions">
+      <button
+        type="submit"
+        [disabled]="!loginForm.valid"
+        (click)="select()"
+        class="button button--radius button--secondary "
+      >
+        <span> اختر</span>
+      </button>
+      <button
+        type="submit"
+        (click)="onNoClick()"
+        class="button button--radius  button--bg  "
+      >
+        <span> العودة</span>
+      </button>
+    </div>
+  </form>
+</div>

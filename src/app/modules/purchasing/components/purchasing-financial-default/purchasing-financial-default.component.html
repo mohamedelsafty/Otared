@@ -1,0 +1,196 @@
+<form #FinancialDefaultForm="ngForm">
+  <div class="page-header">
+    <h1
+      class="page-header__title page-header__title--primary page-header__title--sm"
+    >
+      هل لديك تعثرات مالية سابقة أو قائمة؟
+    </h1>
+    <p class="typo--default">
+      يرجى مشاركة أي تعثرات مالية طرأت عليك من قبل أو حاليا
+    </p>
+  </div>
+  <div class="l-f m-b-65">
+    <div class="radio-container">
+      <input
+        name="month"
+        type="radio"
+        id="yes"
+        #yes
+        [value]="true"
+        name="option"
+        (change)="changeFinancialStatus()"
+        [(ngModel)]="data.have_financial_troubles"
+      />
+      <label
+        class="radio-label"
+        for="yes"
+        [ngClass]="yes.checked == true ? 'radio-label--active-prim' : ''"
+      >
+        نعم
+      </label>
+    </div>
+    <div class="radio-container">
+      <input
+        name="month"
+        type="radio"
+        id="no"
+        #no
+        [value]="false"
+        (change)="changeFinancialStatus()"
+        name="option"
+        [(ngModel)]="data.have_financial_troubles"
+      />
+      <label
+        class="radio-label"
+        [ngClass]="no.checked == true ? 'radio-label--active-prim' : ''"
+        for="no"
+      >
+        لا
+      </label>
+    </div>
+  </div>
+  <div *ngIf="data.have_financial_troubles">
+    <div
+      *ngFor="let financialTrouble of data.financial_troubles; let i = index"
+    >
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">نوع التعثر</label>
+            <select
+              [(ngModel)]="financialTrouble.type"
+              [name]="'financial_mishaps_type' + i"
+              class="form-control form-control--radius form-control--light"
+              #financial_mishaps_type
+              required
+            >
+              <option value=""></option>
+              <option value="1">شخصي</option>
+              <option value="2">عقاري</option>
+              <option value="3">سياره</option>
+              <option value="4">بطاقة ائتمانية</option>
+              <option value="5">أخرى</option>
+            </select>
+            <p
+              class="hint-required"
+              *ngIf="
+                financial_mishaps_type.invalid && financial_mishaps_type.touched
+              "
+            >
+              ادخل نوع التعثر
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">ما هي الجهة الممولة؟</label>
+            <div class="d-flex align-items-center">
+              <select
+                [name]="'financial_mishaps_bank' + i"
+                class="form-control form-control--radius form-control--light"
+                required
+                #financial_mishaps_bank
+                [(ngModel)]="financialTrouble.bank_id"
+              >
+                <option value=""></option>
+                <option
+                  [value]="bank.id"
+                  *ngFor="let bank of banksService.banks"
+                  >{{ bank.name }}</option
+                >
+              </select>
+              <!-- <label class="laoder-container" *ngIf="isLoading">
+                  <mat-spinner diameter="25"></mat-spinner>
+                </label> -->
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="
+                financial_mishaps_bank.invalid && financial_mishaps_bank.touched
+              "
+            >
+              اختر الجهة الممولة
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">اجمالي قيمة التعثر</label>
+            <div class="d-flex align-items-center">
+              <input
+                #financial_mishaps_amount
+                [name]="'financial_mishaps_amount' + i"
+                class="form-control form-control--radius form-control--light"
+                placeholder="0"
+                type="text"
+                inputNumber
+                required
+                min="0"
+                maxlength="9"
+                pattern=".{3,9}"
+                [(ngModel)]="financialTrouble.amount"
+              /><label class="input-label">ريال سعودي</label>
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="
+                financial_mishaps_amount.invalid &&
+                financial_mishaps_amount.touched
+              "
+            >
+              ادخل اجمالي قيمة التعثر
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="custom-label"> تفاصيل أخري عن التعثر</label>
+            <div class="d-flex align-items-center l-f-between">
+              <textarea
+                [name]="'financial_mishaps_detail' + 1"
+                class="form-control form-control--radius form-control--light"
+                placeholder=""
+                rows="5"
+                [(ngModel)]="financialTrouble.details"
+              >
+              </textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
+      <div
+        class="form-group"
+        *ngIf="financialDefaultData.is_financial_mishaps == true"
+      >
+        <button class="button button--radius button--secondary">
+          أضف تفاصيل التعثر
+        </button>
+      </div> -->
+
+  <div class="u-mt-30">
+    <button
+      type="button"
+      class="button button--radius button--outline button--sm-height"
+      [routerLink]="'/purchasing/monthly-fees'"
+    >
+      رجوع
+    </button>
+    <button
+      [disabled]="!FinancialDefaultForm.valid"
+      (click)="goToNext()"
+      class="button button--radius button--primary button--sm-height"
+    >
+      التالي
+    </button>
+  </div>
+</form>

@@ -1,0 +1,19 @@
+<div class="dialog">
+  <div class="dialog__title dialog__title--secondary">
+    <!-- <span>طلب زياره</span> -->
+    <span>{{ titleDisplay }}</span>
+    <button class="dialog__close" mat-icon-button (click)="onNoClick()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+  <div class="dialog__content">
+    <p class="typo--dark-blue typo-body2">
+      {{ descDisplay }}
+    </p>
+    <p class="typo--dark-blue typo-body2">
+      {{ data.sub }}
+    </p>
+  </div>
+</div>

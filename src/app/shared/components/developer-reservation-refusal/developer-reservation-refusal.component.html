@@ -1,0 +1,184 @@
+<div class="dialog" *ngIf="!refuseConfirm">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">رفض حجز الوحدة</h2>
+      <button
+        class="dialog__title-close"
+        mat-dialog-close
+        mat-icon-button
+        (click)="onNoClick()"
+      >
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <p class="typo-body2 l-f text-info">
+      <span>الوحدة</span>
+      <span>:</span>
+      <span>{{ reservation.project.id }}</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>اسم النموذج</span>
+      <span>:</span>
+      <span>{{ reservation.instance.name }}</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>اسم المشروع</span>
+      <span>:</span>
+      <span>{{ reservation.project.name }}</span>
+    </p>
+    <div class="form-group">
+      <label class="typo--bold">سبب الرفض</label>
+      <textarea
+        class="form-control"
+        rows="5"
+        name="refuseReason"
+        #refuseReason="ngModel"
+        [(ngModel)]="refuse_reason"
+      ></textarea>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <button
+      (click)="postRefusal()"
+      class="button button--custom-md button--radius button--danger"
+    >
+      تأكيد الرفض
+    </button>
+    <button
+      mat-dialog-close
+      (click)="onNoClick()"
+      class="button button--custom-md button--radius button--outline"
+    >
+      رجوع
+    </button>
+  </div>
+</div>
+
+<!-- if accepted -->
+
+<div class="dialog" *ngIf="refuseConfirm">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">
+        تم رفض طلب حجز الوحدة
+      </h2>
+      <button class="dialog__title-close" mat-icon-button (click)="onNoClick()">
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <div class="content-center m-b-30">
+      <svg class="dialog-actions__icon" viewBox="0 0 84.769 102.453">
+        <defs>
+          <style>
+            .a {
+              fill: #5d5d5d;
+            }
+
+            .b {
+              fill: #fff;
+            }
+
+            .c {
+              fill: #c05959;
+            }
+          </style>
+        </defs>
+        <g transform="translate(-19536.727 -8415.864)">
+          <g transform="translate(19536.727 8415.864)">
+            <rect class="a" width="71.45" height="88.597" />
+            <rect
+              class="b"
+              width="15.311"
+              height="10.207"
+              transform="translate(4.976 7.528)"
+            />
+            <rect
+              class="b"
+              width="59.202"
+              height="3.573"
+              transform="translate(5.104 27.235)"
+            />
+            <rect
+              class="b"
+              width="59.202"
+              height="3.573"
+              transform="translate(5.104 36.608)"
+            />
+            <rect
+              class="b"
+              width="59.202"
+              height="3.573"
+              transform="translate(5.104 45.983)"
+            />
+            <rect
+              class="b"
+              width="59.202"
+              height="3.573"
+              transform="translate(5.104 55.356)"
+            />
+            <rect
+              class="b"
+              width="59.202"
+              height="3.573"
+              transform="translate(5.104 64.73)"
+            />
+            <g transform="translate(56.776 74.459)">
+              <path
+                class="c"
+                d="M448.893,539.274a14,14,0,1,1-2.169-7.5A14,14,0,0,1,448.893,539.274Z"
+                transform="translate(-420.9 -525.264)"
+              />
+              <path
+                class="b"
+                d="M19.4,17.845l4.685-4.685a1.1,1.1,0,1,0-1.552-1.552l-4.685,4.685L13.16,11.608a1.1,1.1,0,1,0-1.552,1.552l4.685,4.685L11.608,22.53a1.1,1.1,0,0,0,1.552,1.552L17.845,19.4l4.685,4.685a1.1,1.1,0,0,0,1.552-1.552Z"
+                transform="translate(-3.757 -3.369)"
+              />
+            </g>
+          </g>
+        </g>
+      </svg>
+      <p class="typo-body2">
+        تم رفض طلب حجز الوحدة
+      </p>
+    </div>
+    <p class="typo-body2 l-f text-info text-info--bold">
+      <span>الوحدة</span>
+      <span>:</span>
+      <span>{{ reservation.project.id }}</span>
+    </p>
+    <p class="typo-body2 l-f text-info text-info--bold">
+      <span>اسم النموذج</span>
+      <span>:</span>
+      <span>{{ reservation.instance.name }}</span>
+    </p>
+    <p class="typo-body2 l-f text-info text-info--bold">
+      <span>اسم المشروع</span>
+      <span>:</span>
+      <span>{{ reservation.project.name }}</span>
+    </p>
+  </div>
+  <div class="dialog-actions">
+    <button
+      mat-dialog-close
+      class="button button--radius button--custom-md button--secondary"
+      [routerLink]="'/developer/reservations'"
+    >
+      طلبات الحجز
+    </button>
+    <button
+      mat-dialog-close
+      class="button button--custom-md button--radius button--outline"
+      [routerLink]="'/developer/dashboard'"
+    >
+      الصفحة الرئيسية
+    </button>
+  </div>
+</div>

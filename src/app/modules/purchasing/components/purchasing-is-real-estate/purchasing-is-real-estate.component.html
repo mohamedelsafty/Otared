@@ -1,0 +1,527 @@
+<section>
+  <div class="page-header">
+    <h2
+      class="page-header__title page-header__title--primary page-header__title--sm"
+    >
+      هل حصلت عقار
+    </h2>
+  </div>
+  <form *ngIf="!instatnceId" #RealEstateInfoForm="ngForm">
+    <!-- هل حصلت العقار -->
+    <div class="l-f m-b-30">
+      <div class="radio-container">
+        <input
+          name="month"
+          type="radio"
+          id="dyes"
+          #yes
+          [value]="true"
+          name="haveProperty"
+          [(ngModel)]="data.isHaveProperty"
+          required
+        />
+        <label
+          class="radio-label"
+          for="dyes"
+          [ngClass]="yes.checked == true ? 'radio-label--active-prim' : ''"
+        >
+          نعم
+        </label>
+      </div>
+      <div class="radio-container">
+        <input
+          name="month"
+          type="radio"
+          id="no"
+          #no
+          [value]="false"
+          name="haveProperty"
+          [(ngModel)]="data.isHaveProperty"
+          required
+        />
+        <label
+          class="radio-label"
+          [ngClass]="no.checked == true ? 'radio-label--active-prim' : ''"
+          for="no"
+        >
+          لا
+        </label>
+      </div>
+    </div>
+    <!-- هل العقار من داخل عطارد -->
+    <div *ngIf="data.isHaveProperty">
+      <div class="typo--default m-b-20">هل العقار من داخل منصة عطارد ؟</div>
+      <div class="l-f m-b-30">
+        <div class="radio-container">
+          <input
+            name="month"
+            type="radio"
+            id="otaredYes"
+            #otaredYes
+            [value]="true"
+            name="option"
+            [(ngModel)]="data.isFromOtard"
+            required
+          />
+          <label
+            class="radio-label"
+            for="otaredYes"
+            [ngClass]="
+              otaredYes.checked == true ? 'radio-label--active-prim' : ''
+            "
+          >
+            نعم
+          </label>
+        </div>
+        <div class="radio-container">
+          <input
+            name="month"
+            type="radio"
+            id="otaredNo"
+            #otaredNo
+            [value]="false"
+            name="option"
+            [(ngModel)]="data.isFromOtard"
+            required
+          />
+          <label
+            class="radio-label"
+            [ngClass]="
+              otaredNo.checked == true ? 'radio-label--active-prim' : ''
+            "
+            for="otaredNo"
+          >
+            لا
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- نوع العقار -->
+    <div
+      *ngIf="
+        data.isHaveProperty && data.isFromOtard !== null && !data.isFromOtard
+      "
+    >
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="custom-label" *ngIf="!data.isHaveProperty">
+              نوع العقار الذي تبحث عنه
+            </label>
+            <label class="custom-label" *ngIf="data.isHaveProperty">
+              نوع العقار
+            </label>
+            <div class="d-flex align-items-center">
+              <select
+                class="form-control form-control--radius form-control--light"
+                name="property_types_code"
+                #property_types_code
+                (change)="propertyTypeChange()"
+                required
+                [(ngModel)]="data.property_type_code"
+              >
+                <option value=""></option>
+
+                <option
+                  [value]="propertyType.code"
+                  *ngFor="let propertyType of propertyTypeService.properties"
+                >
+                  {{ propertyType.name }}
+                </option>
+              </select>
+              <label
+                class="laoder-container"
+                *ngIf="propertyTypeService.isLoading"
+              >
+                <mat-spinner diameter="25"></mat-spinner>
+              </label>
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="property_types_code.invalid && property_types_code.touched"
+            >
+              هذا الحقل مطلوب
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      *ngIf="
+        data.isHaveProperty && data.isFromOtard !== null && !data.isFromOtard
+      "
+    >
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="custom-label">حالة العقار</label>
+          <select
+            name="property_state"
+            #property_state
+            class="form-control form-control--radius form-control--light"
+            required
+            [(ngModel)]="data.status"
+          >
+            <option value=""></option>
+            <option [value]="'completed'">مكتمل</option>
+            <option [value]="'incomplete'">غير مكتمل</option>
+          </select>
+          <p
+            class="hint-required"
+            *ngIf="property_state.invalid && property_state.touched"
+          >
+            هذا الحقل مطلوب
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row"
+      *ngIf="
+        data.isHaveProperty && data.isFromOtard !== null && !data.isFromOtard
+      "
+    >
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="custom-label">عمر العقار</label>
+          <input
+            name="property_age"
+            #property_age
+            class="form-control form-control--radius form-control--light"
+            required
+            inputNumber
+            pattern="[0-9]*"
+            [(ngModel)]="data.age"
+          />
+
+          <p
+            class="hint-required"
+            *ngIf="property_age.invalid && property_age.touched"
+          >
+            هذا الحقل مطلوب
+          </p>
+          <p
+            class="hint-required"
+            *ngIf="property_age.errors?.pattern && property_age.invalid"
+          >
+            هذا الحقل يجب ان يحتوي علي ارقام فقط
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      *ngIf="
+        data.isHaveProperty && data.isFromOtard !== null && !data.isFromOtard
+      "
+    >
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="custom-label">قيمه العقار</label>
+          <div class="d-flex align-items-center">
+            <input
+              class="form-control form-control--radius form-control--light"
+              placeholder="0"
+              name="howmuch"
+              #howmuch
+              type="text"
+              inputNumber
+              maxlength="9"
+              pattern="[0-9,]{3,10}"
+              required
+              [(ngModel)]="data.amount"
+            />
+
+            <label class="input-label">ريال سعودي</label>
+          </div>
+          <!-- <p class="hint-required" *ngIf="howmuch.invalid && howmuch.touched">
+                    هذا الحقل مطلوب
+                  </p> -->
+          <p
+            class="hint-required"
+            *ngIf="
+              howmuch.errors?.pattern && (howmuch.dirty || howmuch.touched)
+            "
+          >
+            ادخل الرقم بشكل صحيح
+          </p>
+          <p
+            class="hint-required"
+            *ngIf="
+              howmuch.errors?.required && (howmuch.dirty || howmuch.touched)
+            "
+          >
+            هذا الحقل مطلوب
+          </p>
+          <!-- <p
+            class="hint-required"
+            *ngIf="
+              RealEstateInfoData.howmuch && 200000 > RealEstateInfoData.howmuch
+            "
+          >
+            ادخل قيمه العقار اعلى من200000
+          </p> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- في حالة العقار من عطارد -->
+    <div
+      *ngIf="
+        data.isHaveProperty !== null && data.isHaveProperty && data.isFromOtard
+      "
+    >
+      <!-- اسم المشروع -->
+      <div class="row form-group">
+        <div class="col-md-4">
+          <label>اسم المشروع</label>
+          <div>
+            <input
+              name="projectSearch"
+              placeholder=""
+              aria-label="State"
+              [matAutocomplete]="auto"
+              [(ngModel)]="projectSearch"
+              (input)="searchForPrjects($event)"
+              class="form-control form-control--radius form-control--light"
+            />
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngIf="projectLoading" class="is-loading"
+                >تحميل...</mat-option
+              >
+              <ng-container *ngIf="!projectLoading">
+                <mat-option *ngFor="let project of projects" [value]="project">
+                  <span>{{ project.text }}</span>
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+            <ng-container
+              *ngIf="!projects.length && !projectLoading && projectSearch"
+            >
+              <div class="hint-required">
+                عفوا, لايوجد مشروع بهذا الأسم
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <!-- النموذذج -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="custom-label">اسم النموذج</label>
+            <select
+              name="instance"
+              [(ngModel)]="data.instance_id"
+              (change)="instanceChange($event)"
+              #instance
+              class="form-control form-control--radius form-control--light"
+              required
+              [disabled]="!data.project_id"
+            >
+              <option [value]="''">
+                من فضلك اختار نموذج
+              </option>
+              <option
+                [value]="instance.id"
+                *ngFor="let instance of instances"
+                >{{ instance.instance_name }}</option
+              >
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- الوحدة -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="custom-label">رقم الوحدة</label>
+            <select
+              name="property_age"
+              #unit
+              [(ngModel)]="data.instance_unit_id"
+              class="form-control form-control--radius form-control--light"
+              required
+              [disabled]="
+                !data.instance_id ||
+                (draft &&
+                  selectedInstance &&
+                  selectedInstance.price > draft.max_value)
+              "
+            >
+              <option [value]="''">
+                من فضلك اختار رقم الوحدة
+              </option>
+              <option [value]="unit.id" *ngFor="let unit of units">{{
+                unit.id
+              }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          draft && selectedInstance && selectedInstance.price > draft.max_value
+        "
+      >
+        <p class="typo--danger">
+          ثمن الوحدة المطلوبة {{ selectedInstance.price | number }} ريال سعودي
+          وهو رقم يتعدي حدود وامكانيات اكبر مبلغ تمويل يحق لك الحصول عليه
+        </p>
+        <search-instances
+          *ngIf="property_type_id"
+          [itemsPerPage]="numberOfcards"
+          [withSelectOption]="'true'"
+          [selectOptionTarget]="'selectInstance'"
+        ></search-instances>
+      </div>
+      <div
+        *ngIf="
+          draft && selectedInstance && selectedInstance.price <= draft.max_value
+        "
+        class="col-md-4"
+      >
+        <instance-card
+          [instance]="selectedInstance"
+          [filterDesign]="'true'"
+          [withoutActions]="'true'"
+        ></instance-card>
+      </div>
+    </div>
+    <!-- في حاله لا يوجد عقار -->
+    <div *ngIf="data.isHaveProperty !== null && !data.isHaveProperty">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="custom-label" *ngIf="!data.isHaveProperty">
+              نوع العقار الذي تبحث عنه
+            </label>
+            <div class="d-flex align-items-center">
+              <select
+                class="form-control form-control--radius form-control--light"
+                name="property_types_code"
+                #property_types_code
+                (change)="propertyTypeChange()"
+                required
+                [(ngModel)]="property_type_id"
+              >
+                <option value=""></option>
+
+                <option
+                  [value]="propertyType.id"
+                  *ngFor="let propertyType of propertyTypeService.properties"
+                >
+                  {{ propertyType.name }}
+                </option>
+              </select>
+              <label
+                class="laoder-container"
+                *ngIf="propertyTypeService.isLoading"
+              >
+                <mat-spinner diameter="25"></mat-spinner>
+              </label>
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="property_types_code.invalid && property_types_code.touched"
+            >
+              هذا الحقل مطلوب
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <search-instances
+          *ngIf="property_type_id"
+          [itemsPerPage]="numberOfcards"
+          [withSelectOption]="'true'"
+          [selectOptionTarget]="'selectInstance'"
+        ></search-instances>
+      </div>
+
+      <!-- <div class="u-mt-30">
+        <button
+          *ngIf="numberOfcards !== 6"
+          (click)="numberOfcards = 6"
+          class="button button--radius button--secondary button--sm-height"
+        >
+          المزيد
+        </button>
+      </div> -->
+    </div>
+    <div class="u-mt-30">
+      <button
+        [disabled]="!RealEstateInfoForm.valid || !data.instance_unit_id"
+        (click)="goToNext()"
+        class="button button--radius button--primary button--sm-height"
+      >
+        التالي
+      </button>
+    </div>
+  </form>
+  <form *ngIf="instatnceId && !isLoading" #Instacnform="ngForm">
+    <div class="row m-b-20">
+      <div class="col-md-4">
+        <p class="typo--default typo-body1 typo--bold">حالة العقار</p>
+        <p class="typo--bold typo--default typo--primary typo-body1">
+          العقار من داخل منصة عطارد
+        </p>
+      </div>
+    </div>
+    <div class="row m-b-20">
+      <div class="col-md-4">
+        <p class="typo--default typo-body1 typo--bold">اسم المشروع</p>
+        <p class="typo--bold typo--default typo--primary typo-body1">
+          {{ selectedInstance.project_name }}
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p class="typo--default typo-body1 typo--bold">اسم المطور</p>
+        <p class="typo--bold typo--default typo--primary typo-body1">
+          {{ selectedInstance.developer_name }}
+        </p>
+      </div>
+    </div>
+    <div class="row m-b-20">
+      <div class="col-md-4">
+        <p class="typo--default typo-body1 typo--bold">اسم النموذج</p>
+        <p class="typo--bold typo--default typo--primary typo-body1">
+          {{ selectedInstance.instance_name }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label class="custom-label">رقم الوحدة</label>
+          <select
+            name="property_age"
+            #unit
+            [(ngModel)]="data.instance_unit_id"
+            class="form-control form-control--radius form-control--light"
+            required
+          >
+            <option [value]="''">
+              من فضلك اختار رقم الوحدة
+            </option>
+            <option [value]="unit.id" *ngFor="let unit of units">{{
+              unit.id
+            }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="u-mt-30">
+      <button
+        [disabled]="!data.instance_unit_id"
+        (click)="goToNext()"
+        class="button button--radius button--primary button--sm-height"
+      >
+        التالي
+      </button>
+    </div>
+  </form>
+</section>

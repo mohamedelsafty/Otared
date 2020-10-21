@@ -1,0 +1,65 @@
+ .register {
+     padding: 45px 0px 15px 0px;
+ }
+ 
+ 
+
+ .register__bg {
+    background: url(/assets/image/artwork.png) no-repeat;
+    background-position: -125px -125px;
+}
+
+.form-group__label {
+    font-size: 14px;
+    font-weight: 400;
+    color: $color-text-dark;
+    opacity: 1;
+}
+
+.register__link {
+  margin-top: 15px;
+     a {
+        font-size: 13px;
+        font-weight: 400;
+        color: $color-new-secondary;
+        text-decoration: none;
+        opacity: 1;
+     }
+}
+
+.register__login {
+    font-size: 13px;
+    color: $color-default;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.main-table__icon--password {
+    width: 15px;
+    position: absolute;
+    top: 50px;
+    // height: 100%;
+    left: 15px;
+    fill: $color-default;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+
+.form-control--style {
+    height: 50px;
+    font-size: 13px;
+    border: 1px solid $color-border;
+}
+
+.form-control--full-width {
+    font-size: 13px;
+    height: 50px;
+    border: 1px solid $color-border;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: unset;
+    border: 1px solid $color-border;
+}

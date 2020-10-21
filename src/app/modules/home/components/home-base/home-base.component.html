@@ -1,0 +1,109 @@
+<app-landing-header></app-landing-header>
+<router-outlet></router-outlet>
+
+<footer id="footer" class="main-footer">
+    <div class="main-footer__top">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-3">
+            <img loading="lazy" src="/assets/landing-page/img/logo.svg" alt="Otared Logo" class="main-footer__brand">
+            <address class="main-footer__address">
+              <div class="mb-5">الدور الثاني , شارع الامير محمد بن سعد بن عبد العزيز , حي الملقا , الرياض، المملكة
+                العربية السعودية</div>
+              <div>بريد الكتروني: <a href="mailto:info@otared.sa">info@otared.sa</a></div>
+            </address>
+          </div>
+          <div class="col-xl-5">
+            <div class="main-footer__map">
+              <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7369.733965226884!2d46.600654951897155!3d24.8104051611638!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2ee4188e139529%3A0x695da91997d600f5!2z2KfZhNmG2YfYr9mK!5e0!3m2!1sar!2ssa!4v1567269617629!5m2!1sar!2ssa"
+                  allowfullscreen=""
+                ></iframe>
+            </div>
+          </div>
+          <div id="contactForm" class="col-xl-4">
+            <h4 class="typo-headline u-color-primary mt-sm-5 mt-xl-0">
+              تواصل معنا
+            </h4>
+            <p class="typo-subheading1 u-color-white">
+              تأكدو أننا نقرأ جميع رسائلكم ونسعد بمشاركتكم وممتنين جداً لكم بتطوير خدماتنا.. شكراً من القلب..
+            </p>
+            <form #contactUsForm="ngForm" [ngClass]="[(contactFormSuccess === true || contactFormError === true) ? 'd-none' : '']">
+              <input
+                type="text"
+                class="form-control mt-3"
+                [ngClass]="[name.invalid && (name.dirty || name.touched) ? 'error' : '']"
+                placeholder="الاسم"
+                name="name"
+                #name="ngModel"
+                [(ngModel)]="contactForm.name"
+                required
+                />
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                  <label class="error" *ngIf="name.errors.required">من فضلك أدخل إسمك</label>
+                </div>
+              <input
+                type="email"
+                class="form-control"
+                [ngClass]="[email.invalid && (email.dirty || email.touched) ? 'error' : '']"
+                placeholder="البريد الالكتروني (اختياري)"
+                name="email"
+                #email="ngModel"
+                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                [(ngModel)]="contactForm.email"
+                />
+                <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                  <label class="error" *ngIf="email.errors?.pattern">البريد الإلكتروني غير صحيح</label>
+                </div>
+              <input
+                type="tel"
+                class="form-control"
+                [ngClass]="[phone.invalid && (phone.dirty || phone.touched) ? 'error' : '']"
+                placeholder="الجوّال"
+                name="phone"
+                #phone="ngModel"
+                pattern="05[0-9]{8}"
+                [(ngModel)]="contactForm.phone"
+                required
+                />
+                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+                  <label class="error" *ngIf="phone.errors.required">من فضلك أدخل رقم الجوال</label>
+                  <label class="error" *ngIf="phone.errors?.pattern">رقم الجوال يجب أن يكون مكون من 10 أرقام ويبدأ ب 05</label>
+                </div>
+              <textarea 
+                placeholder="رسالتك الينا" 
+                class="form-control" 
+                [ngClass]="[message.invalid && (message.dirty || message.touched) ? 'error' : '']"
+                name="message"
+                #message="ngModel"
+                [(ngModel)]="contactForm.message"
+                required
+                >
+              </textarea>
+              <div *ngIf="message.invalid && (message.dirty || message.touched)">
+                <label class="error" *ngIf="message.errors.required">من فضلك أدخل رسالتك</label>
+              </div>
+              <button
+                type="submit"
+                [disabled]="!contactUsForm.valid"
+                [ngClass]="[isLoading ? 'button--loading' : '']"
+                (click)="contactUs()"
+                class="button button--rounded button--primary"
+              >
+                أرسل رسالتك
+              </button>
+            </form>
+            <div class="main-footer__message main-footer__message--success" *ngIf="contactFormSuccess">تم التواصل معنا بنجاح، شكرا لك</div>
+            <div class="main-footer__message main-footer__message--error" *ngIf="contactFormError">عفوا حدث خطأ، يرجي المحاولة فيما بعد</div>
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+    <div class="main-footer__bottom">
+      جميع الحقوق محفوظة لشركة عطارد للحلول السكنية. @2020
+    </div>
+</footer>
+
+

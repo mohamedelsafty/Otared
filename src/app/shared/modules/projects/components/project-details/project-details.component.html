@@ -1,0 +1,241 @@
+<div class="loading" *ngIf="isLoading">
+  <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+</div>
+<section class="project-add" *ngFor="let project of projects">
+  <div class="breadcrumb">
+    <div class="container">
+      <ul class="breadcrumb__content">
+        <li class="breadcrumb__item">
+          <a [routerLink]="'/developer/projects'">المشاريع</a>
+        </li>
+        <li class="breadcrumb__item">
+          <span class="crumb__text"> {{ project.name }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="page-header">
+          <h2 class="page-header__title">
+            {{ project.name }}
+          </h2>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="page-header__action">
+          <div class="project-add___btn">
+            <button
+              class="button button--radius button--sm button--secondary"
+              [routerLink]="['/developer/projects/project-form/' + project.id]"
+            >
+              تعديل بيانات المشروع
+            </button>
+            <button
+              [routerLink]="['instances']"
+              class="button button--radius button--sm button--secondary"
+            >
+              النماذج
+            </button>
+          </div>
+          <a href="https://api.whatsapp.com/send?text={{project.name}} link : {{shareableUrl}}" data-action="share/whatsapp/share"matTooltip="نشر المشروع" mat-icon-button class="button--custom-icon" target="_blank">
+            <svg>
+              <use xlink:href="/assets/image/svg-icons.svg#icon-share"></use>
+            </svg>
+          </a>
+          <!-- <mat-slide-toggle
+          matTooltip=" تفعيل / تعطيل المشروع"
+          [checked]="project.project_status !== 'disable'"
+          (change)="activeProject($event, project)"
+        ></mat-slide-toggle> -->
+        </div>
+      </div>
+    </div>
+    <div class="project-add__logo">
+      <img
+        [src]="project.logo_path"
+        *ngIf="project.logo_path"
+        alt="project-alex"
+        class="col-md-3 u-logo"
+      />
+      <img
+        src="/assets/image/logoo.png"
+        *ngIf="!project.logo_path"
+        alt="project-alex"
+        class="col-md-3"
+      />
+    </div>
+    <div class="project-add__iamegs">
+      <h3 class="project-add__img--title">صور المشروع</h3>
+      <div class="row">
+        <div
+          class="col-md-2 m-2"
+          *ngFor="let media of project.project_images_paths"
+        >
+          <div class="project-add__img">
+            <img *ngIf="media" [src]="media" />
+          </div>
+        </div>
+        <div class="col-md-2 m-2">
+          <div class="project-add__img">
+            <img
+              *ngIf="!project.media.length"
+              src="/assets/image/bernard3.png"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-add__Planned">
+      <h3 class="project-add__Planned--title">مخطط المشروع</h3>
+      <div class="row">
+        <div class="col-md-6" *ngFor="let img of project.scheme_image_path">
+          <div class="project-add__Planned--img">
+            <img
+              *ngIf="project.scheme_image_path"
+              [src]="img"
+              alt="Planne-img"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="project-add__Planned--img">
+            <img
+              *ngIf="!project.project_images_paths.length"
+              src="assets/image/planned.png"
+              alt="Planne-img"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-add__braef m-b-50">
+      <h3 class="project-add__brief--title">نبذة عن المشروع</h3>
+      <p class="project-add__brief--desc">
+        {{ project.description }}
+      </p>
+    </div>
+    <div class="row m-b-30">
+      <div class="col-lg-1">
+        <p class="typo-body1">المدينه</p>
+        <p class="typo-body2">{{ project.city.name_arabic }}</p>
+      </div>
+      <div class="col-lg-1">
+        <p class="typo-body1">الحي</p>
+        <p class="typo-body2">{{ project.neighborhood.name_arabic }}</p>
+      </div>
+      <div class="col-lg-2">
+        <p class="typo-body1">نوع النمازج</p>
+        <p class="typo-body2" *ngIf="project.project_type === 'ReadyUnits'">
+          بيع - وحدات جاهزة
+        </p>
+        <p class="typo-body2" *ngIf="project.project_type === 'SaleOnmap'">
+          بيع - بيع علي الخارطه
+        </p>
+      </div>
+      <div class="col-lg-2">
+        <p class="typo-body1">عدد الوحدات</p>
+        <p class="typo-body2">{{ project.number_of_units }}وحده</p>
+      </div>
+      <div class="col-lg-2">
+        <button
+          *ngIf="project.is_exclusive"
+          class="button button--sm button--radius button--mg"
+        >
+          مشروع حصري
+        </button>
+        <button
+        *ngIf="!project.is_exclusive"
+        class="button button--sm button--radius button--default"
+      >
+      مشروع غير حصري 
+      </button>
+      
+      </div>
+    </div>
+    <div class="project-add__card">
+      <h3 class="project-add__card--title">نماذج المشروع</h3>
+      <div class="row">
+        <div class="col-md-6" *ngFor="let instance of project.instances">
+          <div
+            *ngIf="instance"
+            class="main-card main-card--vertical"
+          >
+            <div class="card-image-container">
+                <a [routerLink]="'instances/' + instance.id">
+              <img
+                [src]="instance.instance_images_paths[0]"
+                class="main-card__img "
+                alt="img_visits"
+              />
+              </a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-content card-content__color">
+                {{ instance.name }}
+              </h4>
+              <div class="card__type">
+                <div class="card__type--desc">
+                  <p class="card__type--map">
+                    النوع :
+                    <span *ngIf="project.project_type === 'ReadyUnits'">
+                      وحدات جاهزة
+                    </span>
+                    <span *ngIf="project.project_type === 'SaleOnmap'">
+                      بيع علي الخارطه
+                    </span>
+                  </p>
+                  <p class="card__type--map">
+                    عدد الوحدات المتاحة : {{ instance.numberofunits }}
+                  </p>
+                </div>
+                <div class="card__type--desc">
+                  <p class="card__type--text">
+                    طلبات الزيارة علي النموذج :
+                    {{ instance.instance_operations_count.VisitRequest }}
+                  </p>
+                  <p class="card__type--text">
+                    طلبات حجز وحدة علي النموذج :
+                    {{ instance.instance_operations_count.ReservationRequest }}
+                  </p>
+                </div>
+              </div>
+              <p class="card__descrption">
+                {{ instance.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-6">
+          <div class="card--m main-card main-card--vertical card--m">
+            <img
+              src="/assets/image/fran2.png"
+              class="card-img-top"
+              alt="img_visits"
+            />
+            <div class="card-body">
+              <h4 class="card-content card-content__color">نموذج الفيلا AB</h4>
+              <div class="card__type">
+                <div class="card__type--desc">
+                  <p class="card__type--map">النوع : بيع علي الخارطة</p>
+                  <p class="card__type--map">عدد الوحدات المتاحة : 174</p>
+                </div>
+                <div class="card__type--desc">
+                  <p class="card__type--text">طلبات الزيارة علي النموذج : 8</p>
+                  <p class="card__type--text">طلبات حجز وحدة علي النموذج : 8</p>
+                </div>
+              </div>
+              <p class="card__descrption">
+                هذا النموذج هو وصف النموذج و هو كلام ديسكريبشن يتم التحكم به من
+                خلال الادمن . هذا النموذج هو وصف النموذج و هو كلام ديسكريبشن يتم
+                التحكم به من خلال الادمن
+              </p>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <empty-state *ngIf="!project.instances.length"></empty-state>
+    </div>
+  </div>
+</section>

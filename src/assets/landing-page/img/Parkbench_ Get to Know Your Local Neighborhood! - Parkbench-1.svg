@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="330.612" height="262.64" viewBox="0 0 330.612 262.64">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4fcfc1"/>
+      <stop offset="0.9" stop-color="#0db6c4"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="486.72" y1="367.65" x2="592.72" y2="457.4" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#11aaed"/>
+      <stop offset="1" stop-color="#515dda"/>
+    </linearGradient>
+  </defs>
+  <g id="Parkbench__Get_to_Know_Your_Local_Neighborhood_-_Parkbench-1" data-name="Parkbench_ Get to Know Your Local Neighborhood! - Parkbench-1" transform="translate(-34 -32)">
+    <g id="Group_413" data-name="Group 413" transform="translate(34 32)">
+      <rect id="Rectangle_314" data-name="Rectangle 314" width="330.612" height="262.64" rx="4" fill="none"/>
+      <rect id="Rectangle_315" data-name="Rectangle 315" width="330.612" height="262.64" rx="4" fill="#fff"/>
+      <rect id="Rectangle_316" data-name="Rectangle 316" width="67.51" height="30.056" rx="4" transform="translate(172.011 161.838)" fill="#ecedfb"/>
+      <rect id="Rectangle_317" data-name="Rectangle 317" width="67.51" height="34.68" rx="4" transform="translate(172.011 197.442)" fill="#52b590" opacity="0.1"/>
+      <path id="Path_304" data-name="Path 304" d="M382.85,438.691h46.239a1.85,1.85,0,0,1,0,3.7H382.85a1.85,1.85,0,0,1,0-3.7Zm0-40.691h46.239a1.85,1.85,0,0,1,0,3.7H382.85a1.85,1.85,0,1,1,0-3.7Z" transform="translate(-204.828 -213.967)" fill="#cfd2e8"/>
+      <rect id="Rectangle_318" data-name="Rectangle 318" width="67.51" height="30.056" rx="4" transform="translate(245.994 161.838)" fill="#ecedfb"/>
+      <rect id="Rectangle_319" data-name="Rectangle 319" width="67.51" height="34.68" rx="4" transform="translate(245.994 197.442)" fill="#52b590" opacity="0.1"/>
+      <path id="Path_305" data-name="Path 305" d="M542.85,438.691h46.239a1.85,1.85,0,1,1,0,3.7H542.85a1.85,1.85,0,1,1,0-3.7Zm0-40.691h46.239a1.85,1.85,0,1,1,0,3.7H542.85a1.85,1.85,0,1,1,0-3.7Z" transform="translate(-290.845 -213.967)" fill="#cfd2e8"/>
+      <rect id="Rectangle_320" data-name="Rectangle 320" width="296.857" height="23.582" rx="9" transform="translate(17.109 13.872)" fill="#37acb9"/>
+      <g id="Group_410" data-name="Group 410" transform="translate(94.791 21.27)" opacity="0.36">
+        <path id="Path_309" data-name="Path 309" d="M208.237,46.462h12.485a3.237,3.237,0,1,1,0,6.474H208.237a3.237,3.237,0,1,1,0-6.474Zm41,0h12.485a3.237,3.237,0,0,1,0,6.474H249.237a3.237,3.237,0,0,1,0-6.474Zm41-.462h12.485a3.237,3.237,0,0,1,0,6.474H290.233a3.237,3.237,0,0,1,0-6.474Zm41,.462h12.485a3.237,3.237,0,0,1,0,6.474H331.234a3.237,3.237,0,0,1,0-6.474Z" transform="translate(-205 -46)" fill="#fff"/>
+      </g>
+      <path id="Path_310" data-name="Path 310" d="M613.393,47h16.184a4.393,4.393,0,0,1,0,8.785H613.393a4.393,4.393,0,0,1,0-8.785Z" transform="translate(-327.402 -25.267)" fill="#fff" opacity="0.73"/>
+      <rect id="Rectangle_321" data-name="Rectangle 321" width="293.158" height="89.704" rx="4" transform="translate(18.496 46.239)" fill="#52b590" opacity="0.1"/>
+      <rect id="Rectangle_322" data-name="Rectangle 322" width="147.041" height="71.209" rx="4" transform="translate(18.496 161.838)" fill="#52b590" opacity="0.1"/>
+      <path id="Path_311" data-name="Path 311" d="M336.393,238h16.184a4.393,4.393,0,1,1,0,8.785H336.393a4.393,4.393,0,1,1,0-8.785Z" transform="translate(-178.485 -127.95)" fill="#51d2d2" opacity="0.73"/>
+      <path id="Path_315" data-name="Path 315" d="M68.85,280.041h84.618a1.85,1.85,0,0,1,0,3.7H68.85a1.85,1.85,0,1,1,0-3.7Zm0,9.71H113.7a1.85,1.85,0,0,1,0,3.7H68.85a1.85,1.85,0,0,1,0-3.7ZM168.033,133h66.585a4.855,4.855,0,0,1,0,9.71H168.033a4.855,4.855,0,0,1,0-9.71Zm-9.017,16.184h84.618a1.85,1.85,0,1,1,0,3.7H159.016a1.85,1.85,0,1,1,0-3.7Zm0,9.71h84.618a1.85,1.85,0,1,1,0,3.7H159.016a1.85,1.85,0,1,1,0-3.7ZM178.9,168.6h44.852a1.85,1.85,0,1,1,0,3.7H178.9a1.85,1.85,0,1,1,0-3.7Z" transform="translate(-36.02 -71.502)" fill="#cfd2e8"/>
+    </g>
+    <g id="Group_414" data-name="Group 414" transform="translate(205.779 176.489)">
+      <rect id="Rectangle_323" data-name="Rectangle 323" width="142.186" height="43.927" rx="9.03" transform="translate(0 3.588)" fill="#52b590" opacity="0.1"/>
+      <path id="Path_339" data-name="Path 339" d="M205.514,352.978l-1.734-3.1" transform="translate(-188.854 -337.673)" fill="url(#linear-gradient)"/>
+      <path id="Path_365" data-name="Path 365" d="M0,2.066Z" transform="translate(47.779 -1.9)" fill="url(#linear-gradient-2)"/>
+    </g>
+  </g>
+</svg>

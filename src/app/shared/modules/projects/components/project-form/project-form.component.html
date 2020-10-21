@@ -1,0 +1,629 @@
+<section class="project-form">
+  <div class="container">
+    <div class="page-header">
+      <h2 class="page-header__title" *ngIf="!projectId">أضف مشروع جديد</h2>
+      <h2 class="page-header__title" *ngIf="projectId">تعديل بيانات المشروع</h2>
+    </div>
+    <form #addProject="ngForm">
+      <h4 class="project__data-form">بيانات المشروع</h4>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>اسم المشروع</label>
+            <input
+              type="text"
+              class="form-control form-control--full-width"
+              placeholder="اكتب اسم المشروع"
+              name="name"
+              #name="ngModel"
+              [(ngModel)]="project.name"
+              required
+            />
+            <div
+              *ngIf="name.invalid && (name.dirty || name.touched)"
+              class="validation"
+            >
+              <p class="validation__title" *ngIf="name.errors.required">
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.name }}
+            </p>
+          </div>
+          <div class="form-group">
+            <div class="form-group__option">
+              <label>الشعار</label>
+            </div>
+            <div class="but__style">
+              <button
+                class="button button--blue button--radius button--sm button--upload"
+                (click)="logo_path.click()"
+              >
+                تحميل
+                <input
+                  style="display: none;"
+                  type="file"
+                  (change)="onFileChanged($event, 'logoFileName', 'logo_path')"
+                  #logo_path
+                />
+              </button>
+              <label *ngIf="logoFileName" class="choose__file">{{
+                logoFileName
+              }}</label>
+              <label *ngIf="!logoFileName" class="choose__file"
+                >اضغط لتحميل شعار المشروع</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>المدينه</label>
+            <select
+              class="form-control"
+              (change)="getDistrict()"
+              name="city_id"
+              #city_id="ngModel"
+              [(ngModel)]="project.city_id"
+              required
+            >
+              <option hidden>اختر المدينه</option>
+              <option *ngFor="let city of cities" [ngValue]="city.id">{{
+                city.name_arabic
+              }}</option>
+            </select>
+            <div
+              *ngIf="city_id.invalid && (city_id.dirty || city_id.touched)"
+              class="validation"
+            >
+              <p class="validation__title" *ngIf="city_id.errors.required">
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.city_id }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>الحي</label>
+            <select
+              class="form-control"
+              name="neighborhoods_id"
+              #neighborhoods_id="ngModel"
+              [(ngModel)]="project.neighborhoods_id"
+              required
+              [disabled]="isDistrictLoading || !project.city_id"
+            >
+              <option hidden>اختر الحي</option>
+              <option
+                *ngFor="let district of districts"
+                [ngValue]="district.id"
+                >{{ district.name_arabic }}</option
+              >
+            </select>
+
+            <div
+              *ngIf="
+                neighborhoods_id.invalid &&
+                (neighborhoods_id.dirty || neighborhoods_id.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="neighborhoods_id.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.city_id }}
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3 p-3">
+          <mat-spinner
+            class="m-3"
+            *ngIf="isDistrictLoading"
+            diameter="30"
+            strokeWidth="3"
+          ></mat-spinner>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <div class="form-group__option">
+            <label>موقع المشروع</label>
+            <!-- <span>اختياري</span> -->
+          </div>
+          <div class="but__style form-control--full-width">
+            <button
+              (click)="openMapDialog()"
+              class="button button--blue button--radius button--upload"
+            >
+              تحديد
+              <!-- <input style="display: none;" type="text" /> -->
+            </button>
+            <label
+              *ngIf="!project.longitude || !project.latitude"
+              class="choose__file"
+              >اضغط لتحديد موقع المشروع</label
+            >
+            <label
+              *ngIf="project.longitude && project.latitude"
+              class="choose__file"
+              >{{ project.longitude }}, {{ project.longitude }}</label
+            >
+          </div>
+          <div
+            *ngIf="
+             isError && (!project.longitude || !project.longitude)
+            "
+            class="validation"
+          >
+            <p class="validation__title" >
+              من فضلك حدد موقع المشروع
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6 m-b-20">
+          <div class="form-group__option">
+            <label for="validationTextarea">وصف المشروع</label>
+          </div>
+          <textarea
+            class="form-control form-control--text"
+            placeholder="وصف المشروع"
+            rows="8"
+            name="description"
+            #description="ngModel"
+            [(ngModel)]="project.description"
+            required
+          ></textarea>
+          <div
+            *ngIf="
+              description.invalid && (description.dirty || description.touched)
+            "
+            class="validation"
+          >
+            <p class="validation__title" *ngIf="description.errors.required">
+              هذا الحقل مطلوب
+            </p>
+          </div>
+          <p class="validation__title" *ngIf="resError">
+            {{ resError.description }}
+          </p>
+        </div>
+      </div>
+      <div class="m-b-20">
+        <mat-checkbox
+          name="is_exclusive"
+          [(ngModel)]="project.is_exclusive"
+          #is_exclusive="ngModel"
+          >المشروع حصري</mat-checkbox
+        >
+      </div>
+      <div class="">
+        <h3 class="typo-title">نوع النماذج</h3>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="radio-container">
+              <input
+                name="month"
+                type="radio"
+                id="yes"
+                #yes
+                [value]="'SaleOnmap'"
+                name="option"
+                [(ngModel)]="project.project_type"
+              />
+              <label
+                class="radio-label"
+                for="yes"
+                [ngClass]="
+                  project.project_type == 'SaleOnmap'
+                    ? 'radio-label--active'
+                    : ''
+                "
+              >
+                <div class="card-gallery">
+                  <img
+                    class="card-gallery__img"
+                    src="/assets/image/coming.png"
+                    alt=""
+                  />
+                  <div class="card-gallery__overlay">
+                    <p class="card-gallery__title">بيع علي الخارطه</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="radio-container">
+              <input
+                name="month"
+                type="radio"
+                id="no"
+                #no
+                [value]="'ReadyUnits'"
+                name="option"
+                [(ngModel)]="project.project_type"
+              />
+              <label
+                class="radio-label"
+                for="no"
+                [ngClass]="
+                  project.project_type == 'ReadyUnits'
+                    ? 'radio-label--active'
+                    : ''
+                "
+              >
+                <div class="card-gallery">
+                  <img
+                    class="card-gallery__img"
+                    src="/assets/image/done.png"
+                    alt=""
+                  />
+                  <div class="card-gallery__overlay">
+                    <p class="card-gallery__title">وحدات جاهزه</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              (yes.invalid && (yes.dirty || yes.touched)) ||
+              (no.invalid && (no.dirty || no.touched))
+            "
+            class="validation"
+          >
+            <p
+              class="validation__title"
+              *ngIf="yes.errors.required || no.errors.required"
+            >
+              هذا الحقل مطلوب
+            </p>
+          </div>
+        </div>
+        <p class="validation__title" *ngIf="resError">
+          {{ resError.project_type }}
+        </p>
+      </div>
+      <div class="row m-b-20">
+        <div class="col-lg-3 form-group mat-form-group">
+          <label>تاريخ بدايه المشروع</label>
+          <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="starts_date_picker"
+              name="starts_date"
+              #starts_date="ngModel"
+              [value]="project.starts_date"
+              [(ngModel)]="project.starts_date"
+              required
+              (input)="resError.starts_date = ''"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="starts_date_picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #starts_date_picker></mat-datepicker>
+          </mat-form-field>
+          <div
+            *ngIf="
+              starts_date.invalid && (starts_date.dirty || starts_date.touched)
+            "
+            class="validation"
+          >
+            <p class="validation__title" *ngIf="starts_date.errors.required">
+              هذا الحقل مطلوب
+            </p>
+          </div>
+
+          <p class="validation__title" *ngIf="resError">
+            {{ resError.starts_date }}
+          </p>
+        </div>
+        <div class="col-lg-3 form-group mat-form-group">
+          <label>تاريخ نهايه المشروع</label>
+          <mat-form-field class="input-date">
+            <input
+              matInput
+              [disabled]="!project.starts_date"
+              [min]="getendMinDate(project.starts_date)"
+              [matDatepicker]="ends_date_picker"
+              name="ends_date"
+              [value]="project.ends_date"
+              #ends_date="ngModel"
+              [(ngModel)]="project.ends_date"
+              required
+              (input)="resError.ends_date = ''"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="ends_date_picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #ends_date_picker></mat-datepicker>
+          </mat-form-field>
+          <div
+            *ngIf="ends_date.invalid && (ends_date.dirty || ends_date.touched)"
+            class="validation"
+          >
+            <p class="validation__title" *ngIf="ends_date.errors.required">
+              هذا الحقل مطلوب
+            </p>
+            <p *ngIf="ends_date.invalid" class="validation__title">
+              من فضلك ادخل تاريخ سابق لتاريخ بداية المشروع
+            </p>
+          </div>
+          <p class="validation__title" *ngIf="resError">
+            {{ resError.starts_date }}
+          </p>
+        </div>
+      </div>
+      <div class="m-b-20">
+        <mat-checkbox
+          #license="ngModel"
+          [disabled]="true"
+          [(ngModel)]="islicense"
+          name="license"
+          >لديك رخصه وافي؟</mat-checkbox
+        >
+        <div class="row m-b-20" *ngIf="islicense">
+          <div class="col-lg-3 form-group mat-form-group">
+            <label>تاريخ انتهاء الرخصه</label>
+            <mat-form-field class="input-date">
+              <input
+                matInput
+                [matDatepicker]="sale_on_map_license_expire_date_picker"
+                name="sale_on_map_license_expire_date"
+                #sale_on_map_license_expire_date="ngModel"
+                [(ngModel)]="project.sale_on_map_license_expire_date"
+                required
+                (input)="resError.sale_on_map_license_expire_date = ''"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="sale_on_map_license_expire_date_picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #sale_on_map_license_expire_date_picker
+              ></mat-datepicker>
+            </mat-form-field>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.sale_on_map_license_expire_date }}
+            </p>
+            <p
+              *ngIf="sale_on_map_license_expire_date.invalid"
+              class="validation__title"
+            >
+              من فضلك ادخل تاريخ سابق لليوم
+            </p>
+          </div>
+          <div class="form-group">
+            <label>رقم الرخصه</label>
+            <input
+              type="text"
+              class="form-control form-control--full-width"
+              placeholder=""
+              name="sale_on_map_license_number"
+              #sale_on_map_license_number="ngModel"
+              [(ngModel)]="project.sale_on_map_license_number"
+              required
+            />
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.sale_on_map_license_number }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="project-details">
+        <h3 class="project-details__type">فئة النماذج</h3>
+        <div class="card-gallery-container">
+          <div class="card-gallery">
+            <img
+              class="card-gallery__img"
+              src="/assets/image/done.png"
+              alt=""
+            />
+            <div class="card-gallery__overlay">
+              <p class="card-gallery__title">وحدات جاهزه</p>
+            </div>
+          </div>
+          <div class="card-gallery">
+            <img
+              class="card-gallery__img"
+              src="/assets/image/done.png"
+              alt=""
+            />
+            <div class="card-gallery__overlay">
+              <p class="card-gallery__title">وحدات جاهزه</p>
+            </div>
+          </div>
+          <div class="card-gallery">
+            <img
+              class="card-gallery__img"
+              src="/assets/image/done.png"
+              alt=""
+            />
+            <div class="card-gallery__overlay">
+              <p class="card-gallery__title">وحدات جاهزه</p>
+            </div>
+          </div>
+          <div class="card-gallery">
+            <img
+              class="card-gallery__img"
+              src="/assets/image/done.png"
+              alt=""
+            />
+            <div class="card-gallery__overlay">
+              <p class="card-gallery__title">وحدات جاهزه</p>
+            </div>
+          </div>
+          <div class="card-gallery">
+            <img
+              class="card-gallery__img"
+              src="/assets/image/done.png"
+              alt=""
+            />
+            <div class="card-gallery__overlay">
+              <p class="card-gallery__title">وحدات جاهزه</p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="form-group col-md-2">
+          <label for="formGroupExampleInput">عدد الوحدات</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="ادخل عدد وحدات"
+            name="number_of_units"
+            pattern="[0-9]*"
+            [(ngModel)]="project.number_of_units"
+            #number_of_units="ngModel"
+            required
+          />
+          <div
+            *ngIf="
+              number_of_units.invalid &&
+              (number_of_units.dirty || number_of_units.touched)
+            "
+            class="validation"
+          >
+            <p
+              class="validation__title"
+              *ngIf="number_of_units.errors.required"
+            >
+              هذا الحقل مطلوب
+            </p>
+            <p
+              class="validation__title"
+              *ngIf="number_of_units.errors?.pattern"
+            >
+              هذا الحقل يجب ان يحتوي علي ارقام فقط
+            </p>
+          </div>
+          <p class="validation__title" *ngIf="resError">
+            {{ resError.number_of_units }}
+          </p>
+        </div>
+      </div>
+      <div class="row m-b-20">
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="form-group__option">
+              <label>صور المشروع</label>
+            </div>
+            <div class="but__style">
+              <button
+                class="button button--blue button--radius button--sm button--upload"
+                (click)="project_images_paths.click()"
+              >
+                تحميل
+                <input
+                  style="display: none;"
+                  type="file"
+                  multiple
+                  (change)="
+                    onFileChanged(
+                      $event,
+                      'projectFilesName',
+                      'project_images_paths',
+                      true
+                    )
+                  "
+                  name="project_images_paths"
+                  #project_images_paths
+                />
+              </button>
+              <label class="choose__file" *ngIf="!projectFilesName"
+                >اضغط لتحميل صور المشروع</label
+              >
+              <label class="choose__file" *ngIf="projectFilesName">{{
+                projectFilesName
+              }}</label>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.project_images_paths }}
+            </p>
+          </div>
+          <div class="form-group">
+            <div class="form-group__option">
+              <label>مخطط المشروع</label>
+            </div>
+            <div class="but__style">
+              <button
+                class="button button--blue button--radius button--sm button--upload"
+                (click)="scheme_image_path.click()"
+              >
+                تحميل
+                <input
+                  style="display: none;"
+                  type="file"
+                  (change)="
+                    onFileChanged($event, 'schemeFileName', 'scheme_image_path')
+                  "
+                  name="scheme_image_path"
+                  #scheme_image_path
+                  name="scheme_image_path"
+                />
+              </button>
+              <label *ngIf="schemeFileName" class="choose__file">{{
+                schemeFileName
+              }}</label>
+              <label *ngIf="!schemeFileName" class="choose__file"
+                >اضغط لتحميل مخطط المشروع</label
+              >
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.scheme_image_path }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="m-b-30 project-form__action">
+        <button
+          *ngIf="!projectId"
+          (click)="creatProject(addProject)"
+          [disabled]="!addProject.valid"
+          class="button button--md button--radius button--secondary"
+        >
+          <span>اضف المشروع</span>
+          <div class="loading" *ngIf="isLoading">
+            <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+          </div>
+        </button>
+        <button
+          *ngIf="projectId"
+          (click)="editProject()"
+          [disabled]="!addProject.valid"
+          class="button button--md button--radius button--secondary"
+        >
+          <span>تعديل المشروع</span>
+          <div class="loading" *ngIf="isLoading">
+            <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+          </div>
+        </button>
+        <button
+          class="button button--radius button--outline-danger"
+          (click)="goRoute()"
+        >
+          الغاء
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

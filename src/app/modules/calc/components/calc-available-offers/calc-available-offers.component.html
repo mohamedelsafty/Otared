@@ -1,0 +1,162 @@
+<section>
+  <div class="page-header">
+    <h2 class="page-header__title page-header__title--sm">
+      طلع لك حسب قدرتك المالية
+    </h2>
+  </div>
+
+  <div class="l-f-around u-mt-30" *ngIf="isLoading">
+    <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+  </div>
+
+  <h5
+    class="main-title main-title--lg color_red"
+    *ngIf="!isLoading && offers != null && offers.length == 0"
+  >
+    اسف لا يوجد اي عرض ,المرجو تغيير البيانات الشخصية والمحاولة مرة اخرى
+  </h5>
+
+  <div class="center-md" *ngIf="!isLoading && offers.offers_number != null">
+    <div class="row">
+      <div class="col-md-12 m-b-20">
+        <h3 class="typo__form-title">
+          تم حصولك على {{ offers?.offers_number }} عروض
+        </h3>
+        <!-- <p class="main-text">
+            <span class="main-title main-title--primary main-title--normal">
+              اجمالي</span
+            >
+            عدد العروض المتوقعه
+          </p> -->
+      </div>
+      <div class="col-md-12">
+        <div class="row card-line">
+          <div class="col-md-6 m-b-20 card-line__ball card-line__ball--blue">
+            <div class="card-values card-values--blue">
+              <div class="card-values__icon">
+                <svg>
+                  <use
+                    xlink:href="/assets/image/svg-icons.svg#icon-arrow-top"
+                  ></use>
+                </svg>
+              </div>
+              <div class="card-values__content">
+                <p class="card-values__text card-values__text--bold">
+                  {{ offers?.max_value | number }} ريال سعودي
+                </p>
+                <p class="card-values__text card-values__text--sm">
+                  <span>اكبر</span> مبلغ تمويل متوقع
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-6 m-b-10 card-line__ball card-line__ball--secondary"
+          >
+            <div class="card-values card-values--dark-blue">
+              <div class="card-values__icon">
+                <svg>
+                  <use
+                    xlink:href="/assets/image/svg-icons.svg#icon-arrow-bottom"
+                  ></use>
+                </svg>
+              </div>
+              <div class="card-values__content">
+                <p class="card-values__text card-values__text--bold">
+                  {{ offers?.min_value | number }} ريال سعودي
+                </p>
+                <p class="card-values__text card-values__text--sm">
+                  <span>اصغر</span> مبلغ تمويل متوقع
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="l-f-around" *ngIf="isLoading">
+        <mat-spinner diameter="80"></mat-spinner>
+      </div>
+    </div>
+    <div *ngIf="instance && instance?.price > offers.max_value">
+      <p class="typo--danger m-b-20 ">
+        ثمن الوحدة المطلوبة {{ instance?.price | number }} ريال سعودي وهو رقم
+        يتعدي حدود وامكانيات اكبر مبلغ تمويل يحق لك الحصول عليه
+      </p>
+      <search-instances
+        [itemsPerPage]="'3'"
+        [withSelectOption]="'true'"
+        [selectOptionTarget]="'selectInstance'"
+        filterDesign="true"
+      ></search-instances>
+      <div class="col-md-6 m-b-20">
+        <button
+          *ngIf="cardNumbers < 6"
+          (click)="more()"
+          class="button button--blue button--radius button--sm-height"
+        >
+          المزيد
+        </button>
+      </div>
+      <div class="col-md-6 m-b-50">
+        <button
+          class="button button--bg button--md button--radius button--sm-height"
+        >
+          راسل خدمة العملاء
+        </button>
+        <button
+          [routerLink]="['/calc/personal-information']"
+          [queryParams]="{ instatnceId: instance.id }"
+          class="button button--bg button--md button--radius button--sm-height"
+        >
+          تعديل المعطيات
+        </button>
+      </div>
+      <div class="col-md-6 m-b-20">
+        <button
+          [routerLink]="['/calc/support-information']"
+          [queryParams]="{ instatnceId: instance.id }"
+          class="button button--bg button--md button--radius button--sm-height"
+        >
+          السابق
+        </button>
+        <button
+          [disabled]="!instanceIdSelected"
+          (click)="next()"
+          class="button button--md button--primary button--radius button--sm-height"
+        >
+          التالي
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      *ngIf="!instance || (instance && instance?.price <= offers.max_value)"
+    >
+      <div class="col-md-6 m-b-20">
+        <p class="typo-body1">
+          استكمال بيانات الطلب
+        </p>
+        <button
+          class="button button--sm-height button--primary button--rounded button button--md button--third button--radius"
+          (click)="next()"
+        >
+          أضغط هنا
+        </button>
+      </div>
+      <div class="col-md-6 m-b-20">
+        <p class="typo-body1">
+          متردد
+        </p>
+        <button
+          class="button button--sm-height button--outline button--rounded button button--md button--third button--radius"
+          (click)="next()"
+        >
+          راسلنا
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,153 @@
+<app-landing-header [isPersonalHeader]="true"></app-landing-header>
+<div class="container-fluid main-container">
+  <div class="row">
+    <!-- <steps [steps]="purchasingflowService" [menuList]="sideMenu"></steps> -->
+    <aside
+      class="sidenav sidenav--steps"
+      [ngClass]="openSide ? 'sidenav--mobile' : ''"
+    >
+      <div class="sidenav__icon">
+        <button mat-icon-button (click)="side()">
+          <svg>
+            <use
+              xlink:href="/assets/image/svg-icons.svg#icon-keyboard-arrow"
+            ></use>
+          </svg>
+        </button>
+      </div>
+      <h2 class="steps__title steps__title--light">
+        حساب عقار
+      </h2>
+      <ul class="steps__list">
+        <!-- <a
+          *ngFor="let route of sideMenu; let i = index"
+          [routerLink]="[route.link]"
+          routerLink="personal-info"
+          routerLinkActive="step__list-item--active"
+          [ngClass]="[
+            getSubRoutesActive(route) ? 'step__list-item--active' : '',
+            steps.workflow[i].valid ? 'step__list-item--completed' : ''
+          ]"
+          class="step__list-item"
+        >
+          <span class="step__list-number"></span>
+          <span class="step__list-title">{{ route.title }}</span>
+        </a> -->
+        <a
+          [routerLink]="['/purchasing/is-real-estate']"
+          routerLink="is-real-estate"
+          routerLinkActive="step__list-item--active"
+          [ngClass]="[
+            purchasingflowService.workflow[0].valid
+              ? 'step__list-item--completed'
+              : ''
+          ]"
+          class="step__list-item"
+        >
+          <span class="step__list-number"></span>
+          <span class="step__list-title">هل عندك عقار</span>
+        </a>
+        <a
+          [routerLink]="['/purchasing/first-batch']"
+          routerLink="is-real-estate"
+          routerLinkActive="step__list-item--active"
+          [ngClass]="[
+            income.isActive ||
+            monthly.isActive ||
+            financial.isActive ||
+            batch.isActive
+              ? 'step__list-item--active'
+              : '',
+            purchasingflowService.workflow[1].valid &&
+            purchasingflowService.workflow[2].valid &&
+            purchasingflowService.workflow[3].valid &&
+            purchasingflowService.workflow[4].valid &&
+            purchasingflowService.workflow[5].valid
+              ? 'step__list-item--completed'
+              : ''
+          ]"
+          class="step__list-item"
+        >
+          <span class="step__list-number"></span>
+          <span class="step__list-title">المعلومات المالية</span>
+        </a>
+        <a
+          [routerLink]="['/purchasing/solidarity']"
+          routerLink="is-real-estate"
+          routerLinkActive="step__list-item--active"
+          [ngClass]="[
+            purchasingflowService.workflow[6].valid
+              ? 'step__list-item--completed'
+              : ''
+          ]"
+          class="step__list-item"
+        >
+          <span class="step__list-number"></span>
+          <span class="step__list-title">الدعم والتضامن</span>
+        </a>
+        <a
+          [routerLink]="['/purchasing/offers']"
+          routerLink="is-real-estate"
+          routerLinkActive="step__list-item--active"
+          [ngClass]="[
+            purchasingflowService.workflow[7].valid
+              ? 'step__list-item--completed'
+              : ''
+          ]"
+          class="step__list-item"
+        >
+          <span class="step__list-number"></span>
+          <span class="step__list-title">اختر البرنامج المناسب</span>
+        </a>
+      </ul>
+    </aside>
+    <div class="overlay" *ngIf="openSide" (click)="side()"></div>
+    <div class="col router-container-bg">
+      <div class="router-container router-container--steps">
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
+        <footer class="footer">
+          <p class="footer__text">
+            جميع الحقوق محفوظة لشركة عطارد للحلول السكنية 2020
+          </p>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display: none">
+  <a
+    routerLink="monthly-fees"
+    routerLinkActive
+    #monthly="routerLinkActive"
+    class="step__list-item"
+    style="display: none"
+  >
+  </a>
+  <a
+    routerLink="financial-default"
+    routerLinkActive
+    #financial="routerLinkActive"
+    class="step__list-item"
+    style="display: none"
+  >
+  </a>
+  <a
+    routerLink="functional-info"
+    routerLinkActive
+    #batch="routerLinkActive"
+    class="step__list-item"
+    style="display: none"
+  >
+    <a
+      routerLink="income-sources"
+      routerLinkActive
+      #income="routerLinkActive"
+      class="step__list-item"
+      style="display: none"
+    >
+    </a>
+  </a>
+</div>

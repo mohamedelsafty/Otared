@@ -1,0 +1,324 @@
+<section class="">
+  <div class="main-title m-b-10">
+    <div class="l-f-between">
+      <h3
+        class="page-header__title page-header__title--primary page-header__title--sm"
+      >
+        عروض التمويل المتاحة ({{ banksData.length }})
+      </h3>
+    </div>
+  </div>
+  <div class="row offer__header">
+    <h3 class="col-md-6 typo--danger typo-body1">
+      هذه العروض هي محتسبات أولية فقط، على افتراض عدم وجود مديونية
+    </h3>
+    <div class="col-md-4 form-group l-f-between">
+      <label class="m-l-10 main-text main-text--sm"
+        >لا تجد العرض المناسب لك</label
+      >
+      <button class="button button--radius button--secondary button--sm">
+        راسلنا
+      </button>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-6 col-9">
+          <div class="form-group form-group-inline">
+            <label for="" class="custom-label m-l-10"> رتب حسب</label>
+            <select
+              style="max-width: 300px;"
+              name="offers_fillter"
+              (change)="offersFillterChange($event)"
+              class="form-control form-control--radius form-control--light"
+            >
+              <option>ترتيب العروض</option>
+              <!-- <option value="min_max">من اقل تمويل الى اعلى تمويل</option> -->
+              <option value="max_min">اكبر مبلغ تمويل </option>
+              <!-- <option value="min_max_ratio">من اقل نسبة الى اعلى نسبة</option> -->
+              <option value="min_max_installment">اقل قسط شهري</option>
+              <option value="min_max_funding_years_before"
+                >اقل سنوات اقساط</option
+              >
+              <option value="min_max_ratio">اقل نسبة مرابحه</option>
+            </select>
+          </div>
+        </div>
+        <div class="col justify-content-end l-f">
+          <button
+            class="filter-btn"
+            [ngClass]="activeFilter ? 'filter-btn--active' : ''"
+            (click)="filter()"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
+              <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="filter-panel"
+        [ngClass]="activeFilter ? 'filter-panel--open' : ''"
+      >
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="m-b-40 filter-panel__body row">
+              <div class="col-lg-6">
+                <div class="custom-radio m-b-10">
+                  <input
+                    name="month"
+                    type="radio"
+                    id="yes"
+                    #yes
+                    [value]="'yes'"
+                    name="option"
+                    [(ngModel)]="isFilter"
+                  />
+                  <label class="m-0" for="yes">
+                    مجال القسط الشهري ({{ minInstallmentRangeValue }} -
+                    {{ maxInstallmentRangeHighValue }})
+                  </label>
+                </div>
+                <div class="slider-container">
+                  <div *ngIf="isFilter === 'yes'">
+                    <div class="form-group range-slider">
+                      <ng5-slider
+                        (userChangeEnd)="installmentValueChange($event)"
+                        [(value)]="installmentRangeValue"
+                        [(highValue)]="installmentRangeHighValue"
+                        rightToLeft="true"
+                        [options]="{
+                          floor: minInstallmentRangeValue,
+                          ceil: maxInstallmentRangeHighValue,
+                          hideLimitLabels: true,
+                          hidePointerLabels: true,
+                          rightToLeft: true
+                        }"
+                      ></ng5-slider>
+                    </div>
+                    <div class="l-f-between m-b-20">
+                      <div class="d-flex align-items-center">
+                        <input
+                          class="filter-panel__value-num"
+                          name="installmentRangeValue"
+                          type="number"
+                          [(ngModel)]="installmentRangeValue"
+                        /><label class="input-label filter-panel__value-type"
+                          >ر.س</label
+                        >
+                      </div>
+                      <div class="filter-panel__value">
+                        <div class="d-flex align-items-center">
+                          <input
+                            class="filter-panel__value-num"
+                            name="installmentRangeValue"
+                            type="number"
+                            [(ngModel)]="installmentRangeHighValue"
+                          /><label class="input-label filter-panel__value-type"
+                            >ر.س</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="custom-radio m-b-10">
+                  <input
+                    name="month"
+                    type="radio"
+                    id="no"
+                    [value]="'no'"
+                    #no
+                    name="option"
+                    [(ngModel)]="isFilter"
+                  />
+                  <label class="m-0" for="no">
+                    مجال سنوات التمويل ( {{ minFundedRangeValue }} -
+                    {{ maxFundedRangeHighValue }})
+                  </label>
+                </div>
+                <div class="slider-container">
+                  <div *ngIf="isFilter === 'no'">
+                    <div class="form-group range-slider">
+                      <ng5-slider
+                        (userChangeEnd)="fundedValueChange($event)"
+                        [(value)]="fundedRangeValue"
+                        [(highValue)]="fundedRangeHighValue"
+                        rightToLeft="true"
+                        [options]="{
+                          floor: minFundedRangeValue,
+                          ceil: maxFundedRangeHighValue,
+                          hideLimitLabels: true,
+                          hidePointerLabels: true,
+                          rightToLeft: true
+                        }"
+                      ></ng5-slider>
+                    </div>
+                    <div class="l-f-between m-b-20">
+                      <div class="filter-panel__value">
+                        <div class="d-flex align-items-center">
+                          <input
+                            class="filter-panel__value-num"
+                            name="installmentRangeValue"
+                            type="number"
+                            [(ngModel)]="fundedRangeValue"
+                          /><label class="input-label filter-panel__value-type"
+                            >سنوات</label
+                          >
+                        </div>
+                      </div>
+                      <div class="filter-panel__value">
+                        <div class="d-flex align-items-center">
+                          <input
+                            class="filter-panel__value-num"
+                            name="installmentRangeValue"
+                            type="number"
+                            [(ngModel)]="fundedRangeHighValue"
+                          /><label class="input-label filter-panel__value-type"
+                            >سنوات</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="filter-panel__action">
+              <button
+                class="button button--radius button--secondary button--sm"
+              >
+                تصفيه النتائج
+              </button>
+              <button class="button button--radius button--white button--sm">
+                الغاء
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chips-container">
+        <div class="chip m-l-10" *ngIf="installmentChip">
+          <svg
+            class="chip__close"
+            viewBox="0 0 24 24"
+            (click)="setInstallmentRange()"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+            />
+          </svg>
+          <p class="chip__title">مجال القسط الشهري</p>
+        </div>
+        <div class="chip" *ngIf="fundedChip">
+          <svg
+            class="chip__close"
+            viewBox="0 0 24 24"
+            (click)="setFundedtRange()"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+            />
+          </svg>
+          <p class="chip__title">مجال سنوات التمويل</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="loading" *ngIf="isLoading">
+    <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+  </div>
+  <div *ngIf="!isLoading">
+    <div class="row" *ngFor="let bank of banksData; let i = index">
+      <div class="col-md-10">
+        <div class="offer-card offer-card--round">
+          <div class="offer-card__bank">
+            <img
+              class="offer-card__logo"
+              [src]="'assets/image/' + bank.bank_code + '.png'"
+            />
+            <div class="offer-card__bank-head">
+              <h3 class="offer-card__bank-name">
+                {{ "العرض (" + (i + 1) + ")" }}
+              </h3>
+              <h3 class="offer-card__bank-program">{{ bank.mortgage_type }}</h3>
+            </div>
+          </div>
+          <div class="offer-card__secondary offer-card__grid">
+            <div class="offer-card__info sm">
+              <p class="offer-card__title offer-card__title--light">
+                مبلغ التمويل الذي سوف تحصل عليه
+              </p>
+              <h4 class="offer-card__num offer-card__num--light">
+                {{ bank.total_financing_amount | number }} <small> </small>
+              </h4>
+              <p class="offer-card__currency offer-card__currency--light">
+                ريال سعودي
+              </p>
+            </div>
+            <div class="offer-card__info m-0">
+              <p class="offer-card__title offer-card__title--light">
+                عدد سنوات الأقساط
+              </p>
+              <h4 class="offer-card__num offer-card__num--light">
+                {{ bank.funding_years_before }}
+              </h4>
+            </div>
+            <div class="offer-card__info m-0">
+              <p class="offer-card__title offer-card__title--light">
+                القسط الشهري
+              </p>
+              <h4 class="offer-card__num offer-card__num--light">
+                {{ bank.installment | number }}
+              </h4>
+              <p class="offer-card__currency offer-card__currency--light">
+                ريال سعودي
+              </p>
+            </div>
+          </div>
+          <div class="offer-card__grid offer-card__grid--center">
+            <div class="content-center offer-card__action mt-auto">
+              <button
+                (click)="chooseOffer(bank)"
+                class="button button--radius mb-10 button--secondary"
+              >
+                اختر العرض
+              </button>
+              <button
+                (click)="details(bank)"
+                class="button button--radius button--outline button--m-0 mb-10"
+              >
+                تفاصيل
+              </button>
+              <a
+                target="_blank"
+                (click)="askFrind(bank)"
+                [href]="link"
+                class="button button--radius button--outline button--m-0 mb-10"
+              >
+                <svg viewBox="0 -22 512 511" width="15">
+                  <path
+                    class="b"
+                    d="m512 233.820312-212.777344-233.320312v139.203125h-45.238281c-140.273437 0-253.984375 113.710937-253.984375 253.984375v73.769531l20.09375-22.019531c68.316406-74.851562 164.980469-117.5 266.324219-117.5h12.804687v139.203125zm0 0"
+                  />
+                </svg>
+                <span>شاور صديق</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

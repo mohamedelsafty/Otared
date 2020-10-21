@@ -1,0 +1,92 @@
+<div class="dialog" *ngIf="!deleteConfirm">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">حذف عميل</h2>
+      <button class="dialog__title-close" mat-dialog-close mat-icon-button>
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <p class="typo-body2 l-f text-info">
+      <span>رقم</span>
+      <span>:</span>
+      <span>52</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>اسم العميل</span>
+      <span>:</span>
+      <span>محمد عبدالرحمن</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>رقم الجوال</span>
+      <span>:</span>
+      <span>0502314789</span>
+    </p>
+    <div class="form-group">
+      <label>سبب الحذف</label>
+      <textarea
+        class="form-control"
+        rows="3"
+        placeholder="اكتب سبب الحذف"
+      ></textarea>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <button
+      (click)="delete()"
+      class="button button--radius button--sm button--danger"
+    >
+      حذف
+    </button>
+    <button
+      mat-dialog-close
+      class="button button--radius button--sm button--outline"
+    >
+      العودة
+    </button>
+  </div>
+</div>
+
+<!-- if accepted -->
+
+<div class="dialog" *ngIf="deleteConfirm">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">
+        حذف العميل
+      </h2>
+      <button class="dialog__title-close" mat-icon-button (click)="onNoClick()">
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <div class="content-center m-b-30">
+      <div class="">
+        <svg class="dialog-close__icon">
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </div>
+
+      <p class="typo-body2">
+        تم حذف العميل محمد بن عبد الرحمن
+      </p>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <button class="button button--radius button--sm button--secondary">
+      العملاء
+    </button>
+    <button
+      mat-dialog-close
+      class="button button--sm button--radius button--outline"
+    >
+      الصفحة الرئيسية
+    </button>
+  </div>
+</div>

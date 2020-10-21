@@ -1,0 +1,249 @@
+.offer-card {
+  background-color: $color-white;
+  min-height: 195px;
+  @include breakpoint(large) {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+  }
+  &.mortgage-card {
+    @include breakpoint(large) {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+  &--lg {
+    @include breakpoint(large) {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr 1fr 1fr 0.6fr;
+    }
+  }
+  > div {
+    padding: 10px 8px;
+    @include breakpoint(mid) {
+      padding: 20px;
+    }
+  }
+  &--round {
+    box-shadow: $card-shadow;
+    border-radius: 5px;
+    margin: 16px 0;
+  }
+}
+
+.offer-card__bank-program {
+  font-size: rem(16);
+  color: $color-new-secondary;
+  margin-top: 10px;
+  font-weight: bold;
+  @include breakpoint(mid) {
+    margin-top: 15px;
+    font-size: rem(16);
+  }
+}
+
+.offer-card__bank-name {
+  font-size: rem(16);
+  color: $color-grey-800;
+}
+
+.offer-card__grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @include breakpoint(mid) {
+    // flex-direction: column;
+  }
+  @include breakpoint(isMobile) {
+    &--center {
+      justify-content: center;
+    }
+  }
+}
+
+.offer-card__action {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  @include breakpoint(mid) {
+    margin-top: 0;
+    flex-direction: column;
+  }
+  .button {
+    margin: 0 2px;
+    min-width: auto;
+    padding: 2px 10px;
+    font-size: 12px;
+  }
+}
+
+.offer-card__bank {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  @include breakpoint(mid) {
+    flex-direction: column;
+    justify-content: right;
+    align-items: baseline;
+  }
+}
+
+.offer-card__logo {
+  max-width: 140px;
+  max-height: 100px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  @include breakpoint(mid) {
+    max-width: 170px;
+    margin-bottom: 10px;
+  }
+}
+.offer-card__bank-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.offer-card__bank-option {
+  margin-bottom: 10px;
+  &:hover {
+    text-decoration: none;
+    opacity: 0.8;
+  }
+  img,
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-#{$right}: 2px;
+    fill: #524c84;
+  }
+  span {
+    font-size: rem(12);
+    color: $color-move;
+  }
+}
+
+.offer-card__secondary {
+  background-color: #eee;
+  @include breakpoint(mid) {
+    // background-color: $color-move;
+    background-color: #eee;
+  }
+
+  .offer-card__currency--light {
+    color: $color-grey-900;
+  }
+
+  .offer-card__title--light {
+    color: $color-grey-900;
+  }
+
+  .offer-card__num--light {
+    color: $color-grey-900;
+  }
+
+  .offer-card__currency--light {
+    color: $color-grey-900;
+  }
+}
+
+.offer-card__info {
+  margin-bottom: 10px;
+  &.sm {
+    @include breakpoint(isMobile) {
+      width: 100%;
+    }
+  }
+  @include breakpoint(mid) {
+    margin-bottom: 20px;
+  }
+}
+
+.offer-card__title {
+  font-size: rem(14);
+  color: $color-text-dark;
+  display: flex;
+  align-items: baseline;
+  &--light {
+    color: $color-white;
+  }
+  span {
+    display: flex;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    align-items: center;
+    justify-content: center;
+    font-size: rem(11);
+    border: 1px solid $color-primary;
+    color: $color-primary;
+    font-size: 10px;
+    margin-#{$left}: 7px;
+  }
+}
+
+.offer-card__num {
+  font-size: rem(24);
+  font-weight: bold;
+  color: $color-move;
+  margin: 3px 0;
+  &--light {
+    color: $color-white;
+  }
+}
+
+.offer-card__currency {
+  font-size: rem(12);
+  margin-bottom: 5px;
+  color: $color-text-dark;
+  &--light {
+    color: $color-white;
+  }
+}
+
+.offer-form-header {
+  @include breakpoint(isMobile) {
+    flex-direction: column;
+  }
+}
+
+.offers__upload-label {
+  font-size: rem(13);
+  color: #1d1c2c;
+  display: block;
+  margin-bottom: 0;
+}
+.offers__upload-sub-title {
+  color: #77768e;
+}
+.offers__upload-button {
+  font-size: 13px;
+  background-color: #524c84;
+  border-radius: 4px;
+  padding: 0 0 3px 0;
+  height: 24px;
+  line-height: 1;
+  min-height: 10px;
+}
+.offers__upload-map {
+  position: relative;
+  .button {
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    padding: 0 10px 5px;
+  }
+}
+.offer__header {
+  @include breakpoint(small) {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+.offer__try-button {
+  @include breakpoint(small) {
+    margin-#{$start}: 15px;
+  }
+}

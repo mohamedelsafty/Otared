@@ -1,0 +1,103 @@
+.profile-menu{
+    position: relative;
+    .profile-menu__link{
+        color: #7B7B7B;
+        display: flex;
+        align-items: center;
+        padding: 0.5em 1em 1em;
+        font-size: 14px;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        @include transition();
+        &:hover{
+            color: $color-primary;
+            text-decoration: none;
+            .profile-menu__icon{
+                fill: $color-primary;
+            }
+        }
+    }
+    &:hover{
+        .profile-menu__list{
+            opacity: 1;
+            visibility: visible;
+            transform: translate(0, 15px);
+        }
+    }
+}
+
+.profile-menu__name{
+    color: #fff;
+    svg{
+        width: 24px;
+        height: 24px;
+        fill: #fff;
+    }
+   
+}
+.profile-menu__item{
+    + .profile-menu__item{
+        border-top: 1px solid #D0D0D1;
+    }
+}
+.profile-menu__list {
+    position: absolute;
+    top: 100%;
+    background-color: #e7e9ea;
+    min-width: 160px;
+    left: 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 1px 0px rgba(51, 51, 51, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0px, 20px);
+    @include transition();
+     &:after {
+        bottom: 100%;
+        left: 10%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(231, 233, 234, 0);
+        border-bottom-color: #e7e9ea;
+        border-width: 7px;
+        margin-left: 0;
+    }
+    &--lg{
+        min-width: 220px;
+    }
+}
+.profile-menu__icon{
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    fill: #7B7B7B;
+    transform: translate(0px, 3px);
+    @include transition();
+}
+
+.header--dark{
+    .profile-menu__name{
+        color: #7B7B7B;
+        svg{
+            fill: $color-primary;
+        }
+       
+    }
+}
+.profile-menu__logo{
+    width: 60px;
+    height: 60px;
+    flex: 0 0 60px;
+    border: 1px solid #e2e2e2;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+.profile-menu__cname{
+    color: $color-secondary;
+    font-size: 1.3em;
+}

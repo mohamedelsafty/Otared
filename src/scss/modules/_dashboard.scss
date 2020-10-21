@@ -1,0 +1,19 @@
+.dashboard {
+    text-align: center;
+}
+
+
+
+.dashboard__title {
+    font-size: 24px;
+    font-weight: 400;
+    color: $color-user;
+    opacity: 1;
+}
+.dashboard__num {
+    font-size: 30px;
+    font-weight: 700;
+    color: $color-gold;
+    margin-bottom: 34px;
+    opacity: 1;
+}

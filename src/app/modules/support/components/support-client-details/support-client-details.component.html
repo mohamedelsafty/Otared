@@ -1,0 +1,367 @@
+<breadcrumb crumbText="العملاء"></breadcrumb>
+<section>
+    <div class="">
+        <div class="l-f-between">
+            <div class="page-header">
+                <h2 class="page-header__title">
+                    محمد بن عبد الرحمن
+                </h2>
+            </div>
+            <div>
+                <button class="button button--radius button--outline button--sm">
+                    طباعه
+                </button>
+                <button class="button button--radius button--sm button--secondary">
+                    تعديل البيانات
+                </button>
+                <button (click)="deleteDialog()"
+                    class="button button--radius button--danger button--sm button--secondary ">
+                    حذف
+                </button>
+                <button (click)="blockDialog()"
+                    class="button button--radius button--danger button--sm button--secondary">
+                    حظر
+                </button>
+                <mat-slide-toggle class="toggle__right"></mat-slide-toggle>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="main-card main-card--vertical p-0">
+                    <div class="dialog-content">
+                        <div class="dialog__title">
+                            <h2 class="dialog__title-text m-0">
+                                للتواصل مع العميل
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="dialog-actions">
+                        <p class="typo-body2 l-f text-info">
+                            <span>رقم</span>
+                            <span>:</span>
+                            <span>52</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>اسم العميل</span>
+                            <span>:</span>
+                            <span>عبدالرحمن محمد</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>رقم الجوال</span>
+                            <span>:</span>
+                            <span>0502314789</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>حاله الطلب</span>
+                            <span>:</span>
+                            <span>تحت الاجراء</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>البريد الالكتروني</span>
+                            <span>:</span>
+                            <span><a href="#">am2015@mail.com</a></span>
+                        </p>
+                    </div>
+                    <div class="dialog-actions">
+                        <button class="button button--radius button--sm button--outline">
+                            التفاصيل
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="main-card main-card--vertical p-0">
+                    <div class="dialog-content">
+                        <div class="dialog__title dialog__title--green">
+                            <h2 class="dialog__title-text m-0">
+                                برنامج التمويل
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="dialog-actions">
+                        <p class="typo-body2 l-f text-info">
+                            <span>البنك الممول </span>
+                            <span>:</span>
+                            <span>مصرف الراجحي</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>برنامج التمويل</span>
+                            <span>:</span>
+                            <span>برنامج ايجاري</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>قيمه التمويل</span>
+                            <span>:</span>
+                            <span>1,532,584 ريال سعودي</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>عدد الاقساط</span>
+                            <span>:</span>
+                            <span>5.2 سنه</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>القسط الشهري</span>
+                            <span>:</span>
+                            <span>27,500 ريال سعودي</span>
+                        </p>
+                    </div>
+                    <div class="dialog-actions">
+                        <button class="button button--radius button--sm button--outline">
+                            التفاصيل
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="main-card main-card--vertical p-0">
+                    <div class="dialog-content">
+                        <div class="dialog__title dialog__title--bule">
+                            <h2 class="dialog__title-text m-0">
+                                طلب الحجز الخاص بالعميل
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="dialog-actions">
+                        <p class="typo-body2 l-f text-info">
+                            <span>رقم طلب الحجز</span>
+                            <span>:</span>
+                            <span>742</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>اسم مطور عقاري</span>
+                            <span>:</span>
+                            <span>امجاد عقاريه</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>اسم المطور</span>
+                            <span>:</span>
+                            <span>محمد احمد منصور</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>رقم جوال المطور</span>
+                            <span>:</span>
+                            <span>05022222222</span>
+                        </p>
+                        <p class="typo-body2 l-f text-info">
+                            <span>حالة طلب الحجز</span>
+                            <span>:</span>
+                            <span>محجوز حتي 22-3</span>
+                        </p>
+                    </div>
+                    <div class="dialog-actions">
+                        <button class="button button--radius button--sm button--blue">
+                            تعديل حاله الطلب
+                        </button>
+                        <button class="button button--radius button--sm button--outline">
+                            التفاصيل
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4 class="data__details">البيانات بالتفصيل</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="page-title__subtitle">المعلومات الشخصية</h4>
+                <div class="data__details--info">
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>تاريخ الميلاد</span>
+                        <span>:</span>
+                        <span>محرم 1390</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>شراء اول عقار</span>
+                        <span>:</span>
+                        <span>المرحله</span>
+                    </p>
+                </div>
+                <h4 class="page-title__subtitle">المعلومات الماليه</h4>
+                <div class="data__details--info">
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>قطاع العمل</span>
+                        <span>:</span>
+                        <span>البترول</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>تاريخ التعين</span>
+                        <span>:</span>
+                        <span>محرم 1430</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>الراتب الاجمالي</span>
+                        <span>:</span>
+                        <span>3000 ريال سعودي</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>حالة الدعم</span>
+                        <span>:</span>
+                        <span>لا يوجد دعم</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>بنك استلام الراتب</span>
+                        <span>:</span>
+                        <span>بنك الرياض</span>
+                    </p>
+                </div>
+                <h4 class="page-title__subtitle">تفاصيل الراتب</h4>
+                <div class="data__details--info">
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>الراتب الأساسي (بدون بدلات)</span>
+                        <span>:</span>
+                        <span>2000 ريال سعودي</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>بدل سكن</span>
+                        <span>:</span>
+                        <span>200 ريال سعودي</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>بدل نقل</span>
+                        <span>:</span>
+                        <span>لا يوجد</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>بدلات اخري</span>
+                        <span>:</span>
+                        <span>200 ريال سعودي</span>
+                    </p>
+                </div>
+                <h4 class="page-title__subtitle">الالتزامات الشهريه</h4>
+                <div class="data__details--info">
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>قيمة الالتزام الشهري</span>
+                        <span>:</span>
+                        <span>لا يوجد إلتزام شهري</span>
+                    </p>
+                </div>
+                <h4 class="page-title__subtitle">التعثرات الماليه</h4>
+                <div class="data__details--info">
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>إجمالي قيمة التعثر</span>
+                        <span>:</span>
+                        <span>لا يوجد تعثر مالي</span>
+                    </p>
+                </div>
+                <h4 class="page-title__subtitle">الدخل الاضافي</h4>
+                <div class="data__details--info">
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>جهة العمل</span>
+                        <span>:</span>
+                        <span>لا يوجد دخل إضافي</span>
+                    </p>
+                </div>
+                <h4 class="page-title__subtitle">البيانات الاخري</h4>
+                <div class="data__details--info">
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>هل معك متضامن</span>
+                        <span>:</span>
+                        <span>لا ليس معي متضامن</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="page-title__subtitle">بيانات العقار</h4>
+                <div class="data__details--info">
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>اسم المشروع</span>
+                        <span>:</span>
+                        <span>امجاد الياسمين</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>رقم الوحده</span>
+                        <span>:</span>
+                        <span>5700</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>اسم النموزج</span>
+                        <span>:</span>
+                        <span>نموزج A</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>السعر</span>
+                        <span>:</span>
+                        <span>2,000,000 ريال سعودي</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>قيمه الدفعه الاولي</span>
+                        <span>:</span>
+                        <span>1,000,000 ريال سعودي</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>المدينه</span>
+                        <span>:</span>
+                        <span>الرياض</span>
+                    </p>
+                    <p class="typo-body2 l-f text-info text-info--desc">
+                        <span>الحي</span>
+                        <span>:</span>
+                        <span>الياسمين</span>
+                    </p>
+                </div>
+                <div class="map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d905.6242038529517!2d46.6401398!3d24.778436!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2ee3051618dbbf%3A0xc4f510502643fac6!2z2KjYsdisINin2YTZhtiu2YTYqQ!5e0!3m2!1sar!2ssa!4v1533116250447"
+                        width="100%" height="300" frameborder="0" style="border: 3px solid #fff"
+                        allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4 class="data__details">الطلبات السابقه</h4>
+        </div>
+        <div class="main-table">
+            <table mat-table [dataSource]="dataSource">
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef>رقم الطلب</th>
+                    <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>نوع الطلب</th>
+                    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef>اسم المشروع</th>
+                    <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef>حاله الطلب</th>
+                    <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+                </ng-container>
+
+                <!-- unit Column -->
+                <ng-container matColumnDef="unit">
+                    <th mat-header-cell *matHeaderCellDef>انتهاء الطلب</th>
+                    <td mat-cell *matCellDef="let element">{{ element.unit }}</td>
+                </ng-container>
+
+                <!-- action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <div>
+                            <a href="#" class="main-table__link">تغير الحاله</a>
+                            <button mat-icon-button>
+                                <svg class="main-table__icon main-table__icon--primary">
+                                    <use xlink:href="/assets/image/svg-icons.svg#icon-visibility"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+    </div>
+</section>
+<router-outlet></router-outlet>

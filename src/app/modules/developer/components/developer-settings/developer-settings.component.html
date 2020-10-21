@@ -1,0 +1,30 @@
+<section>
+  <div class="page-header">
+    <h2 class="page-header__title">
+      الاعدادت
+    </h2>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="l-f-between m-b-10">
+        <p class="typo-body2">استقبال التنبيهات عبر ال SMS</p>
+        <mat-slide-toggle
+          name="receive_sms"
+          #receive_sms="ngModel"
+          [(ngModel)]="settings.receive_sms"
+          (change)="changeSettings()"
+        ></mat-slide-toggle>
+      </div>
+      <div class="l-f-between">
+        <p class="typo-body2">استقبال التنبيهات عبر البريد الالكتروني</p>
+        <mat-slide-toggle
+          name="receive_email"
+          #receive_email="ngModel"
+          [(ngModel)]="settings.receive_email"
+          (change)="changeSettings()"
+          [disabled]="true"
+        ></mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+</section>

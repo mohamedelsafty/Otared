@@ -1,0 +1,31 @@
+.suggestions {
+    padding-bottom: 30px;
+}
+
+.suggestion__content {
+    margin-bottom: 35px;
+}
+
+.suggestion__titel {
+    font-size: 30px;
+    font-weight: 700;
+    color: $color-default;
+    opacity: 1;
+}
+
+.suggestion__desc {
+    font-size: 11px;
+    color: $color-default;
+    opacity: 1;
+}
+
+.form-control--height {
+    min-height : 250px;
+}
+
+.suggestion__type {
+    font-size: 14px;
+    font-weight: 400;
+    color: $color-text-dark;
+    opacity: 1;
+}

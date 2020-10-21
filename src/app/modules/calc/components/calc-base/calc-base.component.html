@@ -1,0 +1,20 @@
+<!-- <main-header [isFixed]="true"></main-header> -->
+<app-landing-header [isPersonalHeader]="true"></app-landing-header>
+
+<div class="container-fluid main-container">
+  <div class="row">
+    <steps [steps]="calcFlowService" [menuList]="sideMenu"></steps>
+    <div class="col router-container-bg">
+      <div class="router-container router-container--steps">
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
+        <footer class="footer">
+          <p class="footer__text">
+            جميع الحقوق محفوظة لشركة عطارد للحلول السكنية 2020
+          </p>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>

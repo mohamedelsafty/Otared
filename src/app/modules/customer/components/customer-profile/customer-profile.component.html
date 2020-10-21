@@ -1,0 +1,580 @@
+<section class="custmer-profile">
+  <div class="container">
+    <div class="l-f-between">
+      <div class="page-header">
+        <h2 class="page-header__title">
+          حسابي الشخصي
+        </h2>
+      </div>
+      <div class="custmer-profile__button" *ngIf="!isLoading && !isEdit">
+        <button
+          (click)="isEdit = true"
+          class="button button--radius button--sm button--secondary"
+        >
+          تعديل البيانات
+        </button>
+        <button
+          *ngIf="!isLoading && !isEdit"
+          class="button button--outline button--radius button--sm"
+          (click)="openDialog()"
+        >
+          تغير كلمه السر
+        </button>
+        <!-- <button
+          class="button button--radius button--sm button--cancel button--danger button--secondary"
+          (click)="authService.logOut()"
+        >
+          تسجل خروج
+        </button> -->
+      </div>
+    </div>
+    <div *ngIf="!isLoading && !isEdit" class="custmer-profile__data m-b-50">
+      <img
+        class="u-logo"
+        [src]="user.personal_picture_path"
+        [alt]="user.name"
+      />
+      <div class="customer-actions">
+        <p class="typo-body2 l-f text-info text-info--desc">
+          <span>الاسم بالكامل</span>
+          <span>:</span>
+          <span>{{ user.name }}</span>
+        </p>
+        <p class="typo-body2 l-f text-info text-info--desc">
+          <span>رقم الجوال</span>
+          <span>:</span>
+          <span> {{ user.phone }}</span>
+        </p>
+        <p class="typo-body2 l-f text-info text-info--desc">
+          <span>البريد الالكتروني</span>
+          <span>:</span>
+          <span>{{ user.email ? user.email : "------" }}</span>
+        </p>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-lg-4">
+        <mat-accordion class="accordion">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="accordion__title">
+                  المعلومات الشخصية
+                  <svg class="accordion__status">
+                    <use
+                      xlink:href="/assets/image/svg-icons.svg#icon-check"
+                    ></use>
+                  </svg>
+                </h2>
+              </mat-panel-title>
+              <mat-panel-description class="accordion__hint">
+                <span>تعديل</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="accordion__content">
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>الاسم بالكامل</mat-label>
+                  <input
+                    matInput
+                    placeholder="Placeholder"
+                    value="عبدالله بن محمد الراشد"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>رقم الجوال</mat-label>
+                  <input
+                    matInput
+                    placeholder="Placeholder"
+                    value="+996 00 000 0000"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>البريد الالكتروني</mat-label>
+                  <input
+                    matInput
+                    placeholder="Placeholder"
+                    value="a.mohammad@mail.com"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="accordion">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="accordion__title">
+                  المعلومات المالية
+                  <svg class="accordion__status">
+                    <use
+                      xlink:href="/assets/image/svg-icons.svg#icon-check"
+                    ></use>
+                  </svg>
+                </h2>
+              </mat-panel-title>
+              <mat-panel-description class="accordion__hint">
+                <span>تعديل</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="accordion__content">
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>تاريخ الميلاد</mat-label>
+                  <input matInput placeholder="Placeholder" value="محرم 1390" />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>قطاع العمل</mat-label>
+                  <input matInput placeholder="Placeholder" value="البترول" />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>تاريخ التعيين</mat-label>
+                  <input matInput placeholder="Placeholder" value="محرم 1430" />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>الراتب الإجمالي</mat-label>
+                  <input matInput placeholder="Placeholder" value="3000" />
+                  <span class="input-hint" matSuffix>ريال سعودي </span>
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>هل لديك دعم؟</mat-label>
+                  <input
+                    matInput
+                    placeholder="Placeholder"
+                    value="لا يوجد دعم"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>البنك الذي يتم استلام الراتب عليه</mat-label>
+                  <input
+                    matInput
+                    placeholder="Placeholder"
+                    value="بنك الرياض"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="accordion">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="accordion__title">
+                  تفاصيل الراتب
+                  <svg class="accordion__status accordion__status--danger">
+                    <use
+                      xlink:href="/assets/image/svg-icons.svg#icon-warning"
+                    ></use>
+                  </svg>
+                </h2>
+              </mat-panel-title>
+              <mat-panel-description class="accordion__hint">
+                <span>تعديل</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="accordion__content">
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>الراتب الأساسي (بدون بدلات)</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                  <span class="input-hint" matSuffix>ريال سعودي </span>
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>بدل سكن</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                  <span class="input-hint" matSuffix>ريال سعودي </span>
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>بدل نقل</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>بدلات اخري</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                  <span class="input-hint" matSuffix>ريال سعودي </span>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="accordion">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="accordion__title">
+                  معلومات العقار
+                  <svg class="accordion__status accordion__status--danger">
+                    <use
+                      xlink:href="/assets/image/svg-icons.svg#icon-warning"
+                    ></use>
+                  </svg>
+                </h2>
+              </mat-panel-title>
+              <mat-panel-description class="accordion__hint">
+                <span>تعديل</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="accordion__content">
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>في أي مرحلة انت</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>هل تم تحديد العقار</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>نوع العقار الذي حصلته</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                </mat-form-field>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>قيمة العقار</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                  <span class="input-hint" matSuffix>ريال سعودي </span>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="accordion__text">
+                    <mat-form-field>
+                      <mat-label>المحافظة</mat-label>
+                      <input matInput placeholder="Placeholder" value=" " />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="accordion__text">
+                    <mat-form-field>
+                      <mat-label>المدينة</mat-label>
+                      <input matInput placeholder="Placeholder" value=" " />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="accordion__text">
+                    <mat-form-field>
+                      <mat-label>الحي</mat-label>
+                      <input matInput placeholder="Placeholder" value=" " />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="accordion__text">
+                    <mat-form-field>
+                      <mat-label>حالة العقار</mat-label>
+                      <input matInput placeholder="Placeholder" value=" " />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="accordion__text">
+                    <mat-form-field>
+                      <mat-label>عمر العقار</mat-label>
+                      <input matInput placeholder="Placeholder" value=" " />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>قيمة الدفعة الأولي</mat-label>
+                  <input matInput placeholder="Placeholder" value=" " />
+                  <span class="input-hint" matSuffix>ريال سعودي </span>
+                </mat-form-field>
+              </div>
+              <div>
+                <div>
+                  <mat-checkbox>تم ترميم العقار من قبل</mat-checkbox>
+                </div>
+                <div>
+                  <mat-checkbox>يحتوي العقار علي محلات تجارية</mat-checkbox>
+                </div>
+                <div>
+                  <mat-checkbox
+                    >عدد الشقق داخل العقار أكثر من أربع شقق</mat-checkbox
+                  >
+                </div>
+                <div>
+                  <mat-checkbox
+                    >رخصة البناء من نوع بدل فاقد أو ترميم</mat-checkbox
+                  >
+                </div>
+                <div>
+                  <mat-checkbox>عمارة تجارية</mat-checkbox>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="accordion">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="accordion__title">
+                  الالتزامات الشهرية
+                  <svg class="accordion__status accordion__status--danger">
+                    <use
+                      xlink:href="/assets/image/svg-icons.svg#icon-warning"
+                    ></use>
+                  </svg>
+                </h2>
+              </mat-panel-title>
+              <mat-panel-description class="accordion__hint">
+                <span>إضافة</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="accordion__content">
+              وجود إلتزام شهري قد يغيق التمويل الخاص بك و لكن عطارد سوف تجد لك
+              الحلول المناسبة إن وجد التزام شهري
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="accordion">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="accordion__title">
+                  التعثرات المالية
+                  <svg class="accordion__status accordion__status--danger">
+                    <use
+                      xlink:href="/assets/image/svg-icons.svg#icon-warning"
+                    ></use>
+                  </svg>
+                </h2>
+              </mat-panel-title>
+              <mat-panel-description class="accordion__hint">
+                <span>إضافة</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="accordion__content">
+              يرجي مشاركة أي تعثرات مالية طرأت عليك من قبل أو حاليا
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="accordion">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="accordion__title">
+                  الدخل الإضافي
+                  <svg class="accordion__status accordion__status--danger">
+                    <use
+                      xlink:href="/assets/image/svg-icons.svg#icon-warning"
+                    ></use>
+                  </svg>
+                </h2>
+              </mat-panel-title>
+              <mat-panel-description class="accordion__hint">
+                <span>إضافة</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="accordion__content">
+              إضافة أي دخل اخر إذا لديك يمكننا عرض أفضل الحلول التمويلية المتاحة
+              لك
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="accordion">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2 class="accordion__title">
+                  بيانات اخري
+                  <svg class="accordion__status accordion__status--danger">
+                    <use
+                      xlink:href="/assets/image/svg-icons.svg#icon-warning"
+                    ></use>
+                  </svg>
+                </h2>
+              </mat-panel-title>
+              <mat-panel-description class="accordion__hint">
+                <span>تعديل</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="accordion__content">
+              <div class="accordion__text">
+                <mat-form-field>
+                  <mat-label>هل معك متضامن</mat-label>
+                  <textarea matInput value=" "></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div> -->
+  </div>
+  <div class="container" *ngIf="isEdit">
+    <form #form="ngForm">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">الأسم بالكامل </label>
+            <input
+              #website="ngModel"
+              [(ngModel)]="userForm.client_name"
+              name="name"
+              type="text"
+              class="form-control"
+              id=""
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for=""
+              >البريد الالكتروني
+              <span class="form-group__optional">اختياري</span>
+            </label>
+            <input
+              type="text"
+              #email="ngModel"
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$"
+              [(ngModel)]="userForm.email"
+              name="emailAddress"
+              class="form-control"
+              id=""
+              placeholder="yourmail@domain.com"
+            />
+            <div
+              *ngIf="email.invalid && (email.dirty || email.touched)"
+              class="validation"
+            >
+              <p class="validation__title" *ngIf="email.errors?.pattern">
+                ادخل بريد الكتروني صحيح
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="">
+              رقم الهوية
+              <span class="form-group__optional">اختياري</span>
+            </label>
+            <input
+              type="text"
+              #id_number="ngModel"
+              pattern="[0-9]{10}$"
+              [(ngModel)]="userForm.id_number"
+              name="id_number"
+              class="form-control"
+              id=""
+              placeholder="2290792122"
+            />
+            <div
+              *ngIf="
+                id_number.invalid && (id_number.dirty || id_number.touched)
+              "
+              class="validation"
+            >
+              <p class="validation__title" *ngIf="id_number.errors?.pattern">
+                ادخل رقم الهوية صحيح
+              </p>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+                <label
+                  >الشعار
+                  <span class="form-group__optional">اختياري</span>
+                </label>
+                <div class="but__style">
+                  <button
+                    class="button button--blue button--radius button--sm button--upload"
+                    (click)="fileInput.click()"
+                  >
+                    تحميل
+                    <input
+                      style="display: none;"
+                      type="file"
+                      (change)="onFileChanged($event.target.files)"
+                      #fileInput
+                    />
+                  </button>
+                  <label class="choose__file" *ngIf="!fileName"
+                    >اضغط لتحميل شعار المشروع</label
+                  >
+                  <label class="choose__file" *ngIf="fileName">{{
+                    fileName
+                  }}</label>
+                </div>
+              </div> -->
+        </div>
+      </div>
+
+      <div class="form-group__actions">
+        <button
+          (click)="saveData()"
+          [disabled]="isLoading || !form.valid"
+          class="button button--radius button--secondary button--md"
+        >
+          <span> حفظ</span>
+        </button>
+        <button
+          *ngIf="isEdit"
+          [disabled]="isLoading"
+          (click)="isEdit = false"
+          class="button button--radius button--outline button--md"
+        >
+          الرجوع
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="loading" *ngIf="isLoading && !isEdit">
+    <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+  </div>
+</section>

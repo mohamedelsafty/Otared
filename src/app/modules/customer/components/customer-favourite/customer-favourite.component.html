@@ -1,0 +1,84 @@
+<section>
+  <div class="page-header">
+    <h2 class="page-header__title">العقارات المفضلة</h2>
+  </div>
+  <div class="row" *ngIf="!isLoading && units.length">
+    <div class="col-md-4" *ngFor="let instance of units">
+      <div class="home-card home-card--vertical-price" *ngIf="instance">
+        <a
+          [routerLink]="['/instance/' + instance.id]"
+          routerLinkActive="router-link-active"
+        >
+          <div class="home-card__img-container">
+            <img [src]="instance.instance_image_url" class="home-card__img" />
+          </div>
+        </a>
+        <div class="home-card__icons">
+          <button mat-icon-button (click)="share(instance)">
+            <svg class="home-card__icon home-card__icon--white">
+              <use xlink:href="/assets/image/svg-icons.svg#icon-share"></use>
+            </svg>
+          </button>
+
+          <button mat-icon-button (click)="removeFavourite(instance.id)">
+            <svg class="home-card__icon main-card__icon--gold">
+              <use xlink:href="/assets/image/svg-icons.svg#icon-star"></use>
+            </svg>
+          </button>
+        </div>
+        <div class="home-card__content">
+          <div class="home-card__info">
+            <a
+              [routerLink]="['/instance/' + instance.id]"
+              routerLinkActive="router-link-active"
+            >
+              <p class="typo-body2 l-f">
+                <span class="typo--bold typo--black">{{
+                  instance.instance_name
+                }}</span>
+              </p>
+            </a>
+            <p class="typo-body2 l-f text-info">
+              <span> المشروع</span>
+              <span>:</span>
+              <span>{{ instance.project_name }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>المطور</span>
+              <span>:</span>
+              <span> {{ instance.developer_name }} </span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span> النوع</span>
+              <span>:</span>
+              <span>{{ instance.instance_type_name }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span> الوحدات المتاحة</span>
+              <span>:</span>
+              <span>{{ instance.count_available_units }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>فئة النموذج</span>
+              <span>:</span>
+              <span>{{ instance.property_type_name }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>السعر</span>
+              <span>:</span>
+              <span>{{ instance.price | number }} ريال سعودي</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="loading" *ngIf="isLoading">
+    <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+  </div>
+  <div *ngIf="!isLoading && !units.length">
+    <empty-state></empty-state>
+  </div>
+</section>
+
+<a #shareLink class="hide"></a>

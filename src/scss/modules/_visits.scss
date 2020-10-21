@@ -1,0 +1,28 @@
+.vistis-details {
+  display: flex;
+  justify-content: space-between;
+  @include breakpoint(isMobile) {
+    display: unset;
+    margin-top: 10px;
+  }
+}
+
+.vistis-details__requests {
+  font-size: 16px;
+  font-weight: 400;
+  color: $color-white;
+  background-color: $color-gold;
+  padding: 6px 15px;
+  width: 38%;
+  margin: 10px 0px 32px;
+  opacity: 1;
+  cursor: pointer;
+  @include breakpoint(isMobile) {
+    font-size: 15px;
+    width: 100%;
+  }
+}
+
+[dir="rtl"] .search-input {
+  height: 40px;
+}

@@ -1,0 +1,113 @@
+<form #Form="ngForm">
+  <div class="row l-f-between">
+    <div class="col-lg-7">
+      <div class="page-header">
+        <h2
+          class="page-header__title page-header__title--sm page-header__title--primary"
+        >
+          هل لديك دعم؟
+        </h2>
+      </div>
+      <div class="m-b-40">
+        <div class="custom-radio">
+          <input
+            name="month"
+            type="radio"
+            id="yes"
+            #yes
+            [value]="true"
+            name="option"
+            [(ngModel)]="fundSupportData.have_fund_support"
+          />
+          <label class="" for="yes">
+            نعم، لدي دعم
+          </label>
+        </div>
+        <div
+          class="form-group"
+          *ngIf="fundSupportData.have_fund_support == true"
+        >
+          <label class="custom-label">كم عدد أفراد الأسرة</label>
+          <div class="row">
+            <div class="col-md-3">
+              <input
+                class="form-control form-control--light form-control--radius"
+                placeholder="0"
+                type="text"
+                inputNumber
+                [ngModel]="fundSupportData.family_numbers"
+                (ngModelChange)="
+                  fundSupportData.family_numbers = convetToNumber($event)
+                "
+                name="family_numbers"
+                maxlength="1"
+                #family_numbers="ngModel"
+                required
+                min="0"
+              />
+            </div>
+          </div>
+          <p
+            class="hint-required"
+            *ngIf="family_numbers.invalid && family_numbers.touched"
+          >
+            هذا الحقل مطلوب
+          </p>
+          <p
+            class="hint-required"
+            *ngIf="family_numbers.touched && 0 > fundSupportData.family_numbers"
+          >
+            ادخل عدد أفراد الأسرة اعلى من 0
+          </p>
+        </div>
+        <div class="custom-radio">
+          <input
+            name="month"
+            type="radio"
+            id="no"
+            #no
+            [value]="false"
+            name="option"
+            [(ngModel)]="fundSupportData.have_fund_support"
+          />
+          <label class="" for="no">
+            لا، ليس لدي دعم
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-lg-3">
+          <div class="card-box card-box--secondary">
+            <h3 class="card-box__title">معلومة تهمك</h3>
+            <p class="card-box__text">
+              الأبناء تحت سن 21 فقط المندرجين تحت قائمة الدعم
+            </p>
+          </div>
+          <div class="card-box card-box--primary">
+            <h3 class="card-box__title">تأكد من دعم الصندوق</h3>
+            <p class="card-box__text">
+              يمكنك الضغط هنا لتتأكد هل لديك دعم أم لا قبل الاختيار
+            </p>
+            <button class="button button--radius button--green button--full-width">
+              هل لدي دعم؟
+            </button>
+          </div>
+        </div> -->
+  <div class="u-mt-30">
+    <button
+      type="button"
+      [routerLink]="['/calc/personal-information']"
+      class="button button--radius button--outline button--sm-height"
+    >
+      رجوع
+    </button>
+    <button
+      [disabled]="!Form.valid"
+      (click)="goToNext(Form)"
+      class="button button--radius button--primary button--sm-height"
+    >
+      التالي
+    </button>
+  </div>
+</form>

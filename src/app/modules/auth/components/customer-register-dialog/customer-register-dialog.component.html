@@ -1,0 +1,41 @@
+<div class="dialog">
+  <div class="dialog__title">
+    <span>تفعيل الحساب</span>
+    <button class="dialog__close" mat-icon-button (click)="onNoClick()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+  <form #Form="ngForm" class="dialog__content">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>رقم التفعيل</label>
+          <input
+            type="number"
+            class="form-control form-control--full-width"
+            placeholder=""
+            name="token"
+            #token="ngModel"
+            [(ngModel)]="user.token"
+            required
+          />
+        </div>
+      </div>
+    </div>
+    <div class="dialog__actions">
+      <button
+        type="submit"
+        [disabled]="!Form.valid"
+        (click)="activateUser()"
+        class="button button--radius button--secondary"
+      >
+        <span>تفعيل</span>
+        <div class="loading" *ngIf="isLoading">
+          <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

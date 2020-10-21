@@ -1,0 +1,72 @@
+<section class="suggestions">
+  <div class="">
+    <div class="page-header">
+      <h2 class="page-header__title">الاقتراحات</h2>
+      <p class="page-header__">
+        يسعدنا دائما سماع اقتراحاتكم و نعمل جاهدين علي خدمتكم بأفضل طريقة ممكنة
+        في عطارد
+      </p>
+    </div>
+    <form #suggestionForm="ngForm">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="formGroupExampleInput">عنوان الاقتراح</label>
+          <input
+            type="text"
+            class="form-control form-control--full-width"
+            placeholder="اكتب عنوان الاقتراح"
+            name="title"
+            #title="ngModel"
+            [(ngModel)]="suggestion.title"
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+          <label>نوع الاقتراح</label>
+          <select
+            class="form-control"
+            name="type"
+            #type="ngModel"
+            [(ngModel)]="suggestion.type"
+            required
+          >
+            <option hidden>اختر نوع الاقتراح</option>
+            <option [ngValue]="1">إستفسار </option>
+            <option [ngValue]="2">شكوى </option>
+            <option [ngValue]="3">إقتراح </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4 mb-3">
+          <div class="profile__flex">
+            <label class="suggestion__type">تفاصيل الاقتراح</label>
+          </div>
+          <textarea
+            class="form-control form-control--height"
+            placeholder="اكتب تفاصيل الاقتراح"
+            name="details"
+            #details="ngModel"
+            [(ngModel)]="suggestion.details"
+            required
+          ></textarea>
+        </div>
+      </div>
+    </form>
+    <div class="register__link">
+      <button
+        type="submit"
+        [disabled]="!suggestionForm.valid"
+        (click)="postSuggestion()"
+        class="button button--md button--radius button--secondary"
+      >
+        <span>ارسل اقتراحك</span>
+        <div class="loading" *ngIf="isLoading">
+          <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>

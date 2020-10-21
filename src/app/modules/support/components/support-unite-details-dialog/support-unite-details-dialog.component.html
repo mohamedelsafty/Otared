@@ -1,0 +1,85 @@
+<div class="dialog">
+  <div class="dialog__title">
+    <span>تفاصيل الوحدة</span>
+    <button class="dialog__close" mat-icon-button (click)="onNoClick()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+  <div class="dialog__content">
+    <div class="m-b-30">
+      <p class="typo-body2 l-f text-info">
+        <span>رقم الوحدة</span><span>:</span><span>538</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>حالة الوحدة</span><span>:</span><span>محجوزة</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>اسم العميل</span><span>:</span><span>حمد بن فيصل</span>
+      </p>
+      <p class="typo-body2 l-f text-info">
+        <span>انتهاء الحجز</span><span>:</span><span>26/02/2020</span>
+      </p>
+    </div>
+    <h3 class="typo-body2 typo--bold m-0">الطلبات التي تمت علي الوحدة</h3>
+    <div class="main-table m-0 main-table--no-border">
+      <table mat-table [dataSource]="dataSource">
+        <!-- id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>رقم الطلب</th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+
+        <!-- type Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>نوع الطلب</th>
+          <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+        </ng-container>
+
+        <!-- state Column -->
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef>حالة الطلب</th>
+          <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+        </ng-container>
+
+        <!-- endDate Column -->
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef>تاريخ انتهاء الطلب</th>
+          <td mat-cell *matCellDef="let element">{{ element.endDate }}</td>
+        </ng-container>
+
+        <!-- endDate Column -->
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef>تاريخ انتهاء الطلب</th>
+          <td mat-cell *matCellDef="let element">{{ element.client }}</td>
+        </ng-container>
+
+        <!-- endDate Column -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef>رقم الجوال</th>
+          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+        </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <div>
+              <button mat-icon-button>
+                <svg class="main-table__icon main-table__icon--blue">
+                  <use
+                    xlink:href="/assets/image/svg-icons.svg#icon-visibility"
+                  ></use>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>

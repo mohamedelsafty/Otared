@@ -1,0 +1,142 @@
+<section>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="page-header__title-container">
+        <h2 class="page-header__title">
+          التنبيهات
+        </h2>
+        <p class="page-header__caption">
+          يمكنك رؤية التنبيهات التي أرسلت لك لاخر التطورات
+        </p>
+      </div>
+    </div>
+
+    <!-- <div class="col-md-3">
+      <div class="form-group">
+        <input class="form-control search-input" placeholder="ابحث في التنبيهات" />
+      </div>
+    </div> -->
+    <!-- <div class="col-lg-3">
+      <div class="main-button-group l-f-end">
+        <button class="button button--blue m-0">
+          الكل
+        </button>
+        <button class="button button--white m-0">
+          المفتوحة
+        </button>
+        <button class="button button--white m-0">
+          الملغاة
+        </button>
+      </div>
+    </div> -->
+  </div>
+  <div class="notifications-card-container">
+    <h4 class="typo-body2">احدث التنبيهات</h4>
+    <div *ngIf="!notificationsService.isLoading" >
+        <div
+          class="notifications-card notifications-card--border"
+          *ngFor="let notification of notificationsService.notifications"
+        >
+          <div>
+            <h3
+              class="notifications-card__title"
+              [ngClass]="
+                notification.url_reference_type == 1
+                  ? 'notifications-card__title--secondary'
+                  : 'notifications-card__title--gold'
+              "
+            >
+              {{ notification.title }}
+            </h3>
+            <p class="notifications-card__text">
+              {{ notification.message }}
+            </p>
+          </div>
+          <div class="content-left">
+            <p class="notifications-card__date">{{ notification.notify_date }}</p>
+            <p
+              class="notifications-card__text notifications-card__text--btn notifications-card__text--primary"
+              (click)="notificationsService.details(notification)"
+            >
+              التفاصيل
+            </p>
+          </div>
+        </div>
+
+    </div>
+    <!-- <div class="notifications-card notifications-card--border">
+      <div>
+        <h3 class="notifications-card__title">طلب تمويل</h3>
+        <p class="notifications-card__text">
+          الشرق للتطوير وافق علي طلب الزيارة لنموذج في مشروع أمجاد الياسمين (
+          بيع علي علي الخارطة )
+        </p>
+      </div>
+      <div class="content-left">
+        <p class="notifications-card__date">03-03-2020 1:42 PM</p>
+        <p class="notifications-card__text notifications-card__text--primary">
+          التفاصيل
+        </p>
+      </div>
+    </div>
+    <div class="notifications-card notifications-card--border">
+      <div>
+        <h3 class="notifications-card__title">طلب عقار</h3>
+        <p class="notifications-card__text">
+          الشرق للتطوير وافق علي طلب الزيارة لنموذج في مشروع أمجاد الياسمين (
+          بيع علي علي الخارطة )
+        </p>
+      </div>
+      <div class="content-left">
+        <p class="notifications-card__date">03-03-2020 1:42 PM</p>
+        <p class="notifications-card__text notifications-card__text--primary">
+          التفاصيل
+        </p>
+      </div>
+    </div> -->
+  </div>
+  <div *ngIf="!notificationsService.isLoading">
+    <pagination
+      [page]="notificationsService.page"
+      [total]="notificationsService.total"
+      [perPage]="notificationsService.perPage"
+      (change)="notificationsService.findAll($event)"
+    ></pagination>
+  </div>
+  <div class="loading" *ngIf="notificationsService.isLoading">
+    <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+  </div>
+  <!-- <div class="notifications-card-container">
+    <h4 class="typo-body2">تنبيهات سابقة</h4>
+    <div class="notifications-card">
+      <div>
+        <h3 class="notifications-card__title">طلب زيارة عقار</h3>
+        <p class="notifications-card__text">
+          الشرق للتطوير وافق علي طلب الزيارة لنموذج في مشروع أمجاد الياسمين (
+          بيع علي علي الخارطة )
+        </p>
+      </div>
+      <div class="content-left">
+        <p class="notifications-card__date">03-03-2020 1:42 PM</p>
+        <p class="notifications-card__text notifications-card__text--primary">
+          التفاصيل
+        </p>
+      </div>
+    </div>
+    <div class="notifications-card">
+      <div>
+        <h3 class="notifications-card__title">طلب تمويل</h3>
+        <p class="notifications-card__text">
+          الشرق للتطوير وافق علي طلب الزيارة لنموذج في مشروع أمجاد الياسمين (
+          بيع علي علي الخارطة )
+        </p>
+      </div>
+      <div class="content-left">
+        <p class="notifications-card__date">03-03-2020 1:42 PM</p>
+        <p class="notifications-card__text notifications-card__text--primary">
+          التفاصيل
+        </p>
+      </div>
+    </div>
+  </div> -->
+</section>

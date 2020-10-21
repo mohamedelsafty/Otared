@@ -1,0 +1,48 @@
+<header
+  class="main-header main-header--light"
+  [ngClass]="{ 'main-header--fixed': isFixed }"
+>
+  <div class="container">
+    <div class="main-header__container main-header__container--between">
+      <div class="main-header__logo">
+        <a [routerLink]="['/']" routerLinkActive="router-link-active">
+          <img src="./assets/image/logo.svg" alt="Otared_logo" />
+        </a>
+      </div>
+      <div
+        class="main-nav__icon-menu"
+        (click)="menuOpen = !menuOpen"
+        [class.main-nav__icon-menu--close]="menuOpen === true"
+      >
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+      <nav
+        class="main-header__menu main-header__menu--mobile"
+        [class.main-header__menu--open]="menuOpen === true"
+      >
+        <a routerLink fragment="aboutOtared" class="main-header__link">
+          لماذا عطارد</a
+        >
+        <a routerLink="/instances" class="main-header__link">تصفح العقارات</a>
+
+        <!-- <a href="#" class="main-header__link">المصادر</a>
+        <a href="#" class="main-header__link">شركاؤنا</a>
+        <a href="#" class="main-header__link">الاسئله الشائعه</a> -->
+        <ul class="main-header__menu">
+          <li>
+            <a
+              [routerLink]="'/auth/customer-register'"
+              class="main-header__link"
+              >تسجيل
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="'/auth/login'" class="main-header__link">دخول</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

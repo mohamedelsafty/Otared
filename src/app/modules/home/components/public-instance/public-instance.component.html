@@ -1,0 +1,124 @@
+<div class="loading" *ngIf="isLoading">
+  <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+</div>
+<section class="container" *ngIf="instance">
+  <div class="row l-f-baseline">
+    <div class="col">
+      <div class="page-header">
+        <h2 class="page-header__title">{{ instance.instance_name }}</h2>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="main-button-group l-f-end"></div>
+    </div>
+  </div>
+  <div>
+    <div
+      class="content-container"
+      fxLayout="column"
+      fxLayoutAlign="stretch"
+      fxFlex="auto"
+    >
+      <swiper class="swiper-container" [config]="config" fxFlex="auto">
+        <div
+          *ngFor="let slide of instance.instance_images_url"
+          class="swiper-slide"
+        >
+          <div class="slider-gallery">
+            <img class="slider-gallery__img" [src]="slide" [alt]="slide" />
+          </div>
+        </div>
+      </swiper>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+  <div class="row m-b-30">
+    <div class="col-lg-4">
+      <div class="typo-group">
+        <h3 class="typo--bold typo--default typo-body1 m-b-20">
+          المواصفات
+        </h3>
+        <p class="typo-body2 l-f text-info">
+          <span>نوع الوحدة</span><span>:</span>
+          <span>{{ instance.property_type_name }}</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>عدد الغرف</span><span>:</span
+          ><span> {{ instance.number_of_bathrooms }} حمامات</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span></span><span>:</span
+          ><span> {{ instance.number_of_bathrooms }} غرف جلوس</span>
+        </p>
+
+        <p class="typo-body2 l-f text-info">
+          <span>المساحة</span><span>:</span
+          ><span> {{ instance.area | number }} متر مربع</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>نوع العقار</span><span>:</span>
+          <span>{{ instance.instance_type_name }}</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>عدد الوحدات</span><span>:</span
+          ><span> {{ instance.number_of_units }} وحدات </span>
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="typo-group">
+        <h3 class="typo--bold typo--default typo-body1 m-b-20">
+          مزايا
+        </h3>
+        <p
+          class="typo-body2 l-f text-info"
+          *ngFor="let adv of instance.instance_advantages"
+        >
+          <span>{{ adv.advantage_name }}</span>
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <h2 class="typo--gold">السعر</h2>
+      <div class="vistis-details__requests" style="width: 60%;">
+        {{ instance.price }} ريال سعودي
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 m-b-20">
+      <h3 class="typo--bold typo--default m-b-20">
+        مخطط المشروع
+      </h3>
+      <img [src]="instance.project?.scheme_image_url" class="img-auto" />
+    </div>
+    <div class="col-12 m-b-20">
+      <h3 class="typo--bold typo--default m-b-20">
+        نبذة عن المشروع
+      </h3>
+      <p class="typo--default typo--align-justify">
+        {{ instance.project?.project_description }}
+      </p>
+    </div>
+    <div class="col-12 m-b-20">
+      <h3 class="typo--bold typo--default m-b-20">
+        نبذة عن المطور
+      </h3>
+      <p class="typo--default typo--align-justify">
+        {{ instance.developer?.developer_description }}
+      </p>
+    </div>
+    <div class="col-12 m-b-20">
+      <h3 class="typo--bold typo--default m-b-20">
+        نماذج أخرى من نفس المطور
+      </h3>
+      <div class="row">
+        <search-instances
+          [filterDesign]="'true'"
+          [itemsPerPage]="4"
+          [perRow]="4"
+        ></search-instances>
+      </div>
+    </div>
+  </div>
+</section>

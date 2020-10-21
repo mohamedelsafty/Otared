@@ -1,0 +1,137 @@
+// // @import "../../scss/style.ar.scss";
+
+// .sidenav-container {
+//   height: 100%;
+// }
+
+// .mat-dialog-container {
+//   padding-left: 0;
+//   padding-right: 0;
+// }
+
+// .sidenav.mat-drawer.mat-sidenav {
+//   min-width: 176px;
+//   border: none;
+//   top: 56px !important;
+//   box-shadow: $navs-shadow;
+//   @include breakpoint(small) {
+//     top: 64px !important;
+//   }
+// }
+
+// .mat-drawer-content.main-content {
+//   margin-top: 64px;
+//   padding: 20px 30px;
+//   height: calc(100% - 105px);
+// }
+
+// .sidenav .mat-toolbar {
+//   background: inherit;
+// }
+
+// .mat-toolbar.mat-primary {
+//   position: sticky;
+//   top: 0;
+//   z-index: 1;
+// }
+
+// .main-content {
+//   background-color: $color-body;
+// }
+
+// .main-sidenav {
+//   position: fixed;
+//   right: 0;
+//   min-width: 68px;
+//   height: 100%;
+//   background: linear-gradient(#0b509e 50%, #155cd5);
+//   z-index: 3;
+// }
+
+// .mat-drawer-container {
+//   margin-#{right}: 70px;
+// }
+
+// .main-sidenav__button-menu {
+//   color: $color-white;
+//   width: 35px;
+// }
+
+// .button-menu-container {
+//   background-color: transparent;
+// }
+
+// .main-sidnav__menu {
+//   padding: 0;
+//   margin: 0;
+//   margin-top: 10px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: column;
+//   margin-right: 8px;
+//   margin-left: 8px;
+
+//   &--bottom {
+//     border-top: 1px solid $color-icon;
+//     margin-top: 15px;
+//   }
+
+//   li {
+//     list-style: none;
+//     // height: 48px;
+//     display: flex;
+//     align-items: center;
+//   }
+// }
+
+// .sidenav__list {
+//   // margin-top: 5px;
+//   &--bottom {
+//     margin-top: 10px;
+//     padding: 0;
+//   }
+//   a.mat-list-item {
+//     height: 44px;
+//   }
+// }
+
+// .sidenav__list-header {
+//   color: $color-primary-mid;
+//   font-size: rem(20);
+//   margin: 20px 0;
+//   padding: 0 16px;
+//   // padding-bottom: 15px;
+// }
+
+// .main-sidenav__links {
+//   padding: 7px 8px;
+//   border-radius: 50%;
+//   height: 30px;
+//   width: 30px;
+//   display: flex;
+//   text-decoration: none;
+//   align-items: center;
+//   justify-content: center;
+//   svg {
+//     fill: $color-icon-nav;
+//     width: 20px;
+//     height: 20px;
+//   }
+// }
+
+// .main-sidenav__links.active {
+//   svg {
+//     fill: $color-white;
+//   }
+// }
+
+// .mat-paginator {
+//   border-radius: 15px;
+//   box-shadow: $navs-shadow;
+// }
+
+// .sidebar {
+//   background-color: $color-primary;
+//   height: 100vh;
+// }

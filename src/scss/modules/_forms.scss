@@ -1,0 +1,24 @@
+.project-form__action,
+.form-group__actions {
+  @include breakpoint(isMobile) {
+    display: flex;
+    flex-direction: column;
+    .button {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.form-control--sm {
+  height: auto;
+  padding: 4px 8px 6px;
+}
+
+.form-control--radius {
+  border-radius: 5px;
+}
+
+.form-check-label {
+  padding-right: 1.25rem;
+}

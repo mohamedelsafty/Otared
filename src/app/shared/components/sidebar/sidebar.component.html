@@ -1,0 +1,51 @@
+<!-- <aside class="sidenav">
+  <a
+    *ngFor="let route of linkList"
+    [routerLink]="[route.link]"
+    routerLinkActive="sidenav__link--active"
+    class="sidenav__link "
+  >
+    <svg>
+      <use
+        [attr.xlink:href]="'/assets/image/svg-icons.svg#' + route.icon"
+      ></use>
+    </svg>
+    <span>{{ route.title }}</span>
+  </a>
+</aside> -->
+
+<aside class="sidenav sidenav--dark" [ngClass]="openSide ? 'sidenav--mobile' : ''">
+  <div class="sidenav__icon">
+    <button mat-icon-button (click)="side()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-keyboard-arrow"></use>
+      </svg>
+    </button>
+  </div>
+  <a
+    *ngFor="let route of linkList"
+    [routerLink]="[route.link]"
+    routerLinkActive="sidenav__link--active"
+    [class.disabled]="route.disabled ? true : null"
+    class="sidenav__link"
+    [ngClass]="[param.isActive ? 'sidenav__link--active' : '']"
+  >
+    <svg>
+      <use
+        [attr.xlink:href]="'/assets/image/svg-icons.svg#' + route.icon"
+      ></use>
+    </svg>
+    <span>{{ route.title }}</span>
+    <div style="display: none;">
+      <a
+        [routerLink]="[route.link + '/' + paramID]"
+        routerLinkActive
+        #param="routerLinkActive"
+        class="sidenav__link"
+        style="display: none;"
+      >
+      </a>
+    </div>
+  </a>
+</aside>
+<div class="overlay" *ngIf="openSide" (click)="side()"></div>

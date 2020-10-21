@@ -1,0 +1,92 @@
+<form #FrstBatchtForm="ngForm">
+  <div class="m-b-20">
+    <div class="page-header">
+      <h2
+        class="page-header__title page-header__title--primary page-header__title--sm"
+      >
+        هل عندك قيمة الدفعة الأولى؟
+      </h2>
+      <p class="typo--default">
+        وجود دفعة أولى يساعد على تخفيض حجم الزيادة على المبلغ الأصلي كما يسهل من
+        عملية سدادك للتمويل
+      </p>
+    </div>
+  </div>
+  <div class="l-f m-b-65">
+    <div class="radio-container">
+      <input
+        name="month"
+        type="radio"
+        id="yes"
+        #yes
+        [value]="true"
+        name="option"
+        required
+        [(ngModel)]="data.have_first_payment"
+      />
+      <label
+        class="radio-label"
+        for="yes"
+        [ngClass]="yes.checked == true ? 'radio-label--active-prim' : ''"
+      >
+        نعم
+      </label>
+    </div>
+    <div class="radio-container">
+      <input
+        name="month"
+        type="radio"
+        id="no"
+        #no
+        required
+        [value]="false"
+        name="option"
+        [(ngModel)]="data.have_first_payment"
+      />
+      <label
+        class="radio-label"
+        [ngClass]="no.checked == true ? 'radio-label--active-prim' : ''"
+        for="no"
+      >
+        لا
+      </label>
+    </div>
+  </div>
+  <div class="row" *ngIf="data.have_first_payment">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="custom-label">مبلغ الدفعة الأولى</label>
+        <div class="d-flex align-items-center">
+          <input
+            class="form-control form-control--radius form-control--light"
+            placeholder="0"
+            name="first_payment"
+            #first_payment
+            type="text"
+            inputNumber
+            [(ngModel)]="data.first_payment_amount"
+            maxlength="9"
+            pattern="[0-9,]{4,10}"
+            required
+          /><label class="input-label">ريال سعودي</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="u-mt-30">
+    <button
+      type="button"
+      [routerLink]="'/purchasing/is-real-estate'"
+      class="button button--radius button--outline button--sm-height"
+    >
+      رجوع
+    </button>
+    <button
+      [disabled]="!FrstBatchtForm.valid"
+      (click)="goToNext()"
+      class="button button--radius button--primary button--sm-height"
+    >
+      التالي
+    </button>
+  </div>
+</form>

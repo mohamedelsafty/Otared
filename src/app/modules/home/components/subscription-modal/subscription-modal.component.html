@@ -1,0 +1,177 @@
+<button 
+    id="btnModal" 
+    class="button button--md button--secondary button--radius"
+    (click)="openModal()"
+    > 
+    انضم الى القائمة الأولية
+</button>
+
+<div class="modal" [ngClass]="[isModalOpened ? 'is-shown' : '']">
+    <div class="modal__backdrop" (click)="closeModal()"></div>
+    <div class="modal__content">
+        <div class="d-flex justify-content-between">
+          <h2 class="u-color-primary typo-title mb-2">انضم الى القائمة الأولية</h2>
+          <button class="icon" (click)="closeModal()">
+            <svg id="icon-close" viewBox="0 0 24 24">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          </button>
+        </div>
+        <p class="mb-5">تنضم إلى القائمة الأولية واستفد بالخدمات التي تنطلق قريبا جدا</p>
+
+
+      <form #ListForm="ngForm">
+       
+        <div class="d-flex mb-3">
+          <strong>حدد صفتك</strong>
+          <div class="form-check mr-3">
+            <input
+                name="rbType"
+                type="radio"
+                id="rbType1"
+                #rbType1="ngModel"
+                [value]="'مطور عقاري'"
+                name="rbType"
+                [(ngModel)]="primayListForm.customer_type"
+              />
+            <label class="form-check-label" for="rbType1">
+              مطور عقاري
+            </label>
+          </div>
+          <div class="form-check mr-3">
+            <input
+                name="rbType"
+                type="radio"
+                id="rbType2"
+                #rbType2="ngModel"
+                [value]="'وسيط عقاري'"
+                name="rbType"
+                [(ngModel)]="primayListForm.customer_type"
+              />
+            <label class="form-check-label" for="rbType2">
+              وسيط عقاري
+            </label>
+          </div>
+          <div class="form-check mr-3">
+            <input
+                name="rbType"
+                type="radio"
+                id="rbType3"
+                #rbType3="ngModel"
+                [value]="'مكتب عقاري'"
+                name="rbType"
+                [(ngModel)]="primayListForm.customer_type"
+              />
+            <label class="form-check-label" for="rbType3">
+              مكتب عقاري
+            </label>
+          </div>
+          <div class="form-check mr-3">
+            <input
+                name="rbType"
+                type="radio"
+                id="rbType4"
+                #rbType4="ngModel"
+                [value]="'مالك عقار'"
+                name="rbType"
+                [(ngModel)]="primayListForm.customer_type"
+              />
+            <label class="form-check-label" for="rbType4">
+              مالك عقار
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group mb-3">
+              <label>الاسم بالكامل</label>
+              <input
+                type="text"
+                class="form-control mt-3"
+                [ngClass]="[listName.invalid && (listName.dirty || listName.touched) ? 'error' : '']"
+                placeholder="الاسم"
+                name="listName"
+                #listName="ngModel"
+                [(ngModel)]="primayListForm.name"
+                required
+                />
+                <div *ngIf="listName.invalid && (listName.dirty || listName.touched)">
+                  <label class="error" *ngIf="listName.errors.required">من فضلك أدخل إسمك</label>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+              <label>البريد الالكتروني</label>
+              <input
+                type="email"
+                class="form-control"
+                [ngClass]="[listEmail.invalid && (listEmail.dirty || listEmail.touched) ? 'error' : '']"
+                placeholder="البريد الالكتروني"
+                name="listEmail"
+                #listEmail="ngModel"
+                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                [(ngModel)]="primayListForm.email"
+                required
+                />
+                <div *ngIf="listEmail.invalid && (listEmail.dirty || listEmail.touched)">
+                  <label class="error" *ngIf="listEmail.errors.required">من فضلك أدخل البريد الإلكتروني</label>
+                  <label class="error" *ngIf="listEmail.errors?.pattern">البريد الإلكتروني غير صحيح</label>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+              <label>رقم الجوّال</label>
+              <input
+                type="tel"
+                class="form-control"
+                [ngClass]="[listPhone.invalid && (listPhone.dirty || listPhone.touched) ? 'error' : '']"
+                placeholder="الجوّال"
+                name="listPhone"
+                #listPhone="ngModel"
+                pattern="05[0-9]{8}"
+                [(ngModel)]="primayListForm.phone"
+                required
+                />
+                <div *ngIf="listPhone.invalid && (listPhone.dirty || listPhone.touched)">
+                  <label class="error" *ngIf="listPhone.errors.required">من فضلك أدخل رقم الجوال</label>
+                  <label class="error" *ngIf="listPhone.errors?.pattern">رقم الجوال يجب أن يكون مكون من 10 أرقام ويبدأ ب 05</label>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group mb-3">
+              <div class="form-check mb-2 mr-sm-2">
+                <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  name="is_receive_new" 
+                  id="is_receive_new"
+                  #is_receive_new="ngModel"
+                  [(ngModel)]="primayListForm.is_receive_new"
+                  >
+                <label class="form-check-label" for="is_receive_new">
+                  أرغب في استقبال كل ما هو جديد
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <button
+                type="submit"
+                [disabled]="!ListForm.valid"
+                [ngClass]="[isLoading ? 'button--loading' : '']"
+                (click)="primaryList()"
+                class="button button--primary button--radius"
+              >
+                انضم إلى القائمة الأولية
+              </button>
+            </div>
+            </div>
+            <div class="col-sm-6">
+              <div *ngIf="primaryListFormSuccess" class="main-footer__message main-footer__message--success">تم التواصل معنا بنجاح، شكرا لك</div>
+              <div *ngIf="primaryListFormError" class="main-footer__message main-footer__message--error">عفوا حدث خطأ، يرجي المحاولة فيما بعد</div>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>

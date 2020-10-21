@@ -1,0 +1,122 @@
+<div class="dialog" *ngIf="!confirm">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">
+        طلب التمويل رقم 532
+      </h2>
+      <button class="dialog__title-close" mat-icon-button (click)="onNoClick()">
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <p class="typo-body2 l-f text-info">
+      <span>اسم العميل</span>
+      <span>:</span>
+      <span>حمد بن فيصل</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>رقم الجوال</span>
+      <span>:</span>
+      <span>رقم الجوال</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>رقم السجل التجاري</span>
+      <span>:</span>
+      <span>5262589</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>تاريخ الميلاد</span>
+      <span>:</span>
+      <span>محرم 1390</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>البريد الالكتروني</span>
+      <span>:</span>
+      <span>am2015@mail.com</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>البنك الممول</span>
+      <span>:</span>
+      <span>مصرف الراجحي</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>برنامج التمويل</span>
+      <span>:</span>
+      <span>برنامج إيجاري</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>رقم طلب الحجز</span>
+      <span>:</span>
+      <span>742</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>اسم المطور العقاري</span>
+      <span>:</span>
+      <span>أمجاد العقارية</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>اسم المطور</span>
+      <span>:</span>
+      <span>محمد احمد منصور</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>رقم جوال المطور</span>
+      <span>:</span>
+      <span>05022222222</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>حالة طلب الحجز</span>
+      <span>:</span>
+      <span>محجوز حتي 22-3</span>
+    </p>
+    <div class="form-group">
+      <label>سبب الإلغاء</label><textarea class="form-control" placeholder="اكتب سبب الإلغاء هنا" rows="5"></textarea>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <button (click)="accept()" class="button button--sm  button--radius button--secondary">
+      تأكيد
+    </button>
+    <button mat-dialog-close class="button  button--sm button--radius button--outline">
+      العودة
+    </button>
+  </div>
+</div>
+
+<!-- if accepted -->
+
+<div class="dialog" *ngIf="confirm">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">
+        تم تفعيل الحساب رقم 53
+      </h2>
+      <button class="dialog__title-close" mat-icon-button (click)="onNoClick()">
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <div class="content-center m-b-30">
+      <svg class="dialog-actions__icon dialog-actions__icon--danger">
+        <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+      </svg>
+      <p class="typo-body2">
+        لقد تم إلغاء طلب التمويل و سيتم إرسال رسالة للعميل و المطور بسبب الالغاء
+      </p>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <button (click)="accept()" class="button button--sm button--radius button--secondary">
+      طلبات التمويل
+    </button>
+    <button mat-dialog-close class="button button--sm  button--radius button--outline">
+      الصفحة الرئيسية
+    </button>
+  </div>
+</div>

@@ -1,0 +1,197 @@
+<form #IncomeSourceForm="ngForm">
+  <div class="page-header">
+    <h1
+      class="page-header__title page-header__title--primary page-header__title--sm"
+    >
+      هل هناك دخل إضافي؟
+    </h1>
+    <p class="typo--default">
+      يمكنك إضافة أي دخل آخر إذا كان لديك حتى يمكننا عرض أفضل الحلول التمويلية
+      المتاحة لك
+    </p>
+  </div>
+  <div class="l-f m-b-65">
+    <div class="radio-container">
+      <input
+        name="month"
+        type="radio"
+        id="yes"
+        #yes
+        [value]="true"
+        name="option"
+        [(ngModel)]="data.have_additional_incomes"
+        (change)="changeIncomeStatus()"
+        required
+      />
+      <label
+        class="radio-label"
+        for="yes"
+        [ngClass]="yes.checked == true ? 'radio-label--active-prim' : ''"
+      >
+        نعم
+      </label>
+    </div>
+    <div class="radio-container">
+      <input
+        name="month"
+        type="radio"
+        id="no"
+        #no
+        [value]="false"
+        name="option"
+        [(ngModel)]="data.have_additional_incomes"
+        (change)="changeIncomeStatus()"
+        required
+      />
+      <label
+        class="radio-label"
+        [ngClass]="no.checked == true ? 'radio-label--active-prim' : ''"
+        for="no"
+      >
+        لا
+      </label>
+    </div>
+  </div>
+  <div *ngIf="data.have_additional_incomes">
+    <div
+      *ngFor="let additionalIncome of data.additional_incomes; let i = index"
+    >
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="custom-label">القطاع</label>
+            <div class="d-flex align-items-center">
+              <select
+                [name]="'work_category_code' + 1"
+                class="form-control form-control--radius form-control--light"
+                #work_category_code
+                required
+                [(ngModel)]="additionalIncome.work_category_id"
+              >
+                <option value=""></option>
+                <option
+                  [value]="work.id"
+                  *ngFor="
+                    let work of workCategoriesService.workCategories;
+                    let i = index
+                  "
+                  >{{ work.name }}</option
+                >
+              </select>
+              <label
+                class="laoder-container"
+                *ngIf="workCategoriesService.isLoading"
+              >
+                <mat-spinner diameter="25"></mat-spinner>
+              </label>
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="work_category_code.invalid && work_category_code.touched"
+            >
+              اختر نوع القطاع
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="custom-label">صافي الدخل الشهري</label>
+            <div class="d-flex align-items-center">
+              <input
+                class="form-control form-control--radius form-control--light"
+                placeholder="0"
+                type="text"
+                inputNumber
+                [name]="'netincome' + i"
+                #netincome
+                min="0"
+                maxlength="7"
+                [(ngModel)]="additionalIncome.income"
+                required
+              /><label class="input-label">ريال سعودي</label>
+            </div>
+
+            <!-- <p
+                            class="hint-required"
+                            *ngIf="
+            (netincome.dirty || netincome.touched) && !netincome.errors?.required && (3600 > incomSource.netincome ||
+            incomSource.netincome > 200000)
+          "
+                    >
+                        ادخل الراتب اعلى من 3600 واقل من 200000
+                    </p> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-b-20">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="custom-label"
+              >ما هو البنك الذي تستلم عليه دخلك الإضافي؟</label
+            >
+            <div class="d-flex align-items-center">
+              <select
+                [name]="'bank_code' + i"
+                class="form-control form-control--radius form-control--light"
+                #bank_code
+                required
+                [(ngModel)]="additionalIncome.bank_id"
+              >
+                <option value=""></option>
+                <option
+                  [value]="bank.id"
+                  *ngFor="let bank of banksService.banks"
+                  >{{ bank.name }}</option
+                >
+              </select>
+              <label class="laoder-container" *ngIf="banksService.isLoading">
+                <mat-spinner diameter="25"></mat-spinner>
+              </label>
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="bank_code.invalid && bank_code.touched"
+            >
+              اختر البنك من القائمة
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <button
+            (click)="delete(i)"
+            class="button button--cancel button--danger button--radius button--sm"
+          >
+            حذف
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="yes.checked == true">
+    <button (click)="add(i)" class="button button--radius button--secondary">
+      أضف دخل اخر
+    </button>
+  </div>
+
+  <div class="u-mt-30">
+    <button
+      type="button"
+      class="button button--radius button--outline button--sm-height"
+      [routerLink]="'/purchasing/financial-default'"
+    >
+      رجوع
+    </button>
+    <button
+      [disabled]="!IncomeSourceForm.valid"
+      (click)="goToNext()"
+      class="button button--radius button--primary button--sm-height"
+    >
+      التالي
+    </button>
+  </div>
+</form>

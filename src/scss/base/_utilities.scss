@@ -1,0 +1,100 @@
+.u-color-white {
+  color: $color-white !important;
+}
+
+.u-elem-backdrop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.87);
+  opacity: 0.3;
+  z-index: -1;
+}
+.u-text-center {
+  text-align: center;
+}
+
+.u-flex-grid {
+  padding: 0;
+  margin: 0 15px;
+}
+
+.u-p-0 {
+  padding: 0;
+}
+.u-ps-0 {
+  padding-#{$start}: 0;
+}
+.u-no-gutters {
+  //   margin-right: 0;
+  //   margin-left: 0;
+
+  .column {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  &.main-header__container {
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+  }
+}
+
+.u-mx-20 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.u-pd-34 {
+  padding: 0 34px !important;
+}
+
+.u-mb-30 {
+  margin-bottom: 30px !important;
+}
+.u-logo{
+  max-height: 150px !important;
+}
+
+.u-content-container {
+  background-color: #fafafa;
+  padding: 25px 30px;
+  @include breakpoint(isMobile) {
+    padding: 20px 62px 30px 12px;
+    &--no-pad {
+      padding: 20px 30px;
+    }
+  }
+  height: auto;
+  min-height: calc(100vh - 70px);
+  margin-top: 78px;
+  position: relative;
+}
+
+.u-pe-30 {
+  margin-#{$end}: 30px;
+}
+.u-mt-30 {
+  margin-top: 40px;
+}
+
+.u-ps-43 {
+  padding-#{$start}: 43px;
+}
+
+.mat-dialog-content {
+  max-height: 50vh !important;
+}
+.u-color-primary{
+  color: $color-primary !important;
+}
+.u-color-secondary {
+  color: $color-secondary !important;
+}
+.u-project-img{
+  height: 100px !important;
+  object-fit: contain;
+}

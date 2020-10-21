@@ -1,0 +1,83 @@
+<div class="page-header">
+    <h2 class="page-header__title">التسويق</h2>
+    <p class="page-header__caption page-header__caption--danger">عدد الزيارات تحسب على الرابط المنشور فقط</p>
+</div>
+
+<div class="dev-marketing" *ngIf="!isLoading">
+    <h3 class="page-header__title page-header__title--sm mb-3">حسابي</h3>
+    <div class="marketing-card mb-5">
+        <div class="marketing-card__image marketing-card__image--main">
+            <img [src]="developer.logo_path?developer.logo_path[0]:''" alt="">
+        </div>
+        <div class="marketing-card__content">
+            <div class="marketing-card__info">
+                <div class="marketing-card__title">
+                    {{developer.commercial_name}}
+                </div>
+                <div class="marketing-card__description">
+                    {{developer.description}}
+                </div>
+            </div>
+            <div class="marketing-card__footer">
+                <div class="marketing-card__visits">
+                    <span>زيارات</span>
+                    <label for="">{{developer.visit_count}}</label>
+                </div>
+                <div class="marketing-card__actions">
+                    <button class="button button--radius button--secondary button--sm" (click)="copy('developerUrl', developer.id)">نسخ</button>
+                    <button (click)="share('developerUrl', developer.id, developer.commercial_name)"  class="button button--radius button--secondary button--sm">نشر</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="page-header__title page-header__title--sm mb-3">المشاريع</h3>
+    <div *ngFor="let project of projects" class="mb-5">
+        <div class="marketing-card mb-3">
+            <div class="marketing-card__image">
+                <img [src]="project.logo_path?project.logo_path[0]:''">
+            </div>
+            <div class="marketing-card__content">
+                <div class="marketing-card__info">
+                    <div class="marketing-card__title">
+                        {{project.name}}
+                    </div>
+                </div>
+                <div class="marketing-card__footer">
+                    <div class="marketing-card__visits">
+                        <span>زيارات</span>
+                        <label>{{project.visit_count}}</label>
+                    </div>
+                    <div class="marketing-card__actions">
+                        <button class="button button--radius button--secondary button--sm" (click)="copy('projectUrl', project.id)">نسخ</button>
+                        <button class="button button--radius button--secondary button--sm" (click)="share('projectUrl', project.id, project.name)">نشر</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let instance of project.instances">
+            <div class="marketing-card marketing-card--nested">
+                <div class="marketing-card__image marketing-card__image--sm">
+                    <img [src]="instance.instance_images_paths?instance.instance_images_paths[0]:''">
+                </div>
+                <div class="marketing-card__content">
+                    <div class="marketing-card__info">
+                        <div class="marketing-card__title marketing-card__title--sm">
+                            {{instance.name}}
+                        </div>
+                    </div>
+                    <div class="marketing-card__footer">
+                        <div class="marketing-card__visits marketing-card__visits--sm">
+                            <span>زيارات</span>
+                            <label>{{instance.visit_count}}</label>
+                        </div>
+                        <div class="marketing-card__actions">
+                            <button class="button button--radius button--secondary button--sm" (click)="copy('instanceUrl', instance.id)">نسخ</button>
+                            <button class="button button--radius button--secondary button--sm" (click)="share('instanceUrl', instance.id, instance.name)">نشر</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a #shareLink class="hide"></a>

@@ -1,0 +1,377 @@
+<section>
+  <div class="page-header">
+    <h2
+      class="page-header__title page-header__title--sm page-header__title--primary"
+    >
+      المعلومات الشخصية والمالية
+    </h2>
+  </div>
+  <form #Form="ngForm" class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label class="custom-label">تاريخ الميلاد</label>
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="">
+              <select
+                class="form-control form-control--light form-control--radius"
+                [(ngModel)]="data.birthdate_month"
+                name="birthdate_month"
+                #birthdate_month="ngModel"
+                required
+              >
+                <option value=""></option>
+                <option
+                  [value]="i + 1"
+                  *ngFor="let month of months; let i = index"
+                  >{{ month }}</option
+                >
+              </select>
+              <div
+                *ngIf="
+                  birthdate_month.invalid &&
+                  (birthdate_month.dirty || birthdate_month.touched)
+                "
+                class="validation"
+              >
+                <p
+                  class="validation__title"
+                  *ngIf="birthdate_month.errors.required"
+                >
+                  هذا الحقل مطلوب
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="">
+              <select
+                class="form-control form-control--light form-control--radius"
+                [(ngModel)]="data.birthdate_year"
+                name="birthdate_year"
+                #birthdate_year="ngModel"
+                required
+              >
+                <option value=""></option>
+                <option
+                  *ngFor="let year of birthDate; let i = index"
+                  [value]="year"
+                  >{{ year }}</option
+                >
+              </select>
+              <div
+                *ngIf="
+                  birthdate_year.invalid &&
+                  (birthdate_year.dirty || birthdate_year.touched)
+                "
+                class="validation"
+              >
+                <p
+                  class="validation__title"
+                  *ngIf="birthdate_year.errors.required"
+                >
+                  هذا الحقل مطلوب
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <!-- قطاع العمل -->
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">قطاع العمل </label>
+            <div class=" d-flex align-items-center">
+              <select
+                name="work_category_code"
+                (change)="workCategoryChange()"
+                class="form-control form-control--radius form-control--light"
+                [(ngModel)]="data.work_category_code"
+                [disabled]="workCategoriesService.isLoading"
+                #work_category_code="ngModel"
+                required
+              >
+                <option value=""></option>
+                <option
+                  [value]="work.code"
+                  *ngFor="
+                    let work of workCategoriesService.workCategories;
+                    let i = index
+                  "
+                  >{{ work.name }}</option
+                >
+              </select>
+              <label
+                class="laoder-container col-3"
+                *ngIf="workCategoriesService.isLoading"
+              >
+                <mat-spinner diameter="25"></mat-spinner>
+              </label>
+            </div>
+            <div
+              *ngIf="
+                work_category_code.invalid &&
+                (work_category_code.dirty || work_category_code.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="work_category_code.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- العمل -->
+        <div class="col-lg-4" *ngIf="jointEmployees.length">
+          <div class="form-group">
+            <label class="custom-label">العمل</label>
+            <div class="d-flex align-items-center">
+              <select
+                name="employer_code"
+                class="form-control form-control--radius form-control--light"
+                [disabled]="!jointEmployees.length"
+                [(ngModel)]="data.employer_code"
+                #employer_code
+                required
+              >
+                <option value=""></option>
+                <option
+                  *ngFor="let jointEmployer of jointEmployees"
+                  [value]="jointEmployer.code"
+                  >{{ jointEmployer.name }}</option
+                >
+              </select>
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="employer_code.invalid && employer_code.touched"
+            >
+              هذا الحقل مطلوب
+            </p>
+            <div
+              *ngIf="
+                employer_code.invalid &&
+                (employer_code.dirty || employer_code.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="employer_code.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="data.work_category_code == 'GDSW3'">
+        <!-- جهةالأعتماد -->
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">جهة الاعتماد</label>
+            <mat-select
+              [formControl]="toppings"
+              [(ngModel)]="data.approved_by"
+              multiple
+              class="form-control form-control--radius form-control--light"
+            >
+              <ng-container
+                *ngFor="
+                  let workCategory of authorizedWorkCategories.workCategories
+                "
+              >
+                <mat-option [value]="workCategory.id">{{
+                  workCategory.name
+                }}</mat-option>
+              </ng-container>
+            </mat-select>
+          </div>
+          <div
+            class="laoder-container"
+            *ngIf="authorizedWorkCategories.isLoading"
+          >
+            <mat-spinner diameter="25"></mat-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-12">
+          <label class="custom-label">تاريخ التعيين على أخر وظيفة</label>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="">
+                <select
+                  class="form-control form-control--radius form-control--light"
+                  [(ngModel)]="data.last_appointment_date_month"
+                  name="last_appointment_date_month"
+                  #last_appointment_date_month="ngModel"
+                  required
+                >
+                  <option value=""></option>
+                  <option
+                    [value]="i + 1"
+                    *ngFor="let month of months; let i = index"
+                    >{{ month }}</option
+                  >
+                </select>
+                <div
+                  *ngIf="
+                    last_appointment_date_month.invalid &&
+                    (last_appointment_date_month.dirty ||
+                      last_appointment_date_month.touched)
+                  "
+                  class="validation"
+                >
+                  <p
+                    class="validation__title"
+                    *ngIf="last_appointment_date_month.errors.required"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="">
+                <select
+                  class="form-control form-control--radius form-control--light"
+                  [(ngModel)]="data.last_appointment_date_year"
+                  name="last_appointment_date_year"
+                  #last_appointment_date_year="ngModel"
+                  required
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let year of years; let i = index"
+                    [value]="year"
+                    >{{ year }}</option
+                  >
+                </select>
+                <div
+                  *ngIf="
+                    last_appointment_date_year.invalid &&
+                    (last_appointment_date_year.dirty ||
+                      last_appointment_date_year.touched)
+                  "
+                  class="validation"
+                >
+                  <p
+                    class="validation__title"
+                    *ngIf="last_appointment_date_year.errors.required"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">الراتب الاجمالي</label>
+            <div class="d-flex align-items-center">
+              <input
+                class="form-control form-control--radius custom-form-control form-control--light"
+                placeholder=""
+                name="netincome"
+                [ngModel]="data.income | inputCurrency"
+                (ngModelChange)="data.income = utility.convetToNumber($event)"
+                #netincome="ngModel"
+                type="text"
+                maxlength="7"
+                required
+                inputNumber
+              /><label class="input-label">ريال سعودي</label>
+            </div>
+            <div class="validation">
+              <p
+                class="validation__title"
+                *ngIf="
+                  netincome.errors?.required &&
+                  (netincome.dirty || netincome.touched)
+                "
+              >
+                هذا الحقل مطلوب
+              </p>
+              <p
+                class="validation__title"
+                *ngIf="
+                  netincome.errors?.pattern &&
+                  (netincome.dirty || netincome.touched)
+                "
+              >
+                ادخل الرقم بشكل صحيح
+              </p>
+              <p
+                class="validation__title"
+                *ngIf="
+                  ((netincome.dirty || netincome.touched) &&
+                    !netincome.errors?.required &&
+                    3600 > data.income) ||
+                  data.income > 200000
+                "
+              >
+                ادخل الراتب اعلى من 3600 واقل من 200000
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 l-f-align-center">
+          <div class="form-group">
+            <label class="custom-label"
+              >ماهو البنك الذي تستلم عليه راتبك؟</label
+            >
+            <select
+              name="bank_code"
+              [(ngModel)]="data.bank_code"
+              class="form-control form-control--radius form-control--light"
+              #bank_code="ngModel"
+              required
+            >
+              <option value=""></option>
+              <ng-container *ngFor="let bank of banksService.banks">
+                <option [value]="bank.code">{{ bank.name }}</option>
+              </ng-container>
+            </select>
+            <div
+              *ngIf="
+                bank_code.invalid && (bank_code.dirty || bank_code.touched)
+              "
+              class="validation"
+            >
+              <p class="validation__title" *ngIf="bank_code.errors.required">
+                هذا الحقل مطلوب
+              </p>
+            </div>
+          </div>
+          <div class="laoder-container" *ngIf="banksService.isLoading">
+            <mat-spinner diameter="25"></mat-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="u-mt-30">
+        <button
+          [disabled]="!Form.valid"
+          (click)="goToNext(Form)"
+          class="button button--radius button--primary button--sm-height"
+        >
+          التالي
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

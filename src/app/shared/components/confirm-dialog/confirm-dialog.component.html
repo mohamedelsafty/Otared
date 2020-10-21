@@ -1,0 +1,21 @@
+<div class="dialog">
+    <div class="dialog__title">
+        <h2 class="dialog__title-text m-0">
+            {{title}}
+        </h2>
+    </div>
+    <div class="dialog-content p-3">
+        <p>{{message}}</p>
+    </div>
+    <div class="dialog-actions">
+        <button class="button button--custom-md button--radius button--danger"
+            (click)="onDismiss(true)">{{btn.yesBtn}}</button>
+        <button class="button button--custom-md button--radius button--outline"
+            (click)="onDismiss(false)">{{btn.noBtn}}</button>
+
+    </div>
+
+</div>
+
+
+      

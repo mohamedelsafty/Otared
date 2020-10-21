@@ -1,0 +1,32 @@
+<div class="dialog">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">
+        موقع المشروع
+      </h2>
+      <button class="dialog__title-close" mat-icon-button (click)="onNoClick()">
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <div class="map">
+      <agm-map
+        class="map__content"
+        [latitude]="lat"
+        [longitude]="lng"
+        [disableDefaultUI]="false"
+        [zoomControl]="true"
+        (mapClick)="mapClicked($event)"
+      >
+        <agm-marker [latitude]="markerLat" [longitude]="markerLng">
+          <agm-info-window>
+            <strong>InfoWindow content</strong>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</div>

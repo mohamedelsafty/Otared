@@ -1,0 +1,375 @@
+<form #SolidarityForm="ngForm">
+  <div class="page-header">
+    <h1
+      class="page-header__title page-header__title--primary page-header__title--sm"
+    >
+      هل لديك متضامن ترغب في إضافته؟
+    </h1>
+  </div>
+  <div class="row m-b-65">
+    <div class="col-sm-4">
+      <div class="radio-container">
+        <input
+          name="month"
+          type="radio"
+          id="yes"
+          #yes
+          [value]="true"
+          name="option"
+          [(ngModel)]="data.have_joint"
+          required
+        />
+        <label
+          class="btn button--full-width button--radius u-pe-30"
+          for="yes"
+          [ngClass]="
+            yes.checked == true ? 'button--new-secondary' : 'button--outline'
+          "
+        >
+          نعم، لدي متضامن
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="radio-container">
+        <input
+          name="month"
+          type="radio"
+          id="no"
+          #no
+          [value]="false"
+          name="option"
+          [(ngModel)]="data.have_joint"
+          required
+        />
+        <label
+          class="btn button--full-width button--radius u-pe-30"
+          for="no"
+          [ngClass]="
+            no.checked == true ? 'button--new-secondary' : 'button--outline'
+          "
+        >
+          لا، ليس لدي متضامن
+        </label>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="data.have_joint" class="row l-f-between">
+    <div class="col-lg-7">
+      <div class="m-b-30">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="custom-label">القطاع</label>
+              <div class="d-flex align-items-center">
+                <select
+                  name="work_category_code"
+                  class="form-control form-control--radius form-control--light"
+                  #work_category_code
+                  (change)="workCategoryChange()"
+                  required
+                  [(ngModel)]="data.joint.work_category_id"
+                >
+                  <option value=""></option>
+                  <option
+                    [value]="work.id"
+                    *ngFor="
+                      let work of workCategoriesService.workCategories;
+                      let i = index
+                    "
+                    >{{ work.name }}</option
+                  >
+                </select>
+                <label
+                  class="laoder-container"
+                  *ngIf="workCategoriesService.isLoading"
+                >
+                  <mat-spinner diameter="25"></mat-spinner>
+                </label>
+              </div>
+              <p
+                class="hint-required"
+                *ngIf="work_category_code.invalid && work_category_code.touched"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="custom-label">العمل</label>
+              <div class="d-flex align-items-center">
+                <select
+                  name="employer_code"
+                  class="form-control form-control--radius form-control--light"
+                  #employer_code
+                  required
+                  [disabled]="!jointEmployees.length"
+                  [(ngModel)]="data.joint.employer_id"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let jointEmployer of jointEmployees"
+                    [value]="jointEmployer.id"
+                    >{{ jointEmployer.name }}</option
+                  >
+                </select>
+              </div>
+              <p
+                class="hint-required"
+                *ngIf="employer_code.invalid && employer_code.touched"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="custom-label">صافي الدخل الشهري</label>
+              <div class="d-flex align-items-center">
+                <input
+                  class="form-control form-control--radius form-control--light"
+                  placeholder="0"
+                  type="text"
+                  inputNumber
+                  name="netincome"
+                  maxlength="7"
+                  #netincome
+                  required
+                  min="0"
+                  [(ngModel)]="data.joint.income"
+                /><label class="input-label">ر.س</label>
+              </div>
+              <p
+                class="hint-required"
+                *ngIf="netincome.invalid && netincome.touched"
+              >
+                هذا الحقل مطلوب
+              </p>
+
+              <!-- <p
+                class="hint-required"
+                *ngIf="
+                  netincome.touched &&
+                  (3600 > Joint.netincome || Joint.netincome > 200000)
+                "
+              >
+                ادخل الراتب اعلى من 3600 واقل من 200000
+              </p> -->
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="custom-label"> صلة القرابة</label>
+              <div class="d-flex align-items-center l-f-between">
+                <input
+                  class="form-control form-control--radius form-control--light"
+                  type="text"
+                  placeholder=""
+                  name="relationship"
+                  [(ngModel)]="data.joint.relationship"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="custom-label"
+                >ماهو البنك الذي تستلم عليه راتبك؟</label
+              >
+              <div class="d-flex align-items-center">
+                <select
+                  name="bank_code"
+                  class="form-control form-control--radius form-control--light"
+                  #bank_code
+                  required
+                  [(ngModel)]="data.joint.bank_id"
+                >
+                  <option selected="" disabled=""> اختر البنك </option>
+                  <ng-container *ngFor="let bank of banksService.banks">
+                    <option [value]="bank.id">{{ bank.name }}</option>
+                  </ng-container>
+                </select>
+                <label class="laoder-container" *ngIf="banksService.isLoading">
+                  <mat-spinner diameter="25"></mat-spinner>
+                </label>
+              </div>
+              <p
+                class="hint-required"
+                *ngIf="bank_code.invalid && bank_code.touched"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6 form-group">
+            <label class="custom-label"> تاريخ الميلاد (بالهجري)</label>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <select
+                    class="form-control form-control--radius form-control--light"
+                    name="birthdate_month"
+                    #birthdate_month
+                    required
+                    [(ngModel)]="data.joint.month"
+                  >
+                    <option
+                      [value]="i + 1"
+                      *ngFor="let month of months; let i = index"
+                      >{{ month }}</option
+                    >
+                  </select>
+                  <p
+                    class="hint-required"
+                    *ngIf="birthdate_month.invalid && birthdate_month.touched"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <select
+                    class="form-control form-control--radius form-control--light"
+                    name="birthdate_year"
+                    #birthdate_year
+                    required
+                    [(ngModel)]="data.joint.year"
+                  >
+                    <option
+                      *ngFor="let year of years; let i = index"
+                      [value]="year"
+                      >{{ year }}</option
+                    >
+                  </select>
+                  <p
+                    class="hint-required"
+                    *ngIf="birthdate_year.invalid && birthdate_year.touched"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-7">
+            <div class="m-b-20">
+              <h3 class="main-title main-title--primary main-title--sm">
+                بيانات دعم الصندوق
+              </h3>
+              <p class="main-text main-text--xs">
+                اذا كنت لا تعلم هل لدى المتضامن دعم ام لا، يمكنك الضغط على هذا
+                الرابط لتتأكد قبل الاختيار
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row m-b-30">
+          <div class="col-md-6">
+            <div class="radio-container">
+              <input
+                name="month"
+                type="radio"
+                id="yes2"
+                #yes2
+                [value]="true"
+                name="option2"
+                [(ngModel)]="data.joint.have_fund_support"
+              />
+              <label
+                class="btn button--full-width button--radius u-pe-30"
+                for="yes2"
+                [ngClass]="
+                  yes2.checked == true
+                    ? 'button--new-secondary'
+                    : 'button--outline'
+                "
+              >
+                نعم، لدي دعم
+              </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="radio-container">
+              <input
+                name="month"
+                type="radio"
+                id="no2"
+                #no2
+                [value]="false"
+                name="option2"
+                [(ngModel)]="data.joint.have_fund_support"
+              />
+              <label
+                class="btn button--full-width button--radius u-pe-30"
+                for="no2"
+                [ngClass]="
+                  no2.checked == true
+                    ? 'button--new-secondary'
+                    : 'button--outline'
+                "
+              >
+                لا، ليس لدي دعم
+              </label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="data.joint.have_fund_support" class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="custom-label">كم عدد أفراد الأسرة</label>
+              <div class="d-flex align-items-center">
+                <input
+                  class="form-control form-control--radius form-control--light"
+                  placeholder="0"
+                  type="text"
+                  inputNumber
+                  name="familymembers"
+                  #familymembers
+                  required
+                  min="0"
+                  maxlength="1"
+                  pattern="[0-9]*"
+                  [(ngModel)]="data.joint.family_numbers"
+                />
+              </div>
+              <p class="hint-required" *ngIf="familymembers.errors?.required">
+                هذا الحقل مطلوب
+              </p>
+              <p
+                class="hint-required"
+                *ngIf="familymembers.errors?.pattern && familymembers.invalid"
+              >
+                هذا الحقل يجب ان يحتوي علي ارقام فقط
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="u-mt-30">
+    <button
+      type="button"
+      class="button button--radius button--outline button--sm-height"
+      [routerLink]="'/purchasing/income-sources'"
+    >
+      رجوع
+    </button>
+    <button
+      [disabled]="!SolidarityForm.valid"
+      (click)="goToNext()"
+      class="button button--radius button--primary button--sm-height"
+    >
+      التالي
+    </button>
+  </div>
+</form>

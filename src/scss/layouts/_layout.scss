@@ -1,0 +1,43 @@
+.main-layout {
+  margin-top: 63px;
+}
+
+.router-container-bg {
+  background: url(/assets/image/artwork.png) no-repeat;
+  background-position: -125px -125px;
+}
+
+.router-container {
+  position: relative;
+  padding-top: 30px;
+  overflow: hidden;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  // @include rtl-prop(padding-right, padding-left, 20px, 0);
+  @include rtl-prop(margin-left, margin-right, 70px, 0);
+  @include breakpoint(mid) {
+    @include rtl-prop(padding-right, padding-left, 40px, 0);
+    @include rtl-prop(margin-left, margin-right, 200px, 0);
+    &--steps {
+      @include rtl-prop(margin-left, margin-right, 230px, 0);
+    }
+  }
+}
+
+.main-section {
+  padding: 0 10px;
+  padding-top: 15px;
+  padding-bottom: 35px;
+  &--bg {
+    background-color: #f7f7f7;
+  }
+  &--col {
+    display: flex;
+    flex-direction: column;
+    min-height: 72vh;
+  }
+  @include breakpoint(mid) {
+    padding: 0 35px;
+  }
+}

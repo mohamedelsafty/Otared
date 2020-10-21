@@ -1,0 +1,226 @@
+<section class="vistis">
+  <div class="breadcrumb">
+    <div class="container">
+      <ul class="breadcrumb__content">
+        <li class="breadcrumb__item">
+          <a
+            [routerLink]="['/developer/visits']"
+            routerLinkActive="router-link-active"
+            >طلبات الزيارة
+          </a>
+        </li>
+        <li class="breadcrumb__item">
+          <span class="crumb__text"> طلب زيارة وحدة</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="visitsService.visit && !visitsService.isLoading">
+    <div class="page-header vistis-details">
+      <h2 class="page-header__title">
+        طلب زيارة
+        {{
+          visitsService.visit.instance
+            ? visitsService.visit.instance.name
+            : visitsService.visit.instance_name
+        }}
+        -
+        {{
+          visitsService.visit.project
+            ? visitsService.visit.project.name
+            : visitsService.visit.project_name
+        }}
+      </h2>
+      <div class="vistis-details__action">
+        <button
+          (click)="
+            visitsService.changeStatus(visitsService.visit.id, 'accepted')
+          "
+          [disabled]="visitsService.isSaving"
+          *ngIf="visitsService.visit.visit_status === 'new'"
+          class="button button--radius button--custom-md button--secondary"
+        >
+          تم التواصل
+        </button>
+        <button
+          (click)="
+            visitsService.changeStatus(visitsService.visit.id, 'canceled')
+          "
+          *ngIf="
+            visitsService.visit.visit_status === 'new' ||
+            visitsService.visit.visit_status === 'Accepted'
+          "
+          [disabled]="visitsService.isSaving"
+          class="button button--danger button--custom-md button--radius button--secondary"
+        >
+          رفض
+        </button>
+      </div>
+    </div>
+    <div>
+      <p class="vistis-details__requests" *ngIf="visitsService.visit.client">
+        قام العميل {{ visitsService.visit.client?.name }} بتقديم طلب لزيارة وحدة
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="m-b-50">
+          <h3 class="typo-title">
+            بيانات الطلب : {{ visitsService.visit.id }}
+          </h3>
+          <p class="typo-body2 l-f text-info">
+            <span>بيانات الطلب</span>
+            <span>:</span>
+            <span>{{ visitsService.visit.id }}</span>
+          </p>
+          <p class="typo-body2 l-f text-info">
+            <span>اسم المشروع</span>
+            <span>:</span>
+            <span>{{
+              visitsService.visit.project
+                ? visitsService.visit.project.name
+                : visitsService.visit.project_name
+            }}</span>
+            <!-- </p>
+          <p class="typo-body2 l-f text-info">
+            <span>اسم النموذج</span>
+            <span>:</span>
+            <span>{{ visitsService.visit.instance?visitsService.visit.instance.name : visitsService.visit.instance_name}}</span>
+          </p> -->
+            <!-- <p class="typo-body2 l-f text-info">
+            <span>فئة النموذج</span>
+            <span>:</span>
+            <span *ngIf="!propertyTypeService.isLoading &&  visitsService.visit.instance">{{
+              propertyTypeService.findRecord(
+                visitsService.visit.instance?.property_type_id
+              ).name
+            }}</span>
+          </p> -->
+            <!-- <p class="typo-body2 l-f text-info">
+            <span>نوع النموذج</span>
+            <span>:</span>
+            <span
+              *ngIf="visitsService.visit.instance?.instance_type == 'SaleOnmap'"
+            >
+              بيع على الخارطة
+            </span>
+            <span
+              *ngIf="
+                visitsService.visit.instance?.instance_type == 'ReadyUnits'
+              "
+            >
+              وحدات جاهزة
+            </span>
+            <span *ngIf="visitsService.visit.instance_type_name">
+              {{visitsService.visit.instance_type_name}}
+            </span>
+          </p> -->
+            <!-- <p class="typo-body2 l-f text-info">
+            <span>رقم الوحدة</span>
+            <span>:</span>
+            <span>{{visitsService.visit.instances_unit?.id}}</span>
+          </p> -->
+            <!-- <p class="typo-body2 l-f text-info">
+            <span>مدة الحجز</span>
+            <span>:</span>
+            <span>7 أيام</span>
+          </p> -->
+          </p>
+        </div>
+
+        <div>
+          <div class="m-b-20">
+            <h3 *ngIf="visitsService.visit.client" class="typo-title">
+              بيانات مقدم الطلب
+            </h3>
+            <h3 *ngIf="!visitsService.visit.client" class="typo-title">
+              بيانات المطور
+            </h3>
+            <!-- <p class="typo-body2 l-f text-info">
+              <span>رقم الطلب</span>
+              <span>:</span>
+              <span>{{visitsService.visit.id}}</span>
+            </p> -->
+            <p class="typo-body2 l-f text-info">
+              <span>الاسم</span>
+              <span>:</span>
+              <span>{{
+                visitsService.visit.client
+                  ? visitsService.visit.client.name
+                  : visitsService.visit.dev_name
+              }}</span>
+            </p>
+            <p
+              *ngIf="visitsService.visit.client"
+              class="typo-body2 l-f text-info"
+            >
+              <span>رقم الجوال</span>
+              <span>:</span>
+              <span>{{ visitsService.visit.client?.client_phone_number }}</span>
+            </p>
+          </div>
+          <div
+            *ngIf="
+              visitsService.visit.client &&
+              visitsService.fundingInfo.offers_number
+            "
+          >
+            <h3 class="typo--bold typo--primary typo-body1">
+              حاصل علي {{ visitsService.fundingInfo.offers_number }} عروض تمويل
+              حسب القدره الماليه
+            </h3>
+            <div class="row">
+              <div class="col-lg-9">
+                <div class="card-values card-values--blue">
+                  <div class="card-values__icon">
+                    <svg>
+                      <use
+                        xlink:href="/assets/image/svg-icons.svg#icon-arrow-top"
+                      ></use>
+                    </svg>
+                  </div>
+                  <div class="card-values__content">
+                    <p class="card-values__text card-values__text--bold">
+                      {{ visitsService.fundingInfo.max_value }} ريال سعودي
+                    </p>
+                    <p class="card-values__text card-values__text--sm">
+                      <span>اكبر</span> مبلغ تمويل متوقع
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-9">
+                <div class="card-values card-values--dark-blue">
+                  <div class="card-values__icon">
+                    <svg>
+                      <use
+                        xlink:href="/assets/image/svg-icons.svg#icon-arrow-bottom"
+                      ></use>
+                    </svg>
+                  </div>
+                  <div class="card-values__content">
+                    <p class="card-values__text card-values__text--bold">
+                      {{ visitsService.fundingInfo.min_value }} ريال سعودي
+                    </p>
+                    <p class="card-values__text card-values__text--sm">
+                      <span>اصغر</span> مبلغ تمويل متوقع
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <sample-card [cardData]="visitsService.visit"></sample-card>
+      </div>
+    </div>
+  </div>
+  <div class="loading" *ngIf="visitsService.isLoading">
+    <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+  </div>
+</section>

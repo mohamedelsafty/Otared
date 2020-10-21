@@ -1,0 +1,250 @@
+//
+// Remove default margin.
+//
+
+body {
+  margin: 0;
+  text-align: $left;
+  background-color: $body-color-bg;
+  line-height: 1.6;
+}
+
+// HTML5 display definitions
+// ==========================================================================
+
+//
+// Correct `block` display not defined for any HTML5 element in IE 8/9.
+// Correct `block` display not defined for `details` or `summary` in IE 10/11
+// and Firefox.
+// Correct `block` display not defined for `main` in IE 11.
+//
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+//
+// 1. Correct `inline-block` display not defined in IE 8/9.
+// 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+//
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; // 1
+  vertical-align: baseline; // 2
+}
+
+//
+// Prevent modern browsers from displaying `audio` without controls.
+// Remove excess height in iOS 5 devices.
+//
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+//
+// Address `[hidden]` styling not present in IE 8/9/10.
+// Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
+//
+
+[hidden],
+template {
+  display: none;
+}
+
+// Links
+// ==========================================================================
+
+//
+// Remove the gray background color from active links in IE 10.
+//
+
+a {
+  background-color: transparent;
+}
+
+//
+// Improve readability of focused elements when they are also in an
+// active/hover state.
+//
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+img {
+  border: 0;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+// Tables
+// ==========================================================================
+
+//
+// Remove most spacing between table cells.
+//
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+p {
+  margin: 0;
+}
+
+// Lists
+// ==========================================================================
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+// .mat-button,
+// .mat-raised-button,
+// .mat-icon-button,
+// .mat-stroked-button,
+// .mat-flat-button,
+// .mat-fab,
+// .mat-mini-fab,
+// .mat-table,
+// [class*="mat"] {
+// }
+.mat-table,
+.mat-button,
+.mat-raised-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button,
+.mat-fab,
+.mat-mini-fab,
+.mat-checkbox-label,
+.cdk-overlay-container * {
+  font-family: "SST Arabic", sans-serif !important;
+}
+
+.form-control {
+  border-color: $color-border;
+  color: $color-default;
+  // border-radius: 0;
+  min-width: 87px;
+  &--secondary {
+    color: $color-secondary;
+  }
+  &--custom {
+    padding: 0px 2px 2px 2px;
+    height: 30px;
+    border-color: $color-grey;
+  }
+}
+
+textarea.form-control {
+  min-height: auto;
+  height: auto;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+.mat-form-field {
+  line-height: 1.6;
+}
+
+.mat-checkbox-label {
+  color: $color-default;
+}
+
+.mat-slide-toggle {
+  height: auto !important;
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: $color-blue !important;
+}
+
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent
+  .mat-ripple-element,
+.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent
+  .mat-ripple-element {
+  background: $color-blue !important;
+}
+
+.mat-paginator {
+  background: transparent;
+  margin-bottom: 24px;
+  .mat-paginator-range-label {
+    font-size: 14px;
+    margin-top: 7px;
+  }
+  .mat-paginator-container {
+    padding: 0;
+  }
+}
+button.mat-icon-button,
+a.mat-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .mat-button-wrapper {
+    display: flex;
+  }
+}
+
+select.form-control {
+  -moz-appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='5' viewBox='7 10 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%230' fill-rule='evenodd' opacity='.54' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E")
+    no-repeat 10px center;
+  padding-left: 15px;
+}
+
+.form-control--light {
+  background-color: $color-white !important;
+}

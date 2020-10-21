@@ -1,0 +1,271 @@
+<form #MonthlyFeesForm="ngForm">
+  <div class="page-header">
+    <h1
+      class="page-header__title page-header__title--primary page-header__title--sm"
+    >
+      هل يوجد التزام شهري؟
+    </h1>
+    <p class="typo--default">
+      وجود التزام شهري قد يعيق التمويل الخاص بك ولكن عطارد ستحاول ان تجد لك
+      الحلول المناسبة إن وجد الترام شهري
+    </p>
+  </div>
+  <div class="l-f m-b-30">
+    <div class="radio-container">
+      <input
+        name="month"
+        type="radio"
+        id="yes"
+        #yes
+        [value]="true"
+        name="option"
+        (change)="changeObligationsStatus()"
+        [(ngModel)]="data.have_monthly_obligations"
+      />
+      <label
+        class="radio-label"
+        for="yes"
+        [ngClass]="yes.checked == true ? 'radio-label--active-prim' : ''"
+      >
+        نعم
+      </label>
+    </div>
+    <div class="radio-container">
+      <input
+        name="month"
+        type="radio"
+        id="no"
+        #no
+        name="option"
+        [value]="false"
+        (change)="changeObligationsStatus()"
+        [(ngModel)]="data.have_monthly_obligations"
+      />
+      <label
+        class="radio-label"
+        [ngClass]="no.checked == true ? 'radio-label--active-prim' : ''"
+        for="no"
+      >
+        لا
+      </label>
+    </div>
+  </div>
+  <div>
+    <!--  -->
+    <div *ngFor="let obligation of data.monthly_obligations; let i = index">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">نوع الالتزام</label>
+            <select
+              [name]="'type' + i"
+              class="form-control form-control--radius form-control--light"
+              #type
+              [(ngModel)]="obligation.type"
+              required
+            >
+              <option value=""></option>
+              <option value="1">شخصي</option>
+              <option value="2">عقاري</option>
+              <option value="3">سياره</option>
+              <option value="4">بطاقة ائتمانية</option>
+              <option value="5">أخرى</option>
+            </select>
+            <p class="hint-required" *ngIf="type.invalid && type.touched">
+              ادخل نوع الالتزام
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">قيمة الإلتزام الشهري</label>
+            <div class="d-flex align-items-center">
+              <input
+                class="form-control form-control--radius form-control--light"
+                placeholder="0"
+                type="text"
+                [name]="'amount' + i"
+                #amount
+                required
+                [(ngModel)]="obligation.amount"
+                maxlength="6"
+                inputNumber
+              /><label class="input-label">ريال سعودي</label>
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="
+                amount.errors?.required && (amount.dirty || amount.touched)
+              "
+            >
+              هذا الحقل مطلوب
+            </p>
+            <p
+              class="hint-required"
+              *ngIf="amount.errors?.pattern && (amount.dirty || amount.touched)"
+            >
+              ادخل مبلغ الإلتزام الشهري
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="form-group">
+            <label class="custom-label"> عدد الأقساط المتبقية</label>
+            <div class="row">
+              <div class="col-md-6">
+                <input
+                  class="form-control form-control--radius form-control--light"
+                  type="text"
+                  placeholder=""
+                  [(ngModel)]="obligation.remaining_installments"
+                  maxlength="3"
+                  min="0"
+                  inputNumber
+                  [name]="'remaining_installments' + i"
+                  #remaining
+                  required
+                  pattern=".{1,3}"
+                />
+              </div>
+            </div>
+
+            <p
+              class="hint-required"
+              *ngIf="
+                remaining.errors?.pattern &&
+                (remaining.dirty || remaining.touched)
+              "
+            >
+              ادخل عدد الاقساط المتبقية
+            </p>
+            <!-- <p
+                class="hint-required"
+                *ngIf="
+                  MonthlyObligations.remaining && 0 > MonthlyObligations.remaining
+                "
+              >
+                ادخل قيمه اعلى من 0
+              </p> -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="custom-label">ما هي الجهة الممولة؟</label>
+            <div class="d-flex align-items-center">
+              <select
+                [name]="'bank_code' + i"
+                class="form-control form-control--radius form-control--light"
+                [(ngModel)]="obligation.bank_id"
+                #bank_code
+                required
+              >
+                <option value=""></option>
+                <option
+                  [value]="bank.id"
+                  *ngFor="let bank of banksService.banks"
+                  >{{ bank.name }}</option
+                >
+              </select>
+              <label class="laoder-container" *ngIf="banksService.isLoading">
+                <mat-spinner diameter="25"></mat-spinner>
+              </label>
+            </div>
+            <p
+              class="hint-required"
+              *ngIf="bank_code.invalid && bank_code.touched"
+            >
+              اختر الجهة الممولة
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="custom-label">
+              المبلغ المطلوب في حال السداد المبكر</label
+            >
+            <div class="d-flex align-items-center">
+              <input
+                class="form-control form-control--radius form-control--light"
+                type="text"
+                placeholder=""
+                inputNumber
+                [name]="'early_repayment' + i"
+                #early_repayment
+                maxlength="9"
+                required
+                [(ngModel)]="obligation.early_repayment"
+              />
+              <label class="input-label">ريال سعودي</label>
+            </div>
+
+            <p
+              class="hint-required"
+              *ngIf="
+                early_repayment.errors?.pattern &&
+                (early_repayment.dirty || early_repayment.touched)
+              "
+            >
+              ادخل المبلغ المطلوب في حال السداد المبكر
+            </p>
+            <!-- <p
+                class="hint-required"
+                *ngIf="
+                  MonthlyObligations.early_repayment &&
+                  0 > MonthlyObligations.early_repayment
+                "
+              >
+                ادخل قيمه اعلى من 0
+              </p> -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2 m-b-30">
+          <button
+            *ngIf="data.monthly_obligations.length === 1"
+            (click)="deleteObligation(i)"
+            class="button button--cancel button--danger button--radius button--sm"
+          >
+            حذف
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button
+      *ngIf="data.have_monthly_obligations"
+      (click)="addNewObligation()"
+      class="button button--radius button--secondary button--sm-height"
+    >
+      أضف التزام اخر
+    </button>
+  </div>
+
+  <div class="u-mt-30">
+    <button
+      type="button"
+      class="button button--radius button--outline button--sm-height"
+      [routerLink]="'/purchasing/functional-info'"
+    >
+      رجوع
+    </button>
+    <button
+      [disabled]="!MonthlyFeesForm.valid"
+      (click)="goToNext()"
+      class="button button--radius button--primary button--sm-height"
+    >
+      التالي
+    </button>
+  </div>
+</form>

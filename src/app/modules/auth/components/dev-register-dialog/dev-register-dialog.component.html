@@ -1,0 +1,26 @@
+<div class="dialog">
+  <div class="dialog__title">
+    <span>تم استلام الطلب</span>
+    <button class="dialog__close" mat-icon-button (click)="onNoClick()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+  <div class="dialog__content">
+    <p>
+      اهلا {{currentUser.personal_name}}, تم استلام طلبك بإنشاء حساب في موقع عطارد,
+      الطلب تحت المراجعة الان و سيتم التواصل معك لتأكيد الطلب و تفعيل الحساب
+    </p>
+    <strong>رقم الطلب للمتابعة : {{currentUser.id}}</strong>
+    <div class="dialog__actions">
+      <button
+        [routerLink]="'/developer/dashboard'"
+        (click)="onNoClick()"
+        class="button button--radius button--md button--secondary"
+      >
+        الصفحه الرئيسية
+      </button>
+    </div>
+  </div>
+</div>

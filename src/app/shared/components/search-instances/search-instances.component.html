@@ -1,0 +1,52 @@
+<div>
+  <div class="container">
+    <div *ngIf="searchShow" class="row justify-content-center m-b-50">
+      <div class="col-lg-6">
+        <h2 class="section-header">
+          <span>
+            ابحث في العقارات المتاحه
+          </span>
+        </h2>
+        <p class="content-center typo-subheading1">
+          ابحث في العقارات المتاحه لدينا لكي تجد منزل احلامك يمكنك دائما التواصل
+          معنا لنبحث لك عن عقارك المناسب
+        </p>
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input form-control"
+            placeholder="ابحث بالمدينه, المطور, المشروع"
+            (keyup)="keyDownFunction($event)"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="loading" *ngIf="isLoading">
+      <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+    </div>
+    <div class="row" *ngIf="!isLoading">
+      <div
+        class="col-lg-{{ 12 / perRow }} col-md-6"
+        *ngFor="let instance of instances"
+      >
+        <instance-card
+          [instance]="instance"
+          [filterDesign]="filterDesign"
+          [withSelectOption]="withSelectOption"
+          [selectOptionTarget]="selectOptionTarget"
+        ></instance-card>
+      </div>
+    </div>
+    <div class="u-mb-30" *ngIf="!isLoading && !instances.length">
+      <empty-state message=" عفوا, لايوجد نماذج للعرض"></empty-state>
+    </div>
+  </div>
+  <div *ngIf="!isLoading && instances.length && pagination">
+    <pagination
+      [page]="searchInstancesService.page"
+      [total]="searchInstancesService.total"
+      [perPage]="searchInstancesService.itemsPerPage"
+      (change)="setPage($event)"
+    ></pagination>
+  </div>
+</div>

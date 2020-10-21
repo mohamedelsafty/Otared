@@ -1,0 +1,95 @@
+<section>
+  <div class="container">
+    <div class="page-header">
+      <h2 class="page-header__title" *ngIf="!isLoading">
+        {{ developerData?.personal_info.commercial_name }}
+        {{ projectData?.name }}
+      </h2>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <app-filter-instances
+          *ngIf="sharedTarget === 'developer'"
+          [devId]="targetId"
+          [developerName]="developerData?.personal_info.commercial_name"
+        ></app-filter-instances>
+        <app-filter-instances
+          *ngIf="sharedTarget === 'project'"
+          [projectId]="targetId"
+          [projectName]="projectData?.name"
+        ></app-filter-instances>
+      </div>
+      <div class="col-md-9">
+        <div class="row m-b-30" *ngIf="!isLoading">
+          <div class="col-md-3">
+            <img
+              [src]="
+                developerData
+                  ? developerData.personal_info.logo_path[0]
+                  : (projectData?.logo_path)[0]
+              "
+              alt="logo"
+              class="img-auto u-project-img"
+            />
+          </div>
+          <div class="col-md-9">
+            <p class="typo-body1 typo--default typo--align-justify">
+              {{ developerData?.personal_info.description }}
+              {{ projectData?.description }}
+            </p>
+          </div>
+        </div>
+        <div class="row m-b-30" *ngIf="!isLoading">
+          <div class="col-md-8">
+            <p class="typo-body1 typo--default">
+              <strong>المكتب الرئيسي</strong>:
+              {{ developerData?.personal_info.head_office_address }}
+              {{ projectData?.real_estate_developer.head_office_address }}
+            </p>
+            <p *ngIf="developerData" class="typo-body1 typo--default">
+              <strong>رقم السجل التجاري</strong>:
+              {{ developerData.personal_info.commercial_registration_idnumber }}
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div>
+              <div class="row" *ngIf="developerData">
+                <div class="col-6 content-center">
+                  <p class="typo--bold typo--default">المشاريع</p>
+                  <p class="typo--lg typo--default">
+                    {{ developerData?.projects_count }}
+                  </p>
+                </div>
+                <div class="col-6 content-center">
+                  <p class="typo--bold typo--default">الوحدات</p>
+                  <p class="typo--lg typo--default">
+                    {{ developerData?.instance_unit_count }}
+                  </p>
+                </div>
+              </div>
+              <div class="row" *ngIf="projectData">
+                <div class="col-6">
+                  <p class="typo--bold typo--default">عدد النماذج</p>
+                  <p class="typo--lg typo--default">
+                    {{ projectData?.number_of_instances }}
+                  </p>
+                </div>
+                <div class="col-6">
+                  <p class="typo--bold typo--default">عدد الوحدات</p>
+                  <p class="typo--lg typo--default">
+                    {{ projectData?.number_of_units }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <search-instances
+          [filterDesign]="'true'"
+          [itemsPerPage]="9"
+          [pagination]="'true'"
+        ></search-instances>
+      </div>
+    </div>
+  </div>
+</section>

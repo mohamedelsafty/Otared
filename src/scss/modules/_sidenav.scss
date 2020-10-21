@@ -1,0 +1,138 @@
+.sidenav {
+  background-color: $color-secondary;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: calc(100vh - 64px);
+  padding-top: 15px;
+  position: fixed;
+  top: 64px;
+  z-index: 22;
+  @include transition();
+  // @include rtl-prop(right, left, 0, 0);
+  @include breakpoint(large) {
+    min-width: 200px;
+    padding-top: 35px;
+    &--steps {
+      min-width: 230px;
+    }
+  }
+  &--dark {
+    background-color: #222529;
+    .sidenav__link {
+      color: #bdbdbd;
+    }
+    .sidenav__link--active,
+    .sidenav__link--active:hover {
+      background-color: $color-new-secondary;
+      color: #fff;
+      @include rtl-prop(border-left, border-right, 3px solid #fff, 0);
+      svg {
+        fill: #fff;
+      }
+    }
+  }
+}
+
+.sidenav__link {
+  color: $color-white;
+  font-size: 14px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  @include transition();
+  @include breakpoint(mid) {
+    padding: 13px 30px;
+  }
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: default;
+    color: $color-white !important;
+  }
+  svg {
+    fill: $color-white;
+    width: 20px;
+    height: 20px;
+    @include transition();
+    @include breakpoint(mid) {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  &:hover {
+    color: $color-new-secondary;
+    text-decoration: none;
+    svg {
+      fill: $color-new-secondary;
+    }
+  }
+  &--active {
+    @include breakpoint(isMobile) {
+      padding: 14px 18px;
+    }
+    @include rtl-prop(
+      border-left,
+      border-right,
+      3px solid $color-new-secondary,
+      0
+    );
+    background-color: rgba(#212529, 0.3);
+    color: $color-new-secondary;
+    svg {
+      fill: $color-new-secondary;
+    }
+  }
+  span {
+    @include rtl-prop(margin-right, margin-left, 0, 12px);
+    @include transition();
+    @include breakpoint(isMobile) {
+      max-width: 0;
+      height: 0;
+      overflow: hidden;
+      @include rtl-prop(margin-right, margin-left, 0, 0);
+    }
+  }
+}
+
+.sidenav__icon {
+  text-align: center;
+  margin-bottom: 5px;
+  width: 100%;
+  @include breakpoint(mid) {
+    display: none;
+  }
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: $color-white;
+    @include transition();
+    &:hover {
+      fill: $color-new-secondary;
+    }
+  }
+}
+
+@include breakpoint(isMobile) {
+  .sidenav--mobile {
+    .sidenav__link {
+      span {
+        max-width: 100%;
+        height: 20px;
+        @include rtl-prop(margin-right, margin-left, 0, 12px);
+      }
+    }
+  }
+  .overlay {
+    content: "";
+    position: absolute;
+    z-index: 21;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color-black, 0.7);
+  }
+}

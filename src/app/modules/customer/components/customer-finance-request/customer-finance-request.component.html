@@ -1,0 +1,108 @@
+<section class="finance-request">
+    <div class="container">
+        <div class="page-header page-header--flex">
+            <div>
+                <h2 class="page-header__title">طلب التمويل</h2>
+                <p class="page-header__caption" *ngIf="browsingStatus != 5">ليس لديك طلب تمويل حاليا</p>
+                <div *ngIf="browsingStatus === 5" class="mt-3">
+                    <span> حالة الطلب الآن</span>
+                    <span class="col u-color-primary"> {{demandObj.demand_status_text}}</span>
+                </div>
+            </div>
+            <div *ngIf="browsingStatus === 5">
+                <button class="button button--sm button--radius button--secondary">تواصل مع موظف الدعم من عطارد</button>
+                <button class="button button--sm button--radius button--danger">إلغاء الطلب</button>
+            </div>
+        </div>
+        <div *ngIf="browsingStatus === 5" class="col-8">
+            <div class="demand-status">
+                <div class="demand-status__cell">
+                    <span>رقم الطلب</span>
+                    <span>{{demandObj.demand_id}}</span>
+                </div>
+                <div class="demand-status__cell">
+                    <span>مقدم الطلب</span>
+                    <span>{{demandObj.client_name}}</span>
+                </div>
+                <div class="demand-status__cell">
+                    <span>تاريخ الطلب</span>
+                    <span>{{demandObj.demand_date}}</span>
+                </div>
+            </div>
+            <div class="demand-details mt-5">
+                <div class="demand-details__title">
+                    بيانات الطلب الحالية
+                </div>
+                <div class="demand-details__content">
+                    <div class="row mb-2">
+                        <div class="col-sm-2">
+                            اسم المشروع
+                        </div>
+                        <div class="col">
+                            {{demandObj.project_name}}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-2">
+                            اسم الوحده
+                        </div>
+                        <div class="col">
+                            {{demandObj.property_type_name}}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-2">
+                            اسم النموذج
+                        </div>
+                        <div class="col">
+                            {{demandObj.instance_name}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            الدفعة المقدمة
+                        </div>
+                        <div class="col">
+                            {{demandObj.first_payment_amount}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="demand-details mt-4">
+                <div class="demand-details__title">
+                    العرض المختار
+                </div>
+                <div class="demand-details__content">
+                    <div class="row mb-2">
+                        <div class="col-sm-2">
+                            اسم البنك
+                        </div>
+                        <div class="col">
+                            <!-- {{demandObj.bank.name}} -->
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="demand__employee mb-5">
+                <div class="demand__employee-data">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <span>موظف فريق عطارد للمراجعه: </span>
+                            <!-- <span>{{demandObj.employer.name}}</span> -->
+                        </div>
+                        <div>
+                            {{demandObj.demand_date}}
+                        </div>
+                    </div>
+                </div>
+                <div class="demand__employee-status">
+                    {{demandObj.demand_status_text}}
+                </div>
+            </div>
+        </div>
+        <div class="finance-request__btn"  *ngIf="browsingStatus != 5">
+            <button class="button button--radius button--sm button--primary" (click)="showMessage()">ابدا محتسب أولي</button>
+            <button class="button button--radius button--sm button--secondary" (click)="showMessage()">طلب شراء عقار</button>
+        </div>
+    </div>
+</section>

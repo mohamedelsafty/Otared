@@ -1,0 +1,66 @@
+<div class="dialog">
+        <form #form="ngForm">
+        <div class="dialog__title">
+          <span>مشاركه مع عميل</span>
+          <button class="dialog__close" mat-icon-button (click)="onNoClick()">
+            <svg>
+              <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+            </svg>
+          </button>
+        </div>
+        <div class="dialog__content">
+          <p class="typo-body2 l-f text-info">
+            <span>رقم الوحدة</span><span>:</span><span>{{ data.instances_unit_id }}</span>
+          </p>
+
+          <div class="form-group">
+                <label>رقم الجوال</label>
+                <input
+                  type="namber"
+                  class="form-control"
+                  placeholder="05xxxxx"
+                  name="phone_number"
+                  pattern="[0-9]{10}$"
+                  #phone_number="ngModel"
+                  [(ngModel)]="data.phone_number"
+                  required
+                  (input)="errors.phone_number = ''"
+                />
+                <div
+                  *ngIf="
+                    phone_number.invalid &&
+                    (phone_number.dirty || phone_number.touched)
+                  "
+                  class="validation"
+                >
+                  <p class="validation__title" *ngIf="phone_number.errors.required">
+                    هذا الحقل مطلوب
+                  </p>
+                  <p class="validation__title" *ngIf="phone_number.errors?.pattern">
+                    يجب أن يحتوي بين 10 و 10 رقمًا/أرقام
+                  </p>
+                </div>
+                <p class="validation__title" *ngIf="errors.phone_number">
+                  {{ errors.phone_number }}
+                </p>
+              </div>
+        </div>
+        <div class="dialog__actions dialog__content">
+          <button
+            [disabled]="!form.valid || isLoading"
+         
+            class="button button--radius button--sm button--custom-md button--secondary"
+            (click)="send(form)"
+          >
+            ارسال
+          </button>
+          <button
+            class="button button--radius button--sm button--outline button--custom-md"
+            (click)="onNoClick()"
+          >
+            العودة
+          </button>
+        </div>
+        </form>
+      </div>
+      

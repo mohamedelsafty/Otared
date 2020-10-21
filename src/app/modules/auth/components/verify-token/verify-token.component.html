@@ -1,0 +1,60 @@
+<section class="reset-password reset-password__bg">
+    <div class="container">
+      <div class="page-header">
+        <h2 class="page-header__title">التأكد من رقم الجوال</h2>
+        <p class="page-header__caption">
+            لقد تم ارسال رساله الي جوالك {{user.phone_number}} تحتوي على كود للتأكد 
+          </p>
+      </div>
+      <form #form="ngForm">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>الكود المرسل</label>
+              <input
+                [autocomplete]="'code'"
+                type="text"
+                class="form-control"
+                placeholder="xxxx"
+                id='token'
+                name="token"
+                #token="ngModel"
+                pattern="[0-9]{4}$"
+                [(ngModel)]="user.token"
+                required
+                (input)="error = ''"
+              />
+              <div
+                *ngIf="token.invalid && (token.dirty || token.touched)"
+                class="validation"
+              >
+                <p class="validation__title" *ngIf="token.errors.required">
+                  هذا الحقل مطلوب
+                </p>
+                <p class="validation__title" *ngIf="token.errors?.pattern">
+                  يجب أن يحتوي بين4 رقمًا/أرقام
+                </p>
+              </div>
+              <p class="validation__title" *ngIf="error">
+                {{ error }}
+              </p>
+            </div>
+            <div class="reset-password__link">
+              <button
+                (click)="check()"
+                type="submit"
+                [disabled]="!form.valid"
+                class="button button--block button--radius button--secondary"
+              >
+                <span>تأكيد</span>
+                <div class="loading" *ngIf="isLoading">
+                  <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  

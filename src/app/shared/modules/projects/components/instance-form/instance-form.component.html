@@ -1,0 +1,868 @@
+<section class="project-form">
+  <div class="container">
+    <div class="page-header">
+      <h2 class="page-header__title">أضف نموذج جديد</h2>
+    </div>
+    <form #addInstance="ngForm">
+      <div class="form-group" *ngIf="project">
+        <h3 class="typo-title">بيانات المشروع</h3>
+        <div class="l-f-between">
+          <p class="typo--bold typo--default typo-body2">
+            <span>اسم المشروع</span>
+            <span>:</span>
+            <span>{{ project.name }}</span>
+          </p>
+          <p class="typo--bold typo--default typo-body2">
+            <span>المدينه</span>
+            <span>:</span>
+            <span>{{ project.city.name_arabic }}</span>
+          </p>
+          <p class="typo--bold typo--default typo-body2">
+            <span>الحي</span>
+            <span>:</span>
+            <span>{{ project.neighborhood.name_arabic }}</span>
+          </p>
+          <!-- <p class="typo--bold typo--default typo-body2">
+            <span>نوع النموذج</span>
+            <span>:</span>
+            <span *ngIf="project.instance_type === 'ReadyUnits'"
+              >بيع - وحدات جاهزة</span
+            >
+            <span *ngIf="project.instance_type === 'SaleOnmap'"
+              >بيع - بيع علي الخارطه</span
+            >
+          </p>
+          <p class="typo--bold typo--default typo-body2">
+            <span>فئه النموذج</span>
+            <span>:</span>
+            <span>{{ project.age }}</span>
+          </p>
+          <p class="typo--bold typo--default typo-body2">
+            <span>عمر النموذج</span>
+            <span>:</span>
+            <span>الابراج العاليه</span>
+          </p> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>اسم النموذج</label>
+            <input
+              type="text"
+              class="form-control form-control--full-width"
+              placeholder="اسم النموذج"
+              name="instance_name"
+              #instance_name="ngModel"
+              [(ngModel)]="instance.name"
+              required
+              (input)="resError.name = ''"
+            />
+            <div
+              *ngIf="
+                instance_name.invalid &&
+                (instance_name.dirty || instance_name.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="instance_name.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.name }}
+            </p>
+          </div>
+          <div class="form-group">
+            <div class="form-group__option">
+              <label>صور النموذج</label>
+              <!-- <span>اختياري</span> -->
+            </div>
+            <div class="but__style form-control--full-width">
+              <button
+                class="button button--blue button--radius button--upload"
+                (click)="fileInput.click()"
+              >
+                تحميل
+                <input
+                  style="display: none;"
+                  type="file"
+                  (change)="onFileChanged($event.target.files)"
+                  #fileInput
+                />
+              </button>
+              <label class="choose__file" *ngIf="!fileName"
+                >اضغط لتحميل صور النموذج</label
+              >
+              <label class="choose__file" *ngIf="fileName">{{
+                fileName
+              }}</label>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.instances_images_paths }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6 m-b-20">
+          <div class="form-group__option">
+            <label for="validationTextarea">وصف النموذج</label>
+            <!-- <span>اختياري</span> -->
+          </div>
+          <textarea
+            class="form-control form-control--text"
+            placeholder="وصف النموذج"
+            rows="8"
+            name="description"
+            #description="ngModel"
+            [(ngModel)]="instance.description"
+            required
+            (input)="resError.description = ''"
+          ></textarea>
+          <div
+            *ngIf="
+              description.invalid && (description.dirty || description.touched)
+            "
+            class="validation"
+          >
+            <p class="validation__title" *ngIf="description.errors.required">
+              هذا الحقل مطلوب
+            </p>
+          </div>
+          <p class="validation__title" *ngIf="resError">
+            {{ resError.description }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label> السعر</label>
+            <input
+              type="number"
+              class="form-control form-control--full-width"
+              placeholder=""
+              name="price"
+              #price="ngModel"
+              [(ngModel)]="instance.price"
+              required
+              (input)="resError.price = ''"
+            />
+            <div
+              *ngIf="price.invalid && (price.dirty || price.touched)"
+              class="validation"
+            >
+              <p class="validation__title" *ngIf="price.errors.required">
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.price }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row m-b-20">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>عدد الوحدات</label>
+            <input
+              type="number"
+              class="form-control form-control--full-width"
+              placeholder="10"
+              name="number_of_units"
+              #number_of_units="ngModel"
+              [(ngModel)]="instance.numberofunits"
+              (change)="onNumOfUnitChange()"
+              required
+              (input)="resError.numberofunits = ''"
+            />
+            <label *ngIf="project"
+              >عدد وحدات المشروع : {{ project.number_of_units }} وحده</label
+            >
+            <div
+              *ngIf="
+                number_of_units.invalid &&
+                (number_of_units.dirty || number_of_units.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="number_of_units.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.numberofunits }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <p class="typo--bold typo--default typo-body1 m-b-20">
+        ادخل ارقام الوحدات علي ارض الواقع
+      </p>
+      <div class="row">
+        <div
+          class="col-lg-1 m-l-40 m-b-20"
+          *ngFor="let unitsNumber of realUnitsNumber; let i = index"
+        >
+          <input
+            type="text"
+            class="form-control"
+            name="numberofunitsarray"
+            [(ngModel)]="instance.numberofunitsarray[i]"
+            #numberofunitsarray="ngModel"
+            required
+          />
+          <div
+            *ngIf="
+              numberofunitsarray &&
+              numberofunitsarray.invalid &&
+              (numberofunitsarray.dirty || numberofunitsarray.touched)
+            "
+            class="validation"
+          >
+            <p
+              class="validation__title"
+              *ngIf="numberofunitsarray.errors.required"
+            >
+              هذا الحقل مطلوب
+            </p>
+          </div>
+          <p
+            class="validation__title"
+            *ngIf="resError && resError['numberofunitsarray.' + i]"
+          >
+            {{ resError["numberofunitsarray." + i] }}
+          </p>
+        </div>
+      </div>
+
+      <div class="">
+        <h3 class="typo-title">نوع النماذج</h3>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="radio-container">
+              <input
+                name="month"
+                type="radio"
+                id="yes"
+                #yes
+                [value]="'SaleOnmap'"
+                name="option"
+                [(ngModel)]="instance.instance_type"
+              />
+              <label
+                class="radio-label"
+                for="yes"
+                [ngClass]="
+                  instance.instance_type == 'SaleOnmap'
+                    ? 'radio-label--active'
+                    : ''
+                "
+              >
+                <div class="card-gallery">
+                  <img
+                    class="card-gallery__img"
+                    src="/assets/image/coming.png"
+                    alt=""
+                  />
+                  <div class="card-gallery__overlay">
+                    <p class="card-gallery__title">بيع علي الخارطه</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="radio-container">
+              <input
+                name="month"
+                type="radio"
+                id="no"
+                #no
+                [value]="'ReadyUnits'"
+                name="option"
+                [(ngModel)]="instance.instance_type"
+              />
+              <label
+                class="radio-label"
+                for="no"
+                [ngClass]="
+                  instance.instance_type == 'ReadyUnits'
+                    ? 'radio-label--active'
+                    : ''
+                "
+              >
+                <div class="card-gallery">
+                  <img
+                    class="card-gallery__img"
+                    src="/assets/image/done.png"
+                    alt=""
+                  />
+                  <div class="card-gallery__overlay">
+                    <p class="card-gallery__title">وحدات جاهزه</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              (yes.invalid && (yes.dirty || yes.touched)) ||
+              (no.invalid && (no.dirty || no.touched))
+            "
+            class="validation"
+          >
+            <p
+              class="validation__title"
+              *ngIf="yes.errors.required || no.errors.required"
+            >
+              هذا الحقل مطلوب
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label>حاله النموذج</label>
+            <select
+              class="form-control"
+              name="real_estate_condition"
+              #real_estate_condition="ngModel"
+              [(ngModel)]="instance.real_estate_condition"
+              required
+              (input)="resError.real_estate_condition = ''"
+            >
+              <option hidden>حاله النموذج</option>
+              <option [value]="'Completed'">مكتمل</option>
+              <option [value]="'incomplete'">غير مكتمل </option>
+            </select>
+            <div
+              *ngIf="
+                real_estate_condition.invalid &&
+                (real_estate_condition.dirty || real_estate_condition.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="real_estate_condition.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.real_estate_condition }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="typo--bold typo--default typo-body1">خصائص النموذج</p>
+      <div class="row">
+        <div class="col-lg-7">
+          <div class="row l-f-between">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>مساحه النموذج - متر مربع</label>
+                <input
+                  type="number"
+                  placeholder="مساحه النموذج"
+                  class="form-control form-control--full-width"
+                  name="area"
+                  #area="ngModel"
+                  [(ngModel)]="instance.area"
+                  required
+                  (input)="resError.area = ''"
+                />
+                <div
+                  *ngIf="area.invalid && (area.dirty || area.touched)"
+                  class="validation"
+                >
+                  <p class="validation__title" *ngIf="area.errors.required">
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+                <p class="validation__title" *ngIf="resError">
+                  {{ resError.area }}
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>عدد الغرف</label>
+                <select
+                  class="form-control"
+                  name="numberofrooms"
+                  #numberofrooms="ngModel"
+                  [(ngModel)]="instance.numberofrooms"
+                  required
+                  (input)="resError.numberofrooms = ''"
+                >
+                  <option hidden>عدد الغرف</option>
+                  <option *ngFor="let number of loopNum" [value]="number">{{
+                    number
+                  }}</option>
+                </select>
+                <div
+                  *ngIf="
+                    numberofrooms.invalid &&
+                    (numberofrooms.dirty || numberofrooms.touched)
+                  "
+                  class="validation"
+                >
+                  <p
+                    class="validation__title"
+                    *ngIf="numberofrooms.errors.required"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+                <p class="validation__title" *ngIf="resError">
+                  {{ resError.numberofrooms }}
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>عدد الصالات</label>
+                <select
+                  class="form-control"
+                  name="numberofhalls"
+                  #numberofhalls="ngModel"
+                  [(ngModel)]="instance.numberofhalls"
+                  required
+                  (input)="resError.numberofhalls = ''"
+                >
+                  <option hidden>عدد الصالات</option>
+                  <option *ngFor="let number of loopNum" [value]="number">{{
+                    number
+                  }}</option>
+                </select>
+                <div
+                  *ngIf="
+                    numberofhalls.invalid &&
+                    (numberofhalls.dirty || numberofhalls.touched)
+                  "
+                  class="validation"
+                >
+                  <p
+                    class="validation__title"
+                    *ngIf="numberofhalls.errors.required"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+                <p class="validation__title" *ngIf="resError">
+                  {{ resError.numberofhalls }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-7">
+          <div class="row l-f-between">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>عدد الحمامات</label>
+                <select
+                  class="form-control"
+                  name="numberofbathrooms"
+                  #numberofbathrooms="ngModel"
+                  [(ngModel)]="instance.numberofbathrooms"
+                  required
+                  (input)="resError.numberofbathrooms = ''"
+                >
+                  <option hidden>عدد الحمامات</option>
+                  <option *ngFor="let number of loopNum" [value]="number">{{
+                    number
+                  }}</option>
+                </select>
+                <div
+                  *ngIf="
+                    numberofbathrooms.invalid &&
+                    (numberofbathrooms.dirty || numberofbathrooms.touched)
+                  "
+                  class="validation"
+                >
+                  <p
+                    class="validation__title"
+                    *ngIf="numberofbathrooms.errors.required"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+                <p class="validation__title" *ngIf="resError">
+                  {{ resError.numberofbathrooms }}
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group mat-form-group">
+                <label>تاريخ تسليم النموذج</label>
+                <mat-form-field>
+                  <input
+                    matInput
+                    [min]="minDate"
+                    [matDatepicker]="delever_date_picker"
+                    name="completiondate"
+                    #completiondate="ngModel"
+                    [(ngModel)]="instance.completiondate"
+                    required
+                    (input)="resError.completiondate = ''"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="delever_date_picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #delever_date_picker></mat-datepicker>
+                </mat-form-field>
+                <div
+                  *ngIf="
+                    completiondate.invalid &&
+                    (completiondate.dirty || completiondate.touched)
+                  "
+                  class="validation"
+                >
+                  <p
+                    class="validation__title"
+                    *ngIf="completiondate.errors.required"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+                <p class="validation__title" *ngIf="resError">
+                  {{ resError.completiondate }}
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-2"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row m-b-30">
+        <div class="col-lg-7">
+          <div class="row l-f-between">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>عدد الشوارع</label>
+                <select
+                  class="form-control"
+                  name="numberofstreets"
+                  #numberofstreets="ngModel"
+                  [(ngModel)]="instance.numberofstreets"
+                  required
+                  (input)="resError.numberofstreets = ''"
+                >
+                  <option hidden>عدد الشوارع</option>
+                  <option *ngFor="let number of loopNum" [value]="number">{{
+                    number
+                  }}</option>
+                </select>
+                <div
+                  *ngIf="
+                    numberofstreets.invalid &&
+                    (numberofstreets.dirty || numberofstreets.touched)
+                  "
+                  class="validation"
+                >
+                  <p
+                    class="validation__title"
+                    *ngIf="numberofstreets.errors.required"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+                <p class="validation__title" *ngIf="resError">
+                  {{ resError.numberofstreets }}
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>عرض الشارع</label>
+                <input
+                  type="number"
+                  class="form-control form-control--full-width"
+                  name="facadestreetwidth"
+                  #facadestreetwidth="ngModel"
+                  [(ngModel)]="instance.facadestreetwidth"
+                  required
+                  (input)="resError.facadestreetwidth = ''"
+                />
+                <div
+                  *ngIf="
+                    facadestreetwidth.invalid &&
+                    (facadestreetwidth.dirty || facadestreetwidth.touched)
+                  "
+                  class="validation"
+                >
+                  <p
+                    class="validation__title"
+                    *ngIf="facadestreetwidth.errors.required"
+                  >
+                    هذا الحقل مطلوب
+                  </p>
+                </div>
+                <p class="validation__title" *ngIf="resError">
+                  {{ resError.facadestreetwidth }}
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="typo--bold typo--default typo-body1">
+        مزايا النموذج
+      </p>
+      <div class="row">
+        <div
+          *ngFor="let advantage of advantages; let i = index"
+          class="col-md-2"
+        >
+          <div>
+            <mat-checkbox
+              name="advantage{{ i }}"
+              [(ngModel)]="advantage.isSelected"
+              >{{ advantage.name }}</mat-checkbox
+            >
+          </div>
+        </div>
+      </div>
+      <p class="validation__title" *ngIf="resError">
+        {{ resError.instances_advantage_array }}
+      </p>
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label>نوع النموذج</label>
+            <select
+              class="form-control"
+              name="property_type_id"
+              #property_type_id="ngModel"
+              [(ngModel)]="instance.property_type_id"
+              required
+              (input)="resError.property_type_idc = ''"
+            >
+              <option hidden>نوع النموذج</option>
+              <option
+                *ngFor="let property of properties"
+                [ngValue]="property.id"
+                >{{ property.name }}</option
+              >
+              <!-- <option [ngValue]="1">فيلا</option>
+              <option [ngValue]="2">عمارة</option>
+              <option [ngValue]="3">شقة </option> -->
+            </select>
+            <div
+              *ngIf="
+                property_type_id.invalid &&
+                (property_type_id.dirty || property_type_id.touched)
+              "
+              class="validation"
+            >
+              <p
+                class="validation__title"
+                *ngIf="property_type_id.errors.required"
+              >
+                هذا الحقل مطلوب
+              </p>
+            </div>
+            <p class="validation__title" *ngIf="resError">
+              {{ resError.numberofunits }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="m-b-20">
+        <div *ngIf="instance.property_type_id == 2">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>عدد الطوابق</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="villa_floors_number"
+                  #villa_floors_number="ngModel"
+                  [(ngModel)]="instance.villa_floors_number"
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <mat-checkbox
+              name="villa_ishave_basement"
+              #villa_ishave_basement="ngModel"
+              [(ngModel)]="instance.villa_ishave_basement"
+              >هل لديها قبو</mat-checkbox
+            >
+          </div>
+          <div>
+            <mat-checkbox
+              name="villa_ishave_driverroom"
+              #villa_ishave_driverroom="ngModel"
+              [(ngModel)]="instance.villa_ishave_driverroom"
+              >هل لديها غرفة سائق
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox
+              name="villa_ishave_maidsroom"
+              #villa_ishave_maidsroom="ngModel"
+              [(ngModel)]="instance.villa_ishave_maidsroom"
+              >هل لديها غرفة خادمة</mat-checkbox
+            >
+          </div>
+          <div>
+            <mat-checkbox
+              name="villa_ishave_carentrance"
+              #villa_ishave_carentrance="ngModel"
+              [(ngModel)]="instance.villa_ishave_carentrance"
+              >هل لديها مدخل سيارة
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox
+              name="villa_ishave_swimmingpool"
+              #villa_ishave_swimmingpool="ngModel"
+              [(ngModel)]="instance.villa_ishave_swimmingpool"
+              >هل لديها مدخل سيارة
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox
+              name="villa_ishave_garden"
+              #villa_ishave_garden="ngModel"
+              [(ngModel)]="instance.villa_ishave_garden"
+              >هل لديها حديقة
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox
+              name="villa_ishave_roof"
+              #villa_ishave_roof="ngModel"
+              [(ngModel)]="instance.villa_ishave_roof"
+              >هل لديها سطح
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox
+              name="villa_ishave_centralairconditioning"
+              #villa_ishave_centralairconditioning="ngModel"
+              [(ngModel)]="instance.villa_ishave_centralairconditioning"
+              >هل لديها تكييف مركزي
+            </mat-checkbox>
+          </div>
+        </div>
+        <div *ngIf="instance.property_type_id == 4">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>عدد الشقة </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="apartment_number"
+                  #apartment_number="ngModel"
+                  [(ngModel)]="instance.apartment_number"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>عدد الطوابق </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="apartment_floornumber"
+                  #apartment_floornumber="ngModel"
+                  [(ngModel)]="instance.apartment_floornumber"
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <mat-checkbox
+              name="apartment_aretheyhavefloor"
+              #apartment_aretheyhavefloor="ngModel"
+              [(ngModel)]="instance.apartment_aretheyhavefloor"
+              >هل لديها سقف
+            </mat-checkbox>
+          </div>
+        </div>
+        <div *ngIf="instance.property_type_id == 3">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>عدد الطوابق </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="building_floornumber"
+                  #building_floornumber="ngModel"
+                  [(ngModel)]="instance.building_floornumber"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>عدد الشقق </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="building_numberofapartments"
+                  #building_numberofapartments="ngModel"
+                  [(ngModel)]="instance.building_numberofapartments"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m-b-30 project-form__action">
+        <button
+          *ngIf="!instanceId"
+          (click)="addNewProject()"
+          [disabled]="!addInstance.valid"
+          class="button button--md button--radius button--secondary"
+        >
+          <span>اضف النموذج</span>
+          <div class="loading" *ngIf="isLoading">
+            <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+          </div>
+        </button>
+        <button
+          *ngIf="instanceId"
+          (click)="updateInstance()"
+          [disabled]="!addInstance.valid"
+          class="button button--md button--radius button--secondary"
+        >
+          <span>تعديل النموذج</span>
+          <div class="loading" *ngIf="isLoading">
+            <mat-spinner diameter="30" strokeWidth="3"></mat-spinner>
+          </div>
+        </button>
+        <button
+          class="button button--radius button--outline-danger"
+          [routerLink]="['/developer/projects/' + projectId + '/instances']"
+        >
+          الغاء
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

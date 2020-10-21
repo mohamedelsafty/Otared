@@ -1,0 +1,170 @@
+<section>
+  <breadcrumb crumbText="إدارة الطلبات"></breadcrumb>
+  <div class="row l-f-baseline">
+    <div class="col">
+      <div class="page-header">
+        <h2 class="page-header__title">نموذج الفيلا A</h2>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="main-button-group l-f-end">
+        <button
+          class="button button--secondary button--sm button--radius m-l-10"
+        >
+          طباعة
+        </button>
+        <mat-slide-toggle></mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      class="content-container"
+      fxLayout="column"
+      fxLayoutAlign="stretch"
+      fxFlex="auto"
+    >
+      <swiper
+        *ngIf="type == 'component' && show"
+        class="swiper-container"
+        [config]="config"
+        (indexChange)="onIndexChange($event)"
+        fxFlex="auto"
+      >
+        <div *ngFor="let slide of slides" class="swiper-slide">
+          <div class="slider-gallery">
+            <img class="slider-gallery__img" [src]="slide" [alt]="slide" />
+          </div>
+        </div>
+      </swiper>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+  <div class="row m-b-30">
+    <div class="col-lg-6">
+      <div class="typo-group">
+        <h3 class="typo--bold typo--default typo-body1 m-b-20">
+          المواصفات
+        </h3>
+        <p class="typo-body2 l-f text-info">
+          <span>نوع الوحدة</span><span>:</span><span>قيلا</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>السعر</span><span>:</span><span>ريال سعودي 2,000,000</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>ريال سعودي</span><span>:</span><span>غرفة خادمة +2</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span></span><span>:</span><span>حمامات 6</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span></span><span>:</span><span>غرف جلوس 3</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span></span><span>:</span><span>غرف جلوس</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>المساحة</span><span>:</span><span>قدم مربع / 476 متر مربع</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>نوع العقار</span><span>:</span><span>بناء علي الخارطة</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>عدد الوحدات</span><span>:</span><span>وحدات 4</span>
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="typo-group">
+        <h3 class="typo--bold typo--default typo-body1 m-b-20">
+          مزايا
+        </h3>
+        <p class="typo-body2 l-f text-info">
+          <span>شرفة</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>غرفة خادمة</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>مسبح خاص</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>مطل علي معلم رئيسي</span>
+        </p>
+        <p class="typo-body2 l-f text-info">
+          <span>موقف مغطي</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="row">
+      <div class="col">
+        <h3 class="typo-title typo--gold m-0">الوحدات التابعة للنموذج</h3>
+      </div>
+      <div class="col-md-4 content-left">
+        <button
+          [routerLink]="'/support/support-all-units'"
+          class="button button--secondary button--sm button--radius m-l-10"
+        >
+          كل الوحدات
+        </button>
+      </div>
+    </div>
+    <div class="main-table main-table--no-border">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>رقم الوحدة</th>
+          <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>حالة الوحدة</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef>اسم العميل</th>
+          <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef>انتهاء الحجز</th>
+          <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+        </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <div>
+              <button
+                (click)="changeStateDialog()"
+                mat-button
+                class="main-table__button"
+              >
+                تغيير الحالة
+              </button>
+              <button mat-icon-button (click)="allUnitesDialog()">
+                <svg class="main-table__icon main-table__icon--blue">
+                  <use
+                    xlink:href="/assets/image/svg-icons.svg#icon-visibility"
+                  ></use>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</section>

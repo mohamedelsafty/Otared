@@ -1,0 +1,171 @@
+<section class="projects">
+  <div class="">
+    <div class="l-f-between">
+      <div class="page-header">
+        <h2 class="page-header__title">
+          المشاريع
+        </h2>
+      </div>
+      <div>
+        <button
+          [routerLink]="'/developer/projects/project-form'"
+          class="button button--radius button--sm button--secondary"
+        >
+          أضف مشروع
+        </button>
+      </div>
+    </div>
+    <div class="loading" *ngIf="isLoading">
+      <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+    </div>
+    <div class="empty-state" *ngIf="!projects && !isLoading">
+      <div class="dashboard">
+        <div class="dashboard__img">
+          <img src="/assets/image/cuptea.svg" alt="Cup_Of_Tea" />
+        </div>
+        <div class="dashboard__content">
+          <p class="dashboard__title">
+            لا يوجد بيانات
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let project of projects">
+      <div *ngIf="!project.is_deleted" class="main-card main-card--horizontal">
+        <div class="main-card__img main-card__img--horizontal">
+          <a [routerLink]="project.id">
+            <img
+              [src]="project.logo_path"
+              *ngIf="project.logo_path"
+              alt="project-alex"
+            />
+          </a>
+          <a [routerLink]="project.id">
+            <img
+              src="/assets/image/alex.png"
+              *ngIf="!project.logo_path"
+              alt="project-alex"
+            />
+          </a>
+        </div>
+        <div class="main-card__content">
+          <div class="main-card__flex main-card__flex--between">
+            <h3 class="main-card__title">{{ project.name }}</h3>
+            <div class="main-card__action main-card__action--space">
+              <a href="https://api.whatsapp.com/send?text={{project.name}} link : {{shareableUrl}}" data-action="share/whatsapp/share"matTooltip="نشر المشروع" mat-icon-button target="_blank">
+                <svg class="main-card__icon main-card__icon--dark">
+                  <use
+                    xlink:href="/assets/image/svg-icons.svg#icon-share"
+                  ></use>
+                </svg>
+              </a>
+              <!-- <mat-slide-toggle
+                matTooltip=" تفعيل / تعطيل المشروع"
+                [checked]="project.project_status !== 'disable'"
+                (change)="activeProject($event, project)"
+              ></mat-slide-toggle> -->
+            </div>
+          </div>
+          <div class="main-card__flex main-card__data">
+            <div class="main-card__data-content">
+              <p class="typo-body2 l-f text-info">
+                <span>وحدات المشروع</span>
+                <span>:</span>
+                <!-- <span> {{ project.project_type }}</span> -->
+                <span
+                  class="typo-body2"
+                  *ngIf="project.project_type === 'ReadyUnits'"
+                >
+                  وحدات جاهزة
+                </span>
+                <span
+                  class="typo-body2"
+                  *ngIf="project.project_type === 'SaleOnmap'"
+                >
+                  بيع علي الخارطه
+                </span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>المدينه</span>
+                <span>:</span>
+                <span> {{ project.city.name_arabic }}</span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>الحي</span>
+                <span>:</span>
+                <span>{{ project.neighborhood.name_arabic }}</span>
+              </p>
+            </div>
+            <div class="">
+              <p class="typo-body2 l-f text-info text-info--desc">
+                <span>اجمالي الوحدات المتاحه</span>
+                <span>:</span>
+                <span>{{ project.available_instances_unit }} وحدات</span>
+              </p>
+              <p class="typo-body2 l-f text-info text-info--desc">
+                <span>اجمالي الوحدات المباعه</span>
+                <span>:</span>
+                <span> {{ project.sold_out_instances_unit }} وحدات</span>
+              </p>
+              <p class="typo-body2 l-f text-info text-info--desc">
+                <span>اجمالي النماذج</span>
+                <span>:</span>
+                <span>{{ project.instances_count }} نموزج</span>
+              </p>
+            </div>
+          </div>
+          <div class="main-card__action">
+            <div class="main-card__flex">
+              <p class="card__num--request m-l-40">
+                عدد طلبات الزيارة علي المشروع :
+                {{ project.visit_requests_count }}
+              </p>
+              <p class="card__num--request">
+                عدد طلبات حجز وحدة علي المشروع :
+                {{ project.reservation_requests_count }}
+              </p>
+            </div>
+            <div class="main-card__buttons">
+              <button
+                class="button button--sm button--blue button--radius"
+                [routerLink]="project.id"
+              >
+                عرض
+              </button>
+              <button
+                class="button button--sm button--radius button--outline"
+                [routerLink]="[
+                  '/developer/projects/project-form/' + project.id
+                ]"
+              >
+                تعديل
+              </button>
+              <button
+                (click)="deleteProject(project.id)"
+                class="button button--sm button--radius button--secondary button--border"
+              >
+                حذف
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isLoading">
+      <ul id="pagination">
+        <!-- <li><a (click)="paginateData(1)">«</a></li> -->
+        <!-- <li><a (click)="paginateData(1)" class="active">1</a></li> -->
+        <li *ngFor="let paginate of pagination; let i = index">
+          <a *ngIf="paginate > 0" (click)="paginateData(i)" class="active">{{
+            i
+          }}</a>
+        </li>
+        <!-- <li><a (click)="paginateData(2)" class="">2</a></li>
+        <li><a (click)="paginateData(3)">3</a></li>
+        <li><a (click)="paginateData(4)">4</a></li> -->
+
+        <!-- <li><a>»</a></li> -->
+      </ul>
+    </div>
+  </div>
+</section>

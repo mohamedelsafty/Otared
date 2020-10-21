@@ -1,0 +1,186 @@
+<section *ngIf="!reservationsService.isLoading">
+    <div class="breadcrumb">
+      <div class="container">
+        <ul class="breadcrumb__content">
+          <li *ngIf="target === 'reservationsRequests'" class="breadcrumb__item">
+            <a [routerLink]="'/developer/reservations'">طلبات الحجز</a>
+          </li>
+          <li *ngIf="target === 'reservations'" class="breadcrumb__item">
+              <a [routerLink]="'/developer/reservations/accepted'">الحجوزات</a>
+            </li>
+          <li class="breadcrumb__item">
+            <span *ngIf="target === 'reservationsRequests'" class="crumb__text"> طلب حجز وحدة</span>
+            <span *ngIf="target === 'reservations'" class="crumb__text"> حجز وحدة</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+          <div class="page-header__title-container">
+            <h2 *ngIf="target === 'reservationsRequests'" class="page-header__title">
+              طلب حجز وحدة - {{ reservationsService.reservation.project.name }}
+            </h2>
+            <h2 *ngIf="target === 'reservations'" class="page-header__title">
+                 حجز وحدة - {{ reservationsService.reservation.project.name }}
+              </h2>
+          </div>
+        </div>
+        <div
+          class="col-lg-4 content-left"
+          *ngIf="reservationsService.reservation.reservation_status === 'new'"
+        >
+          <button
+            (click)="reservationsService.acceptance(reservationsService.reservation)"
+            class="button button--radius button--custom-md button--secondary"
+          >
+            موافقة
+          </button>
+          <button
+            (click)="reservationsService.refuse(reservationsService.reservation)"
+            class="button button--radius button--custom-md button--danger"
+          >
+            رفض
+          </button>
+        </div>
+        <div
+          class="col-lg-4 content-left"
+          *ngIf="reservationsService.reservation.reservation_status === 'open'"
+        >
+          <button
+            (click)="reservationsService.extande(reservationsService.reservation)"
+            class="button button--radius button--custom-md button--secondary"
+          >
+            تمديد
+          </button>
+          <button
+          (click)="cancel()"
+          class="button button--radius button--custom-md button--danger"
+        >
+          الغاء
+        </button>
+        </div>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col-lg-7">
+            <p
+              class="page-header__caption page-header__caption--gold"
+              *ngIf="reservationsService.reservation.reservation_status === 'new'"
+            >
+              قام العميل {{ reservationsService.reservation.client.name }} بتقديم طلب تمويل عقاري للعقار -
+              الرجاء حجز الوحدة
+            </p>
+            <p
+              class="page-header__caption page-header__caption--green"
+              *ngIf="reservationsService.reservation.reservation_status === 'open'"
+            >
+              <span>لقد قمت بتأكيد حجز الوحدة لينتهي حجزها يوم</span>
+              <span dir="rtl"> {{ getDate() }}</span>
+            </p>
+            <p
+              class="page-header__caption page-header__caption--danger"
+              *ngIf="
+                reservationsService.reservation.reservation_status === 'Refused' ||
+                reservationsService.reservation.reservation_status === 'refused'
+              "
+            >
+              لقد قمت برفض حجز الوحدة لينتهي حجزها يوم
+              <span dir="rtl"> {{ getDate() }}</span>
+            </p>
+            <p
+            class="page-header__caption page-header__caption--danger"
+            *ngIf="
+              reservationsService.reservation.reservation_status === 'canceled'
+            "
+          >
+            لقد قمت بالغاء حجز الوحدة لينتهي حجزها يوم
+            <span dir="rtl"> {{ getDate() }}</span>
+          </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="m-b-50">
+              <h3 class="typo-title">بيانات الطلب</h3>
+              <p class="typo-body2 l-f text-info">
+                <span>رقم الطلب</span>
+                <span>:</span>
+                <span>{{ reservationsService.reservation.id }}</span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>اسم المشروع</span>
+                <span>:</span>
+                <span>{{ reservationsService.reservation.project.name }}</span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>اسم النموذج</span>
+                <span>:</span>
+                <span>{{ reservationsService.reservation.instance.name }}</span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>فئة النموذج</span>
+                <span>:</span>
+                <span *ngIf="!propertyTypeService.isLoading">
+                    {{propertyTypeService.findRecord(reservationsService.reservation.instance?.property_type_id).name}}
+                </span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>نوع النموذج</span>
+                <span>:</span>
+                <!-- <span>{{ reservationsService.reservation.project.project_type }}</span> -->
+                <span *ngIf="reservationsService.reservation.project.project_type == 'SaleOnmap'">
+                  بيع على الخارطة
+                </span>
+                <span *ngIf="reservationsService.reservation.project.project_type == 'ReadyUnits'">
+                  وحدات جاهزة
+                </span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>رقم الوحدة</span>
+                <span>:</span>
+                <span>{{ reservationsService.reservation.project.id }}</span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>مدة الحجز</span>
+                <span>:</span>
+                <span>{{ reservationsService.reservation.reservation_duration }} أيام</span>
+              </p>
+              <p *ngIf="reservationsService.reservation.reservation_status === 'open'" class="typo-body2 l-f text-info">
+                  <span>انتهاء الحجز</span>
+                  <span>:</span>
+                  <span>{{ getDate() }}</span>
+                </p>
+              
+            </div>
+            <div class="">
+              <h3 class="typo-title">بيانات مقدم الطلب</h3>
+      
+              <p class="typo-body2 l-f text-info">
+                <span>الاسم</span>
+                <span>:</span>
+                <span>{{ reservationsService.reservation.client.name }}</span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>رقم الجوال</span>
+                <span>:</span>
+                <span>{{ reservationsService.reservation.client.phone }}</span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>حالة طلب التمويل</span>
+                <span>:</span>
+                منتظر الموافقة
+     
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <sample-card [cardData]="reservationsService.reservation"></sample-card>
+          </div>
+        </div>
+      </div>
+  </section>
+  <div class="loading" *ngIf="reservationsService.isLoading">
+    <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+  </div>
+  

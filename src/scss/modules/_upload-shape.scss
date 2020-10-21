@@ -1,0 +1,20 @@
+.upload-shape {
+  display: flex;
+  color: $color-blue;
+  align-items: center;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.upload-shape__icon {
+  fill: $color-blue;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+}
+
+.upload-shape__desc {
+  font-size: 10px;
+  color: $color-blue;
+}

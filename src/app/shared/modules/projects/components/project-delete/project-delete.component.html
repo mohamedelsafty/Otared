@@ -1,0 +1,48 @@
+<div class="dialog">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">حذف الوحده</h2>
+      <button
+        class="dialog__title-close"
+        mat-dialog-close
+        mat-icon-button
+        (click)="onNoClick()"
+      >
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <form #form='ngForm' class="form-group">
+      <label for="">سبب الحذف</label>
+      <textarea
+        class="form-control form-control--text"
+        placeholder="سبب الحذف"
+        rows="8"
+        name="reason"
+        #reason="ngModel"
+        [(ngModel)]="deletion_reason"
+        required
+      ></textarea>
+    </form>
+  </div>
+  <div class="dialog-actions">
+    <button
+    [disabled]="isLoading || !form.valid"
+      (click)="deleteProject()"
+      class="button button--custom-md button--radius button--danger"
+    >
+      تأكيد الحذف
+    </button>
+    <button
+    [disabled]="isLoading"
+      mat-dialog-close
+      (click)="onNoClick()"
+      class="button button--custom-md button--radius button--outline"
+    >
+      رجوع
+    </button>
+  </div>
+</div>

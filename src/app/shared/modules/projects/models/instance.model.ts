@@ -1,0 +1,37 @@
+export class Instance {
+  id: number = null;
+  name: string = null;
+  description: string = null;
+  instance_type: string = null;
+  project_type: string = null;
+  real_estate_condition: string = null;
+  villa_floors_number: any = null;
+  villa_ishave_basement: any = null;
+  villa_ishave_driverroom: any = null;
+  villa_ishave_maidsroom: any = null;
+  villa_ishave_carentrance: any = null;
+  villa_ishave_swimmingpool: any = null;
+  villa_ishave_garden: any = null;
+  villa_ishave_roof: any = null;
+  villa_ishave_centralairconditioning: any = null;
+  apartment_number: any = null;
+  apartment_floornumber: any = null;
+  apartment_aretheyhavefloor: any = null;
+  building_floornumber: any = null;
+  building_numberofapartments: any = null;
+  area: number = null;
+  price: any = null;
+  numberofrooms: number = null;
+  numberofhalls: number = null;
+  numberofbathrooms: number = null;
+  numberofstreets: number = null;
+  facadestreetwidth: number = null;
+  completiondate: number = null;
+  numberofunits: number = null;
+  property_type_id: any = null;
+  projects_id: number = null;
+  instances_images_paths: any = null;
+  instances_advantage_array: any = [];
+  numberofunitsarray: any = [];
+  developer_id: number = null;
+}

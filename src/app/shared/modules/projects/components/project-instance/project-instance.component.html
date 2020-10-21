@@ -1,0 +1,137 @@
+<!-- <breadcrumb crumbText="المطورين |امجاد عقاريه"></breadcrumb> -->
+<section>
+  <div class="container">
+    <div class="l-f-between">
+      <div class="page-header">
+        <h2 class="page-header__title">
+          النماذج
+        </h2>
+      </div>
+      <div class="row">
+        <!-- <div class="col">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control search-input"
+              id="formGroupExampleInput"
+              placeholder="ابحث في النماذج"
+            />
+          </div>
+        </div> -->
+        <div class="col">
+          <button
+            [routerLink]="'/developer/projects/' + projectId + '/instance-form'"
+            class="button button--radius button--sm button--secondary"
+          >
+            أضف نموذج
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="loading" *ngIf="isLoading">
+      <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6" *ngFor="let instance of instances">
+        <div class="main-card main-card--vertical" *ngIf="instance">
+          <a [routerLink]="[instance.id]">
+            <img
+              src="/assets/image/bernard3.png"
+              class="card-img-top main-card__img main-card__img--vertical"
+              alt="img_visits"
+              *ngIf="!instance.instance_images_paths.length"
+            />
+          </a>
+          <a [routerLink]="[instance.id]">
+            <img
+              *ngIf="instance.instance_images_paths.length"
+              [src]="instance.instance_images_paths[0]"
+              class="card-img-top main-card__img main-card__img--vertical"
+              alt="img_visits"
+            />
+          </a>
+          <div class="card-body card-body--pd">
+            <div class="card-body--m card-body--flex">
+              <h4 class="card-content card-content__color">
+                {{ instance.name }}
+              </h4>
+              <!-- <mat-slide-toggle></mat-slide-toggle> -->
+            </div>
+            <div class="data__details--info">
+              <p class="typo-body2 l-f text-info">
+                <span>طلبات الحجز</span>
+                <span>:</span>
+                <span
+                  >{{
+                    instance.instance_operations_count.ReservationRequest
+                  }}
+                  طلب</span
+                >
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>طلبات الزياره</span>
+                <span>:</span>
+                <span
+                  >{{
+                    instance.instance_operations_count.VisitRequest
+                  }}
+                  طلب</span
+                >
+              </p>
+            </div>
+          </div>
+          <div class="button__bottom main-card__buttons">
+            <button
+              [routerLink]="[instance.id]"
+              class="button button--sm button--radius button--secondary"
+            >
+              الوحدات
+            </button>
+            <button
+              [routerLink]="[instance.id]"
+              class="button button--radius button--outline button--sm"
+            >
+              تفاصيل
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-3">
+        <div class="main-card main-card--vertical">
+          <img
+            src="/assets/image/bernard1.png"
+            class="card-img-top"
+            alt="img_visits"
+          />
+          <div class="card-body card-body--pd">
+            <div class="card-body--m card-body--flex">
+              <h4 class="card-content card-content__color">نموزج CHC</h4>
+              <mat-slide-toggle></mat-slide-toggle>
+            </div>
+            <div class="data__details--info">
+              <p class="typo-body2 l-f text-info">
+                <span>طلبات الحجز</span>
+                <span>:</span>
+                <span>17 طلب</span>
+              </p>
+              <p class="typo-body2 l-f text-info">
+                <span>طلبات الزياره</span>
+                <span>:</span>
+                <span>77 طلب</span>
+              </p>
+            </div>
+          </div>
+          <div class="button__bottom">
+            <button class="button button--sm button--radius button--secondary">
+              الوحدات
+            </button>
+            <button class="button button--radius button--outline button--sm">
+              تفاصيل
+            </button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</section>
+<empty-state *ngIf="!isLoading && !instances.length"></empty-state>

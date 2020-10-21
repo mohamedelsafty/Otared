@@ -1,0 +1,96 @@
+<header class="header " [ngClass]="[(isPersonalHeader === true) ? 'header--personal' : '', (headerConfig.theme === 'dark')? 'header--dark': '', (headerConfig.position === 'relative')? '': 'header--absolute']">
+    <h1 class="header__logo" *ngIf="isPersonalHeader === true">
+        <span class="sr-only">Logo</span>
+        <a routerLink="/">
+            <img id="logo-dark" *ngIf="headerConfig.theme === 'dark'"  loading="lazy" src="/assets/landing-page/img/logo-dark.svg" alt="otared Logo"
+                class="brand">
+            <img id="logo-light" *ngIf="headerConfig.theme === 'light'"  loading="lazy" src="/assets/landing-page/img/logo.svg" alt="otared Logo"
+                class="brand ">
+        </a>
+    </h1>
+    <div class="header__container container"> 
+        <h1 class="header__logo" *ngIf="isPersonalHeader === false">
+            <span class="sr-only">Logo</span>
+            <a routerLink="/">
+                <img id="logo-dark" *ngIf="headerConfig.theme === 'dark'"  loading="lazy" src="/assets/landing-page/img/logo-dark.svg" alt="otared Logo"
+                    class="brand">
+                <img id="logo-light" *ngIf="headerConfig.theme === 'light'"  loading="lazy" src="/assets/landing-page/img/logo.svg" alt="otared Logo"
+                    class="brand">
+            </a>
+        </h1>
+        <nav class="nav-bar nav-bar--center">
+            <ul class="nav-bar__menu">
+                <li class="nav-bar__menu-item">
+                    <a  routerLink fragment="aboutOtared" class="nav-bar__menu-link"> لماذا عطارد</a>
+                </li>
+                <li class="nav-bar__menu-item">
+                    <a routerLink="/instances"  routerLinkActive="nav-bar__menu-link--active"  class="nav-bar__menu-link">تصفح العقارات</a>
+                </li>
+                <!-- CASE: anonymous user -->
+                <li class="nav-bar__menu-item" *ngIf="auth.isLoggedIn() === false">
+                    <a routerLink="/constructors" routerLinkActive="nav-bar__menu-link--active"  class="nav-bar__menu-link">تسجيل الشركات</a>
+                </li>
+                <!-- /CASE: anonymous user -->
+                <!-- <li class="nav-bar__menu-item">
+                    <a routerLink="/terms" class="nav-bar__menu-link">الشروط والأحكام</a>
+                </li> -->
+                <!-- <li class="nav-bar__menu-item">
+                    <a href="#contactForm" class="nav-bar__menu-link">تواصل معنا</a>
+                </li> -->
+                <!-- CASE: anonymous user -->
+                <li class="nav-bar__menu-item" *ngIf="auth.isLoggedIn() === false">
+                    <div class="profile-menu">
+                        <div class="profile-menu__name">
+                            <svg>
+                                <use xlink:href="/assets/image/svg-icons.svg#icon-user"></use>
+                            </svg>
+                        </div>
+                        <ul class="profile-menu__list">
+                            <li class="profile-menu__item">
+                                <a [routerLink]="['/auth/login']" class="profile-menu__link">
+                                    <svg class="profile-menu__icon" viewBox="0 -32 512.016 512"><path d="m192 213.339844c-58.816406 0-106.667969-47.847656-106.667969-106.664063 0-58.816406 47.851563-106.6679685 106.667969-106.6679685s106.667969 47.8515625 106.667969 106.6679685c0 58.816407-47.851563 106.664063-106.667969 106.664063zm0-181.332032c-41.171875 0-74.667969 33.492188-74.667969 74.667969 0 41.171875 33.496094 74.664063 74.667969 74.664063s74.667969-33.492188 74.667969-74.664063c0-41.175781-33.496094-74.667969-74.667969-74.667969zm0 0"/><path d="m368 448.007812h-352c-8.832031 0-16-7.167968-16-16v-74.667968c0-55.871094 45.460938-101.332032 101.332031-101.332032h181.335938c55.871093 0 101.332031 45.460938 101.332031 101.332032v74.667968c0 8.832032-7.167969 16-16 16zm-336-32h320v-58.667968c0-38.226563-31.105469-69.332032-69.332031-69.332032h-181.335938c-38.226562 0-69.332031 31.105469-69.332031 69.332032zm0 0"/><path d="m496 218.675781h-181.332031c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h181.332031c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0"/><path d="m410.667969 304.007812c-4.097657 0-8.191407-1.558593-11.308594-4.691406-6.25-6.253906-6.25-16.386718 0-22.636718l74.027344-74.027344-74.027344-74.027344c-6.25-6.25-6.25-16.382812 0-22.632812s16.382813-6.25 22.636719 0l85.332031 85.332031c6.25 6.25 6.25 16.386719 0 22.636719l-85.332031 85.332031c-3.136719 3.15625-7.234375 4.714843-11.328125 4.714843zm0 0"/></svg>
+                                    الدخول</a>
+                            </li>
+                            <li class="profile-menu__item">
+                                <a [routerLink]="['/auth/customer-register']" routerLinkActive="router-link-active"
+                                    class="profile-menu__link">
+                                    <svg class="profile-menu__icon" viewBox="0 0 482.8 482.8">
+                                        <path d="M395.95,210.4h-7.1v-62.9c0-81.3-66.1-147.5-147.5-147.5c-81.3,0-147.5,66.1-147.5,147.5c0,7.5,6,13.5,13.5,13.5    s13.5-6,13.5-13.5c0-66.4,54-120.5,120.5-120.5c66.4,0,120.5,54,120.5,120.5v62.9h-275c-14.4,0-26.1,11.7-26.1,26.1v168.1    c0,43.1,35.1,78.2,78.2,78.2h204.9c43.1,0,78.2-35.1,78.2-78.2V236.5C422.05,222.1,410.35,210.4,395.95,210.4z M395.05,404.6    c0,28.2-22.9,51.2-51.2,51.2h-204.8c-28.2,0-51.2-22.9-51.2-51.2V237.4h307.2L395.05,404.6L395.05,404.6z"/><path d="M241.45,399.1c27.9,0,50.5-22.7,50.5-50.5c0-27.9-22.7-50.5-50.5-50.5c-27.9,0-50.5,22.7-50.5,50.5    S213.55,399.1,241.45,399.1z M241.45,325c13,0,23.5,10.6,23.5,23.5s-10.5,23.6-23.5,23.6s-23.5-10.6-23.5-23.5    S228.45,325,241.45,325z"/></svg>
+                                    التسجيل</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- /CASE: anonymous user -->
+                <!-- CASE: logged in user -->
+                <li class="nav-bar__menu-item" *ngIf="auth.isLoggedIn() === true">
+                    <div class="profile-menu">
+                        <div class="profile-menu__name">
+                            مرحبا 
+                            <span class="u-color-secondary">
+                                {{auth.getUser().personal_name}} {{auth.getUser().name}}
+                            </span>
+                        </div>
+                        <ul class="profile-menu__list">
+                            <li class="profile-menu__item">
+                                <button (click)="auth.redirectToCorrectRoute()"
+                                    class="profile-menu__link">
+                                    <svg class="profile-menu__icon">
+                                        <use xlink:href="/assets/image/svg-icons.svg#icon-dashboard"></use>
+                                    </svg>
+                                    لوحة التحكم</button>
+                            </li>
+                            <li class="profile-menu__item">
+                                <button (click)="auth.logOut()"
+                                    class="profile-menu__link">
+                                    <svg class="profile-menu__icon" viewBox="0 0 512.00533 512"><path d="m320 277.335938c-11.796875 0-21.332031 9.558593-21.332031 21.332031v85.335937c0 11.753906-9.558594 21.332032-21.335938 21.332032h-64v-320c0-18.21875-11.605469-34.496094-29.054687-40.554688l-6.316406-2.113281h99.371093c11.777344 0 21.335938 9.578125 21.335938 21.335937v64c0 11.773438 9.535156 21.332032 21.332031 21.332032s21.332031-9.558594 21.332031-21.332032v-64c0-35.285156-28.714843-63.99999975-64-63.99999975h-229.332031c-.8125 0-1.492188.36328175-2.28125.46874975-1.027344-.085937-2.007812-.46874975-3.050781-.46874975-23.53125 0-42.667969 19.13281275-42.667969 42.66406275v384c0 18.21875 11.605469 34.496093 29.054688 40.554687l128.386718 42.796875c4.351563 1.34375 8.679688 1.984375 13.226563 1.984375 23.53125 0 42.664062-19.136718 42.664062-42.667968v-21.332032h64c35.285157 0 64-28.714844 64-64v-85.335937c0-11.773438-9.535156-21.332031-21.332031-21.332031zm0 0"/><path d="m505.75 198.253906-85.335938-85.332031c-6.097656-6.101563-15.273437-7.9375-23.25-4.632813-7.957031 3.308594-13.164062 11.09375-13.164062 19.714844v64h-85.332031c-11.777344 0-21.335938 9.554688-21.335938 21.332032 0 11.777343 9.558594 21.332031 21.335938 21.332031h85.332031v64c0 8.621093 5.207031 16.40625 13.164062 19.714843 7.976563 3.304688 17.152344 1.46875 23.25-4.628906l85.335938-85.335937c8.339844-8.339844 8.339844-21.824219 0-30.164063zm0 0"/></svg>
+                                    خروج</button>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- /CASE: logged in user -->
+            </ul>
+        </nav>
+    </div>
+</header>

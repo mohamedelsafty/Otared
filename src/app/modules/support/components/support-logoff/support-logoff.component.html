@@ -1,0 +1,31 @@
+<div class="dialog" *ngIf="!refConfirm">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">تسجيل خروج</h2>
+      <button class="dialog__title-close" mat-dialog-close mat-icon-button>
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog__content">
+    <p>
+      انت علي وشك تسجيل الخروج من حسابك الشخصي علي عطارد
+    </p>
+  </div>
+  <div class="dialog-actions">
+    <button
+      (click)="logoff()"
+      class="button button--radius button--sm button--danger"
+    >
+      تسجيل خروج
+    </button>
+    <button
+      mat-dialog-close
+      class="button button--radius button--sm button--outline"
+    >
+      العودة
+    </button>
+  </div>
+</div>

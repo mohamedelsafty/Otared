@@ -1,0 +1,120 @@
+<div
+  [ngClass]="{ 'home-card--vertical-price': filterDesign }"
+  class="home-card"
+  *ngIf="instance"
+>
+  <a
+    [routerLink]="['/instance/' + instance.id]"
+    routerLinkActive="router-link-active"
+  >
+    <div class="home-card__img-container">
+      <img
+        *ngIf="instance.instance_image_url"
+        [src]="instance.instance_image_url"
+        class="home-card__img"
+      />
+    </div>
+  </a>
+  <div class="home-card__icons">
+    <button mat-icon-button (click)="share()">
+      <svg class="home-card__icon home-card__icon--white">
+        <use xlink:href="/assets/image/svg-icons.svg#icon-share"></use>
+      </svg>
+    </button>
+    <button
+      mat-icon-button
+      (click)="addToFavoritRequest()"
+      *ngIf="
+        ((authService.isLoggedIn() &&
+          authService.getUser().type === 'Client') ||
+          !authService.isLoggedIn()) &&
+        !instance.is_favorite
+      "
+    >
+      <svg class="home-card__icon home-card__icon--white">
+        <use xlink:href="/assets/image/svg-icons.svg#icon-star-outline"></use>
+      </svg>
+    </button>
+    <button
+      mat-icon-button
+      (click)="removeFromFavorte()"
+      *ngIf="
+        ((authService.isLoggedIn() &&
+          authService.getUser().type === 'Client') ||
+          !authService.isLoggedIn()) &&
+        instance.is_favorite
+      "
+    >
+      <svg class="home-card__icon main-card__icon--gold">
+        <use xlink:href="/assets/image/svg-icons.svg#icon-star"></use>
+      </svg>
+    </button>
+  </div>
+  <div class="home-card__content">
+    <div class="home-card__info flex-grow-1">
+      <a
+        [routerLink]="['/instance/' + instance.id]"
+        routerLinkActive="router-link-active"
+      >
+        <p class="typo-body2 l-f">
+          <span class="typo--bold typo--black">{{
+            instance.instance_name
+          }}</span>
+        </p>
+      </a>
+      <p class="typo-body2 l-f" *ngIf="filterDesign">
+        <span class="home-card__price">{{ instance.price }}</span>
+        <span></span>
+        <span class="home-card__currency"> ريال سعودي </span>
+      </p>
+      <p class="typo-body2 l-f row">
+        <span class="col-4">المشروع:</span>
+        <span class="typo--primary col-8">{{ instance.project_name }}</span>
+      </p>
+      <p class="typo-body2 l-f row">
+        <span class="col-4">المطور:</span>
+        <span class="typo--primary col-8">{{ instance.developer_name }}</span>
+      </p>
+      <p class="typo-body2 l-f row">
+        <span class="col-4">النوع:</span>
+        <span class="typo--primary col-8">{{
+          instance.property_type_name
+        }}</span>
+      </p>
+      <p class="typo-body2 l-f row">
+        <span class="col-4">الحاله:</span>
+        <span class="typo--primary col-8">
+          {{ instance.instance_type_name }}
+        </span>
+      </p>
+    </div>
+    <div class="home-card__info" *ngIf="!filterDesign">
+      <p class="home-card__price">{{ instance.price }}</p>
+      <p class="home-card__currency">ريال سعودي</p>
+    </div>
+  </div>
+
+  <instance-card-actions
+    *ngIf="!withoutActions && !withSelectOption"
+    [instance]="instance"
+  ></instance-card-actions>
+  <div *ngIf="withSelectOption" class="home-card__action">
+    <button
+      *ngIf="!isSelected"
+      class="button button--primary button--radius button--sm"
+      href="#/calc/personal-information"
+      (click)="onSelect()"
+    >
+      اختار
+    </button>
+    <button
+      *ngIf="isSelected"
+      class="button button--secondary button--radius button--sm"
+      href="#/calc/personal-information"
+      (click)="onUnSelect()"
+    >
+      الغاء الاختيار
+    </button>
+  </div>
+</div>
+<a #shareLink class="hide"></a>

@@ -1,0 +1,30 @@
+<div class="dialog">
+  <div class="dialog__title">
+    <h2 class="typo-title typo-title__color m-0">تم استلام الطلب</h2>
+    <button class="dialog__title-close" mat-icon-button (click)="onNoClick()">
+      <svg>
+        <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+  <div class="dialog-actions--suggestion">
+    <p class="dialog-text--suggestion">
+      تم استلام اقتراحك و نحن سعداء بخدمتك لتسهيل عملك خلال عطارد و سوف نعمل
+      جاهدين علي اقتراحاتكم و شكرا لكم
+    </p>
+    <br />
+    <button
+      class="button button--radius button--sm button--primary"
+      [routerLink]="[userRouter]"
+      (click)="onNoClick()"
+    >
+      الصفحه الرئيسية
+    </button>
+    <button
+      class="button button--outline button--radius button--sm"
+      (click)="onNoClick()"
+    >
+      العودة
+    </button>
+  </div>
+</div>

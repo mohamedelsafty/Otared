@@ -1,0 +1,56 @@
+<div class="home-card__action">
+  <button
+    *ngIf="
+      (authService.isLoggedIn() &&
+        authService.getUser().type === 'Client' &&
+        browsingStatus != 5) ||
+      !authService.isLoggedIn()
+    "
+    class="button button--primary button--radius button--sm"
+    (click)="visitRequest(instance)"
+  >
+    طلب زياره
+  </button>
+  <a
+    *ngIf="
+      authService.isLoggedIn() &&
+      authService.getUser().type === 'Client' &&
+      browsingStatus === 3
+    "
+    class="button  button--radius border-dark text-dark"
+    [href]="'/calc/personal-information'"
+    >اكمال بيانات</a
+  >
+  <a
+    *ngIf="
+      !authService.isLoggedIn() ||
+      (authService.getUser().type === 'Client' && browsingStatus < 3)
+    "
+    class="button  button--radius border-dark text-dark"
+    [routerLink]="['/calc/personal-information']"
+    [queryParams]="{ instatnceId: instance.id }"
+    >محتسب اولي</a
+  >
+  <a
+    *ngIf="
+      authService.isLoggedIn() &&
+      authService.getUser().type === 'Client' &&
+      browsingStatus === 4
+    "
+    class="button  button--radius border-dark text-dark"
+    [routerLink]="['/purchasing/offers']"
+  >
+    رفع طلب تمويل</a
+  >
+  <a
+    *ngIf="
+      authService.isLoggedIn() &&
+      authService.getUser().type === 'Client' &&
+      browsingStatus === 5
+    "
+    class="button button--primary button--radius button--sm"
+    [routerLink]="['/customer/finance/request']"
+  >
+    رفع طلب تمويل جديد</a
+  >
+</div>

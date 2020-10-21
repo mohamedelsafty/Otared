@@ -1,0 +1,195 @@
+<section>
+  <div class="breadcrumb">
+    <div class="container">
+      <ul class="breadcrumb__content">
+        <li *ngIf="target === 'reservationsRequests'" class="breadcrumb__item">
+          <a [routerLink]="'/developer/reservations-requests'">طلبات الحجز</a>
+        </li>
+        <li *ngIf="target === 'reservations'" class="breadcrumb__item">
+            <a [routerLink]="'/developer/reservations'">الحجوزات</a>
+          </li>
+        <li class="breadcrumb__item">
+          <span *ngIf="target === 'reservationsRequests'" class="crumb__text"> طلب حجز وحدة</span>
+          <span *ngIf="target === 'reservations'" class="crumb__text"> حجز وحدة</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngFor="let reserve of reservationData">
+    <div class="row">
+      <div class="col">
+        <div class="page-header__title-container">
+          <h2 *ngIf="target === 'reservationsRequests'" class="page-header__title">
+            طلب حجز وحدة - {{ reserve.project.name }}
+          </h2>
+          <h2 *ngIf="target === 'reservations'" class="page-header__title">
+               حجز وحدة - {{ reserve.project.name }}
+            </h2>
+        </div>
+      </div>
+      <div
+        class="col-lg-4 content-left"
+        *ngIf="reserve.reservation_status === 'new'"
+      >
+        <button
+          (click)="acceptanceDialog('acceptance')"
+          class="button button--radius button--custom-md button--secondary"
+        >
+          موافقة
+        </button>
+        <button
+          (click)="refuseDialog()"
+          class="button button--radius button--custom-md button--danger"
+        >
+          رفض
+        </button>
+      </div>
+      <div
+        class="col-lg-4 content-left"
+        *ngIf="reserve.reservation_status === 'open'"
+      >
+        <button
+          (click)="acceptanceDialog('extande')"
+          class="button button--radius button--custom-md button--secondary"
+        >
+          تمديد
+        </button>
+        <button
+        (click)="cancel()"
+        class="button button--radius button--custom-md button--danger"
+      >
+        الغاء
+      </button>
+      </div>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-lg-7">
+          <p
+            class="page-header__caption page-header__caption--gold"
+            *ngIf="reserve.reservation_status === 'new'"
+          >
+            قام العميل {{ reserve.client.name }} بتقديم طلب تمويل عقاري للعقار -
+            الرجاء حجز الوحدة
+          </p>
+          <p
+            class="page-header__caption page-header__caption--green"
+            *ngIf="reserve.reservation_status === 'open'"
+          >
+            <span>لقد قمت بتأكيد حجز الوحدة لينتهي حجزها يوم</span>
+            <span dir="rtl"> {{ getDate() }}</span>
+          </p>
+          <p
+            class="page-header__caption page-header__caption--danger"
+            *ngIf="
+              reserve.reservation_status === 'Refused' ||
+              reserve.reservation_status === 'refused'
+            "
+          >
+            لقد قمت برفض حجز الوحدة لينتهي حجزها يوم
+            <span dir="rtl"> {{ getDate() }}</span>
+          </p>
+          <p
+          class="page-header__caption page-header__caption--danger"
+          *ngIf="
+            reserve.reservation_status === 'canceled'
+          "
+        >
+          لقد قمت بالغاء حجز الوحدة لينتهي حجزها يوم
+          <span dir="rtl"> {{ getDate() }}</span>
+        </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="m-b-50">
+            <h3 class="typo-title">بيانات الطلب</h3>
+            <p class="typo-body2 l-f text-info">
+              <span>رقم الطلب</span>
+              <span>:</span>
+              <span>{{ reserve.id }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>اسم المشروع</span>
+              <span>:</span>
+              <span>{{ reserve.project.name }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>اسم النموذج</span>
+              <span>:</span>
+              <span>{{ reserve.instance.name }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>فئة النموذج</span>
+              <span>:</span>
+              <span>{{reserve.instance?.property_type?.name}}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>نوع النموذج</span>
+              <span>:</span>
+              <!-- <span>{{ reserve.project.project_type }}</span> -->
+              <span *ngIf="reserve.project.project_type == 'SaleOnmap'">
+                بيع على الخارطة
+              </span>
+              <span *ngIf="reserve.project.project_type == 'ReadyUnits'">
+                وحدات جاهزة
+              </span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>رقم الوحدة</span>
+              <span>:</span>
+              <span>{{ reserve.project.id }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>مدة الحجز</span>
+              <span>:</span>
+              <span>{{ reserve.reservation_duration }} أيام</span>
+            </p>
+            <p *ngIf="reserve.reservation_status === 'open'" class="typo-body2 l-f text-info">
+                <span>انتهاء الحجز</span>
+                <span>:</span>
+                <span>{{ getDate() }}</span>
+              </p>
+            
+          </div>
+          <div class="">
+            <h3 class="typo-title">بيانات مقدم الطلب</h3>
+            <!-- <p class="typo-body2 l-f text-info">
+              <span>رقم الطلب</span>
+              <span>:</span>
+              <span>716</span>
+            </p> -->
+            <p class="typo-body2 l-f text-info">
+              <span>الاسم</span>
+              <span>:</span>
+              <span>{{ reserve.client.name }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>رقم الجوال</span>
+              <span>:</span>
+              <span>{{ reserve.client.phone }}</span>
+            </p>
+            <p class="typo-body2 l-f text-info">
+              <span>حالة طلب التمويل</span>
+              <span>:</span>
+              منتظر الموافقة
+              <!-- <span>{{ reserve.reservation_status }}</span> -->
+              <!-- <span *ngIf="reserve.reservation_status == 'Refused'">
+                مرفوض
+              </span>
+              <span *ngIf="reserve.reservation_status == 'Approved'">
+                تمت الموفقه
+              </span>
+              <span *ngIf="reserve.reservation_status == 'new'">
+                جديد
+              </span> -->
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <sample-card [cardData]="reserve"></sample-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+.data__details {
+    font-size: 20px;
+    color: $color-gold;
+    margin: 45px 0px 32px;
+}
+
+.data__details--info {
+    margin-top: 24px;
+}
+
+.data__developer {
+    box-shadow: 0px 2px 4px #0000000A;
+    border: 2px solid $color-white;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+.reports__prient {
+    position: relative;
+}
+
+.reports__prient--icon {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 16px;
+    bottom: 16px;
+    fill: $color-white;
+    cursor: pointer;
+}

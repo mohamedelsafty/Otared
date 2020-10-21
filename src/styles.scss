@@ -1,0 +1,105 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+$Otared-primary: (
+  50: #e1f5fe,
+  100: #b3e5fc,
+  200: #81d4fa,
+  300: #4fc3f7,
+  400: #29b6f6,
+  500: #03a9f4,
+  600: #039be5,
+  700: #0288d1,
+  800: #0277bd,
+  900: #01579b,
+  A100: #80d8ff,
+  A200: #00b0ff,
+  A400: #00b0ff,
+  A700: #0091ea,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$Otared-accent: (
+  50: #fafafb,
+  100: #f4f4f5,
+  200: #ededee,
+  300: #dededf,
+  400: #bbbbbc,
+  500: #9c9c9d,
+  600: #737374,
+  700: #5f5f60,
+  800: #404041,
+  900: #1f1f20,
+  A100: #737374,
+  A200: #5f5f60,
+  A400: #404041,
+  A700: #1f1f20,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+// $Otared-primary: mat-palette($mat-indigo);
+// $Otared-accent: mat-palette($mat-pink, A200, A100, A400);
+
+$candy-app-primary: mat-palette($Otared-primary, A700, A100, A400);
+$candy-app-accent: mat-palette($Otared-accent, A400);
+
+// The warn palette is optional (defaults to red).
+$Otared-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$Otared-theme: mat-light-theme($Otared-primary, $Otared-accent, $Otared-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($Otared-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@import "./scss/style.ar.scss";

@@ -1,0 +1,43 @@
+.profile {
+  padding-bottom: 25px;
+}
+
+.form-group__option {
+  display: flex;
+  justify-content: space-between;
+  span {
+    font-size: 10px;
+    color: $color-danger;
+  }
+}
+
+.form-control--text {
+  min-height: 142px;
+}
+
+.profile__btn {
+  margin: 40px 0px 91px;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid,
+.was-validated .custom-select:invalid,
+.custom-select.is-invalid {
+  border-color: #ced4da;
+}
+
+.but__style {
+  position: relative;
+  background: $color-white 0% 0% no-repeat padding-box;
+  border: 1px solid $color-border;
+  border-radius: 4px;
+  height: 50px;
+  opacity: 1;
+}
+
+.choose__file {
+  font-size: 13px;
+  color: $color-text-dark;
+  padding: 13px;
+  opacity: 0.5;
+}

@@ -1,0 +1,226 @@
+<section>
+    <div class="page-header page-header--flex">
+      <div>
+        <h2 *ngIf="target === 'reservationsRequests'" class="page-header__title">
+          طلبات حجز
+        </h2>
+        <h2 *ngIf="target === 'reservations'" class="page-header__title">
+           الحجوزات
+        </h2>
+        <p *ngIf="target === 'reservationsRequests'" class="page-header__caption">
+          يمكنك رؤية طلبات الحجز التي قام العملاء بها علي الوحدات الخاصة بك
+        </p>
+        <p *ngIf="target === 'reservations'" class="page-header__caption">
+          يمكنك رؤية الحجزوات التي قام العملاء بها علي الوحدات الخاصة بك
+        </p>
+      </div>
+      <button
+        class="button button--custom-md button--radius button--secondary"
+       (click)="goReservations()"
+      >
+      <span *ngIf="target === 'reservations'">
+        طلبات الحجز
+      </span>
+      <span *ngIf="target === 'reservationsRequests'">
+        الحجوزات
+      </span>
+      
+      </button>
+    </div>
+    <div class="row" *ngIf="!reservationsService.isLoading && reservationsService.filter().length">
+      <div class="col-lg-3">
+        <div class="form-group">
+          <input
+            class="form-control search-input"
+            #searchInput
+            (keyup)="keyDownFunction($event)"
+            placeholder="اكتب كلمة البحث"
+            type="text"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6"></div>
+      <div class="col-lg-3">
+        <div class="main-button-group l-f-end">
+          <button
+            class="button button--sm button--white m-0"
+            [ngClass]="{ 'button--blue': !reservationsService.targetFilter }"
+            (click)="reservationsService.setFilter(null)"
+          >
+            الكل
+          </button>
+          <button
+            class="button button--sm button--white m-0"
+            [ngClass]="{ 'button--blue': reservationsService.targetFilter == 'new' }"
+            (click)="reservationsService.setFilter('new')"
+            *ngIf="target === 'reservationsRequests'"
+          >
+            المفتوحة
+          </button>
+          <button
+            class="button button--sm button--white m-0"
+            [ngClass]="{ 'button--blue': reservationsService.targetFilter == 'refused' }"
+            (click)="reservationsService.setFilter('refused')"
+            *ngIf="target === 'reservationsRequests'"
+          >
+            الملغاة
+          </button>
+          <button
+          class="button button--sm button--white m-0"
+          [ngClass]="{ 'button--blue': reservationsService.targetFilter == 'open' }"
+          (click)="reservationsService.setFilter('open')"
+          *ngIf="target === 'reservations'"
+        >
+          المفتوحة
+        </button>
+        <button
+          class="button button--sm button--white m-0"
+          [ngClass]="{ 'button--blue': reservationsService.targetFilter == 'canceled' }"
+          (click)="reservationsService.setFilter('canceled')"
+          *ngIf="target === 'reservations'" 
+        >
+          الملغاة
+        </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="main-table"
+      *ngIf="!reservationsService.isLoading && reservationsService.filter().length"
+    >
+      <table mat-table [dataSource]="reservationsService.filter()">
+        <!-- instances_id Column -->
+        <ng-container matColumnDef="instances_id">
+          <th mat-header-cell *matHeaderCellDef>رقم</th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+  
+        <!-- project_name Column -->
+        <ng-container matColumnDef="project_name">
+          <th mat-header-cell *matHeaderCellDef>اسم المشروع</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.project.name }}
+          </td>
+        </ng-container>
+  
+        <!-- instance_name Column -->
+        <ng-container matColumnDef="instance_name">
+          <th mat-header-cell *matHeaderCellDef>اسم النموذج</th>
+          <td mat-cell *matCellDef="let element">{{ element.instance.name }}</td>
+        </ng-container>
+  
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef>فئة النموذج</th>
+          <td mat-cell *matCellDef="let element">
+    
+            <span >
+              {{propertyTypeService.findRecord(element.instance?.property_type_id).name}}
+            </span>
+          </td>
+        </ng-container>
+  
+        <!-- project_type Column -->
+        <ng-container matColumnDef="project_type">
+          <th mat-header-cell *matHeaderCellDef>حالة الوحدة</th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.instance.instance_type == 'SaleOnmap'">
+              بيع على الخارطة
+            </span>
+            <span *ngIf="element.instance.instance_type == 'ReadyUnits'">
+              وحدات جاهزة
+            </span>
+          </td>
+        </ng-container>
+  
+        <!-- client Column -->
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef>اسم العميل</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.client.name }}
+          </td>
+        </ng-container>
+  
+        <!-- reservation_duration Column -->
+        <ng-container matColumnDef="reservation_duration">
+          <th mat-header-cell *matHeaderCellDef>رقم الوحدة</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.instances_unit_id }}
+          </td>
+        </ng-container>
+  
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <div>
+              <button
+              mat-icon-button
+              class="u-color-primary"
+              (click)="reservationsService.extande(element)"
+              *ngIf="element.reservation_status === 'open' && target === 'reservations'"
+            >
+              تمديد
+            </button>
+            <button
+              matTooltip="الغاء"
+              mat-icon-button
+              *ngIf="element.reservation_status === 'open' && target === 'reservations'"
+              (click)="reservationsService.cancel(element.id)"
+            >
+              <svg class="main-table__icon main-table__icon--red">
+                <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+              </svg>
+            </button>
+              <button
+                matTooltip="موافقة"
+                mat-icon-button
+                *ngIf="element.reservation_status === 'new' && target === 'reservationsRequests'"
+                (click)="reservationsService.acceptance(element)"
+              >
+                <svg class="main-table__icon main-table__icon--primary">
+                  <use xlink:href="/assets/image/svg-icons.svg#icon-check"></use>
+                </svg>
+              </button>
+              <button
+                matTooltip="رفض"
+                mat-icon-button
+                *ngIf="element.reservation_status === 'new' && target === 'reservationsRequests'"
+                (click)="reservationsService.refuse(element)"
+              >
+                <svg class="main-table__icon main-table__icon--red">
+                  <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+                </svg>
+              </button>
+              <button
+                matTooltip="معاينة"
+                mat-icon-button
+                (click)="show(element.id)"
+              >
+                <svg class="main-table__icon main-table__icon--blue">
+                  <use
+                    xlink:href="/assets/image/svg-icons.svg#icon-visibility"
+                  ></use>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <empty-state
+      *ngIf="!reservationsService.filter().length && !reservationsService.isLoading"
+    ></empty-state>
+  
+    <div *ngIf="!reservationsService.isLoading">
+      <pagination [page]="reservationsService.page" [total]="reservationsService.total" [perPage]="reservationsService.perPage" (change)="reservationsService.findAll($event, target)"></pagination>
+    </div>
+    <div class="loading" *ngIf="reservationsService.isLoading">
+      <mat-spinner diameter="75" strokeWidth="3"></mat-spinner>
+    </div>
+  </section>
+
+  

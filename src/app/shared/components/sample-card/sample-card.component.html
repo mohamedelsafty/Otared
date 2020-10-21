@@ -1,0 +1,52 @@
+<h3 class="typo-title"> بيانات النموذج</h3>
+<div class="main-card main-card--vertical" *ngIf="!isLoading">
+  <div>
+    <img
+      *ngIf="cardData?.instance?.instance_images_paths?.length"
+      [src]="cardData?.instance?.instance_images_paths[0]"
+      class="main-card__img"
+    />
+    <img
+      *ngIf="!cardData?.instance?.instance_images_paths?.length && !data?.instance?.instance_image_url"
+      src="./assets/image/reservation-card.png"
+      class="main-card__img"
+    />
+    <img
+      *ngIf="data?.instance?.instance_image_url"
+      [src]="data?.instance?.instance_image_url"
+      class="main-card__img"
+    />
+  </div>
+  <div class="main-card__info" >
+    <h3 class="typo-title">{{ cardData?.instance?.name }} {{ data?.instance?.instance_name }}</h3>
+    <p class="typo-body2 l-f text-info">
+      <span>النوع</span>
+      <span>:</span>
+      <!-- <span>{{ cardData?.project.project_type }}</span> -->
+      <span *ngIf="cardData?.project?.project_type == 'SaleOnmap'">
+        بيع على الخارطة
+      </span>
+      <span *ngIf="cardData?.project?.project_type == 'ReadyUnits'">
+        وحدات جاهزة
+      </span>
+      <span>
+        {{data?.instance?.instance_type_name}}
+      </span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>عدد الوحدات المتاحه</span>
+      <span>:</span>
+      <span>{{ cardData?.project?.available_instances_unit }} {{data?.instance?.count_available_units}}</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>فئة النموذج</span>
+      <span>:</span>
+      <span *ngIf="!propertyTypeService.isLoading">{{propertyTypeService.findRecord(cardData.instance?.property_type_id).name}}{{data?.instance?.property_type_name}}</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>السعر</span>
+      <span>:</span>
+      <span>{{ cardData?.instance?.price }} {{data?.instance?.price}} ريال سعودي</span>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<section>
+  <div class="">
+    <div class="page-header">
+      <h2 class="page-header__title">الرئيسية</h2>
+    </div>
+    <div class="dashboard">
+      <div
+        class="dashboard__img"
+        *ngIf="auth.getUser().account_status !== 'accepted'"
+      >
+        <img src="/assets/image/cuptea.svg" alt="Cup_Of_Tea" />
+      </div>
+      <div
+        class="dashboard__content"
+        *ngIf="auth.getUser().account_status !== 'accepted'"
+      >
+        <p class="dashboard__title">الحساب حالیا غیر مفعل</p>
+        <h2 class="dashboard__num">رقم طلبك {{ auth.getUser().id }}</h2>
+        <button class="button button--lg button--radius button--secondary">
+          تواصل مع خدمة العملاء الان
+        </button>
+      </div>
+      <div
+        class="m-b-30"
+        *ngIf="auth.getUser().account_status === 'accepted' && !isloading"
+      >
+        <div>
+          <p class="l-f text-info typo--bold typo-body2">
+            <span>عدد المشاريع</span>
+            <span>:</span>
+            <span>{{dashboard.projects}}</span>
+          </p>
+        </div>
+        <div>
+          <p class="l-f text-info typo--bold typo-body2">
+            <span>عدد النماذج</span>
+            <span>:</span>
+            <span>{{dashboard.instances}}</span>
+          </p>
+        </div>
+        <div>
+          <p class="l-f text-info typo--bold typo-body2">
+            <span>عدد الوحدات</span>
+            <span>:</span>
+            <span>{{dashboard.instances_unit}}</span>
+          </p>
+        </div>
+        <div>
+          <p class="l-f text-info typo--bold typo-body2">
+            <span>عدد طلبات الحجز</span>
+            <span>:</span>
+            <span>{{dashboard.reservationrequest}}</span>
+          </p>
+        </div>
+        <div>
+          <p class="l-f text-info typo--bold typo-body2">
+            <span>الوحدات المحجوزة</span>
+            <span>:</span>
+            <span>{{dashboard.reservation}}</span>
+          </p>
+        </div>
+        <div>
+          <p class="l-f text-info typo--bold typo-body2">
+            <span>طلبات الزيارة</span>
+            <span>:</span>
+            <span>{{dashboard.visitrequest}}</span>
+          </p>
+        </div>
+        <div>
+          <p class="l-f text-info typo--bold typo-body2">
+            <span>الوحدات المباعة</span>
+            <span>:</span>
+            <span>{{dashboard.sold_out_instances_unit}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

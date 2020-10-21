@@ -1,0 +1,14 @@
+<!-- <ul id="pagination">
+    <li *ngFor="let page of paginationArr;">
+      <a  (click)="pageChange(page)" [ngClass]="{active: page === currentPage}">{{
+        page
+      }}</a>
+    </li>
+  </ul> -->
+  <mat-paginator [length]="total"
+              [pageSize]="perPage"
+              [hidePageSize]= "true"
+              (page)="pageChange($event)"
+              [pageIndex]="page - 1"
+      >
+</mat-paginator>  

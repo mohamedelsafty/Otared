@@ -1,0 +1,53 @@
+<div class="dialog" *ngIf="!refConfirm">
+  <div class="dialog-content">
+    <div class="dialog__title">
+      <h2 class="dialog__title-text m-0">تاكيد حذف المشروع</h2>
+      <button class="dialog__title-close" mat-dialog-close mat-icon-button>
+        <svg>
+          <use xlink:href="/assets/image/svg-icons.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <p class="unit__finish">
+      سوف تقوم بحذف المشروع و حذف كل الطلبات المتعلقة به
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>اسم المشروع</span>
+      <span>:</span>
+      <span>امجاد الياسمين</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>اسم المطور</span>
+      <span>:</span>
+      <span>امجاد عقاريه</span>
+    </p>
+    <p class="typo-body2 l-f text-info">
+      <span>رقم الجوال</span>
+      <span>:</span>
+      <span>0502314789</span>
+    </p>
+    <div class="form-group">
+      <span>سبب الحذف</span>
+      <p class="unit__finish">
+        لقد انتهينا من بيع جميع الوحدات بالمشروع و سوف نبدأ بانشاء مشاريع جديدة
+        ان شاء الله
+      </p>
+    </div>
+  </div>
+  <div class="dialog-actions">
+    <button
+      (click)="ref()"
+      class="button button--sm button--radius button--danger"
+    >
+      حذف المشروع
+    </button>
+    <button
+      mat-dialog-close
+      class="button button--sm button--radius button--outline"
+    >
+      العودة
+    </button>
+  </div>
+</div>
